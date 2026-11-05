@@ -1,0 +1,68 @@
+// Prisma Schema for PKS Course & Enrollment Portal
+// Tuân thủ đặc tả yêu cầu CSDL mục 4 trong docs/REQUIREMENTS.md
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  student
+  admin
+}
+
+enum EnrollmentStatus {
+  enrolled
+  cancelled
+  pending
+}
+
+model User {
+  id            String       @id @default(uuid())
+  name          String
+  email         String       @unique
+  password_hash String
+  role          Role         @default(student)
+  created_at    DateTime     @default(now())
+  updated_at    DateTime     @updatedAt
+  enrollments   Enrollment[]
+
+  @@map("users")
+}
+
+model Course {
+  id             String       @id @default(uuid())
+  title          String
+  category       String
+  instructor     String
+  description    String
+  price          Int          // Lưu giá tiền theo VND (ví dụ: 1850000)
+  capacity       Int          // Sĩ số tối đa (> 0)
+  enrolled_count Int          @default(0) // Số lượng học viên đã ghi danh
+  is_active      Boolean      @default(true)
+  created_at     DateTime     @default(now())
+  updated_at     DateTime     @updatedAt
+  enrollments    Enrollment[]
+
+  @@map("courses")
+}
+
+model Enrollment {
+  id         String           @id @default(uuid())
+  user_id    String
+  course_id  String
+  status     EnrollmentStatus @default(enrolled)
+  created_at DateTime         @default(now())
+  updated_at DateTime         @updatedAt
+
+  user   User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [course_id], references: [id], onDelete: Cascade)
+
+  // Ràng buộc duy nhất: Một học viên chỉ được ghi danh một khóa học đúng 1 lần
+  @@unique([user_id, course_id])
+  @@map("enrollments")
+}

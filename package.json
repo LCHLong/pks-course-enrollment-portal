@@ -1,0 +1,29 @@
+{
+  "name": "pks-course-enrollment-portal",
+  "version": "1.0.0",
+  "description": "PKS Course & Enrollment Portal - Fullstack Monorepo (Node.js + React.js)",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspaces --if-present",
+    "dev:client": "npm run dev --workspace=client",
+    "dev:server": "npm run dev --workspace=server",
+    "build": "npm run build --workspaces --if-present",
+    "start:server": "npm run start --workspace=server",
+    "prisma:generate": "npm run prisma:generate --workspace=server",
+    "prisma:migrate": "npm run prisma:migrate --workspace=server"
+  },
+  "keywords": [
+    "pks",
+    "course-enrollment",
+    "fullstack",
+    "react",
+    "node",
+    "typescript"
+  ],
+  "author": "PKS Candidate",
+  "license": "UNLICENSED"
+}
