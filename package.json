@@ -17,6 +17,9 @@
     "start:server": "npm run start --workspace=server",
     "prisma:generate": "npm run prisma:generate --workspace=server",
     "prisma:migrate": "npm run prisma:migrate --workspace=server",
+    "test": "node --import tsx --test 'tests/**/*.test.ts'",
+    "test:e2e": "playwright test",
+    "dast": "node scripts/dast_scanner.js",
     "test:api": "newman run docs/postman_collection.json -e docs/postman_environment.json",
     "test:postman": "newman run docs/postman_collection.json -e docs/postman_environment.json"
   },
@@ -29,5 +32,8 @@
     "typescript"
   ],
   "author": "PKS Candidate",
-  "license": "UNLICENSED"
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@playwright/test": "^1.64.1"
+  }
 }
