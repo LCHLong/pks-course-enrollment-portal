@@ -14,7 +14,9 @@
     "build": "npm run build --workspaces --if-present",
     "start:server": "npm run start --workspace=server",
     "prisma:generate": "npm run prisma:generate --workspace=server",
-    "prisma:migrate": "npm run prisma:migrate --workspace=server"
+    "prisma:migrate": "npm run prisma:migrate --workspace=server",
+    "test:api": "newman run docs/postman_collection.json -e docs/postman_environment.json",
+    "test:postman": "newman run docs/postman_collection.json -e docs/postman_environment.json"
   },
   "keywords": [
     "pks",

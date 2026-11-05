@@ -66,3 +66,6 @@ prisma/migrations/dev.db
 
 # Enviroment 
 .env
+
+# Specs in docs
+docs/specs/
