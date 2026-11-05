@@ -72,6 +72,7 @@ pks-course-enrollment-portal/
 ## 📚 Tài liệu & Quy chuẩn dự án
 
 - **[Yêu cầu & Checklist nghiệm thu](docs/REQUIREMENTS.md):** Đặc tả chi tiết từng chức năng nghiệp vụ và tiêu chí chấm điểm.
+- **[Hướng dẫn thiết lập Supabase Database](docs/SUPABASE_SETUP.md):** Cách kết nối PostgreSQL, Connection Pooling và chạy Seed Data.
 - **[Quy chuẩn AI Agent](AGENTS.md):** Chỉ dẫn và quy tắc tự động cho AI Coding Assistant (`.agents/rules/ui-rules.md`).
 - **Thư mục Hệ thống Thiết kế ([docs/design-system/](docs/design-system/)):**
   - **[UI Rules & Quy chuẩn giao diện](docs/design-system/UI_RULES.md):** Quy chuẩn thiết kế Pure Monochrome, cấu trúc Course Card và tương tác.

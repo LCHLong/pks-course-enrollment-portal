@@ -2,8 +2,9 @@
 // Tuân thủ đặc tả yêu cầu CSDL mục 4 trong docs/REQUIREMENTS.md
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 generator client {
@@ -48,6 +49,8 @@ model Course {
   updated_at     DateTime     @updatedAt
   enrollments    Enrollment[]
 
+  @@index([category])
+  @@index([is_active])
   @@map("courses")
 }
 
@@ -64,5 +67,7 @@ model Enrollment {
 
   // Ràng buộc duy nhất: Một học viên chỉ được ghi danh một khóa học đúng 1 lần
   @@unique([user_id, course_id])
+  @@index([user_id])
+  @@index([course_id])
   @@map("enrollments")
 }
