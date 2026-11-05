@@ -1,6 +1,7 @@
 ---
 description: Quy chuẩn bắt buộc về thiết kế giao diện (UI/UX) cho dự án PKS Course & Enrollment Portal
-globs: ["**/*.tsx", "**/*.jsx", "**/*.css", "**/*.html"]
+globs: "**/*.{tsx,jsx,css,html}"
+trigger: always_on
 ---
 
 # UI & Frontend Rules for PKS Course & Enrollment Portal (Dual Theme & Mobile Responsive)
