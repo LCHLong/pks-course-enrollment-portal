@@ -1,0 +1,104 @@
+/**
+ * PKS Course & Enrollment Portal - Design Tokens
+ * Hỗ trợ song song: Light Mode & Dark Mode (.dark)
+ * Bảng màu: Neutral Minimalist phối Deep Muted Semantics (màu trầm, sang trọng, không chói)
+ */
+
+/* ==========================================================================
+   1. LIGHT THEME (Mặc định)
+   ========================================================================== */
+:root {
+  /* Surfaces & Backgrounds */
+  --bg-page: #FAFAFA;            /* Nền body trang web */
+  --bg-card: #FFFFFF;            /* Nền thẻ Card, Modal, Input */
+  --bg-card-hover: #F4F4F5;      /* Nền hover */
+  --bg-muted: #F4F4F5;           /* Nền xám nhạt cho badge */
+  --bg-sidebar: #FFFFFF;         /* Nền Sidebar Admin */
+
+  /* Borders & Dividers */
+  --border-subtle: #E4E4E7;      /* Viền mỏng phân cách (Zinc 200) */
+  --border-strong: #18181B;      /* Viền đen nhấn (Zinc 900) */
+
+  /* Typography / Text Colors */
+  --text-primary: #18181B;       /* Tiêu đề, chữ chính (Zinc 900) */
+  --text-secondary: #71717A;     /* Chữ phụ, mô tả ngắn (Zinc 500) */
+  --text-muted: #A1A1AA;         /* Chữ mờ, placeholder (Zinc 400) */
+
+  /* Primary Interactive Elements (CTA Buttons) */
+  --btn-primary-bg: #18181B;     /* Đen chữ trắng */
+  --btn-primary-text: #FFFFFF;
+  --btn-primary-hover: #27272A;
+
+  --btn-secondary-bg: #FFFFFF;   /* Trắng viền xám */
+  --btn-secondary-border: #E4E4E7;
+  --btn-secondary-text: #18181B;
+  --btn-secondary-hover: #F4F4F5;
+
+  --btn-disabled-bg: #F4F4F5;
+  --btn-disabled-text: #A1A1AA;
+  --btn-disabled-border: #E4E4E7;
+
+  /* Deep Muted Semantic Colors (Màu trầm sâu, không chói) */
+  /* Xanh ngọc đậm (Deep Emerald) - Trạng thái Còn chỗ / Thành công */
+  --semantic-success-text: #065F46;    /* Emerald 800 */
+  --semantic-success-border: #047857;  /* Emerald 700 */
+  --semantic-success-bg: #ECFDF5;      /* Emerald 50 nhạt */
+
+  /* Đỏ rượu thẫm (Deep Crimson/Wine) - Trạng thái Hết chỗ / Xóa / Lỗi */
+  --semantic-danger-text: #991B1B;     /* Red 800 */
+  --semantic-danger-border: #B91C1C;   /* Red 700 */
+  --semantic-danger-bg: #FEF2F2;       /* Red 50 nhạt */
+
+  /* Vàng hổ phách sẫm (Deep Amber/Ochre) - Trạng thái Chờ xử lý */
+  --semantic-warning-text: #92400E;    /* Amber 800 */
+  --semantic-warning-border: #B45309;  /* Amber 700 */
+  --semantic-warning-bg: #FFFBEB;      /* Amber 50 nhạt */
+}
+
+/* ==========================================================================
+   2. DARK THEME (.dark class trên <html> hoặc <body>)
+   ========================================================================== */
+.dark {
+  /* Surfaces & Backgrounds */
+  --bg-page: #09090B;            /* Nền body tối sâu (Zinc 950) */
+  --bg-card: #18181B;            /* Nền Card, Dialog (Zinc 900) */
+  --bg-card-hover: #27272A;      /* Nền card khi hover (Zinc 800) */
+  --bg-muted: #27272A;           /* Nền xám tối cho badge (Zinc 800) */
+  --bg-sidebar: #121215;         /* Nền Sidebar Admin tối */
+
+  /* Borders & Dividers */
+  --border-subtle: #27272A;      /* Viền tối mỏng (Zinc 800) */
+  --border-strong: #FAFAFA;      /* Viền trắng sáng nhấn (Zinc 50) */
+
+  /* Typography / Text Colors */
+  --text-primary: #FAFAFA;       /* Chữ trắng sáng (Zinc 50) */
+  --text-secondary: #A1A1AA;     /* Chữ xám bạc (Zinc 400) */
+  --text-muted: #71717A;         /* Chữ mờ tối (Zinc 500) */
+
+  /* Primary Interactive Elements (CTA Buttons) */
+  --btn-primary-bg: #FAFAFA;     /* Nút chính Dark Mode: Trắng chữ đen */
+  --btn-primary-text: #18181B;
+  --btn-primary-hover: #E4E4E7;
+
+  --btn-secondary-bg: #18181B;   /* Nút phụ: Nền tối viền xám tối */
+  --btn-secondary-border: #27272A;
+  --btn-secondary-text: #FAFAFA;
+  --btn-secondary-hover: #27272A;
+
+  --btn-disabled-bg: #27272A;
+  --btn-disabled-text: #71717A;
+  --btn-disabled-border: #27272A;
+
+  /* Deep Muted Semantic Colors in Dark Mode (Hài hòa trên nền tối) */
+  --semantic-success-text: #34D399;    /* Emerald 400 dịu mắt */
+  --semantic-success-border: #065F46;  /* Emerald 800 viền trầm */
+  --semantic-success-bg: #064E3B33;    /* Emerald 900 độ trong suốt 20% */
+
+  --semantic-danger-text: #F87171;     /* Red 400 dịu mắt */
+  --semantic-danger-border: #991B1B;   /* Red 800 viền trầm */
+  --semantic-danger-bg: #7F1D1D33;     /* Red 900 độ trong suốt 20% */
+
+  --semantic-warning-text: #FBBF24;    /* Amber 400 dịu mắt */
+  --semantic-warning-border: #92400E;  /* Amber 800 viền trầm */
+  --semantic-warning-bg: #78350F33;    /* Amber 900 độ trong suốt 20% */
+}

@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="vi" class="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PKS Portal - Design System & Interactive Preview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {}
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; transition: background-color 0.2s ease, color 0.2s ease; }
+    
+    /* Mobile Device Frame Simulator */
+    .mobile-frame {
+      max-width: 390px !important;
+      margin-left: auto !important;
+      margin-right: auto !important;
+      border: 10px solid #18181B;
+      border-radius: 44px;
+      padding: 16px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      background-color: #FAFAFA;
+      position: relative;
+    }
+    .dark .mobile-frame {
+      border-color: #27272A;
+      background-color: #09090B;
+    }
+    
+    /* Dynamic Mobile Override: Khi bật chế độ giả lập Mobile trên máy tính */
+    .is-mobile-view .stack-on-mobile {
+      grid-template-columns: 1fr !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    .is-mobile-view .full-width-on-mobile {
+      width: 100% !important;
+    }
+  </style>
+</head>
+<body class="bg-neutral-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased p-3 sm:p-8 min-h-screen">
+  <div class="max-w-5xl mx-auto space-y-6">
+
+    <!-- Top Control Bar (Theme & Viewport Switchers) -->
+    <header class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-xs font-semibold bg-zinc-100 dark:bg-zinc-800 text-zinc-800 dark:text-zinc-200 mb-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
+          PKS Course & Enrollment Portal
+        </div>
+        <h1 class="text-xl sm:text-2xl font-bold tracking-tight">Design System & Kiểm Thử Mobile Chuẩn</h1>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+          Đã sửa triệt để lỗi tràn chữ, tối ưu 100% cột đơn và độ rộng input trên màn hình điện thoại.
+        </p>
+      </div>
+
+      <!-- Controls -->
+      <div class="flex items-center gap-3 flex-wrap">
+        <!-- Viewport Switcher -->
+        <div class="inline-flex p-1 bg-zinc-100 dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 text-xs font-medium">
+          <button id="btn-desktop" onclick="setViewport('desktop')" class="px-3 py-1.5 rounded-lg bg-white dark:bg-zinc-900 shadow-sm text-zinc-900 dark:text-zinc-100 flex items-center gap-1.5">
+            <span>💻</span> Desktop
+          </button>
+          <button id="btn-mobile" onclick="setViewport('mobile')" class="px-3 py-1.5 rounded-lg text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 flex items-center gap-1.5">
+            <span>📱</span> Mobile (375px)
+          </button>
+        </div>
+
+        <!-- Theme Toggle -->
+        <button id="btn-theme" onclick="toggleTheme()" class="px-3 py-2 bg-zinc-100 dark:bg-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-700 border border-zinc-200 dark:border-zinc-700 rounded-xl text-xs font-semibold flex items-center gap-2 transition-colors">
+          <span id="theme-icon">🌙</span> <span id="theme-text">Chế độ Tối</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <div id="viewport-container" class="space-y-6 transition-all">
+
+      <!-- 1. Deep Muted Semantic Colors (Fix tràn chữ: 1 cột trên mobile, 3 cột trên tablet/desktop) -->
+      <section class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 sm:p-6 shadow-sm space-y-3">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100">
+          1. Bảng Màu Trạng Thái Trầm Sâu (Deep Muted Colors)
+        </h2>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400">
+          Màu đầm mắt, tinh tế. Tự động xếp chồng 1 cột khi hiển thị trên điện thoại.
+        </p>
+
+        <!-- Grid 1 cột trên mobile, 3 cột trên md (desktop) -->
+        <div id="colors-grid" class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1 stack-on-mobile">
+          <!-- Deep Emerald -->
+          <div class="border border-emerald-700/30 dark:border-emerald-600/40 rounded-xl p-3.5 bg-emerald-50/50 dark:bg-emerald-950/20 flex items-start gap-3 w-full">
+            <div class="w-8 h-8 rounded-lg bg-[#065F46] dark:bg-[#047857] flex-shrink-0 flex items-center justify-center text-white text-xs font-bold">✓</div>
+            <div class="min-w-0 flex-1">
+              <div class="text-xs font-bold text-[#065F46] dark:text-[#34D399] truncate">Deep Emerald (Còn chỗ)</div>
+              <div class="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5 leading-relaxed">Xanh ngọc thẫm, đầm mắt, biểu thị còn nhận học viên.</div>
+            </div>
+          </div>
+
+          <!-- Deep Crimson -->
+          <div class="border border-red-700/30 dark:border-red-600/40 rounded-xl p-3.5 bg-red-50/50 dark:bg-red-950/20 flex items-start gap-3 w-full">
+            <div class="w-8 h-8 rounded-lg bg-[#991B1B] dark:bg-[#B91C1C] flex-shrink-0 flex items-center justify-center text-white text-xs font-bold">✕</div>
+            <div class="min-w-0 flex-1">
+              <div class="text-xs font-bold text-[#991B1B] dark:text-[#F87171] truncate">Deep Crimson (Hết chỗ / Xóa)</div>
+              <div class="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5 leading-relaxed">Đỏ rượu sẫm, cảnh báo rõ nét, không chói gắt.</div>
+            </div>
+          </div>
+
+          <!-- Deep Amber -->
+          <div class="border border-amber-700/30 dark:border-amber-600/40 rounded-xl p-3.5 bg-amber-50/50 dark:bg-amber-950/20 flex items-start gap-3 w-full">
+            <div class="w-8 h-8 rounded-lg bg-[#92400E] dark:bg-[#B45309] flex-shrink-0 flex items-center justify-center text-white text-xs font-bold">!</div>
+            <div class="min-w-0 flex-1">
+              <div class="text-xs font-bold text-[#92400E] dark:text-[#FBBF24] truncate">Deep Amber (Chờ duyệt)</div>
+              <div class="text-[11px] text-zinc-600 dark:text-zinc-400 mt-0.5 leading-relaxed">Vàng hổ phách sẫm cho trạng thái Pending.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. Course Cards (1 cột trên mobile) -->
+      <section class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
+        <div>
+          <h2 class="text-sm font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100">
+            2. Thẻ Khóa Học (Bắt Buộc Đủ 8 Thông Tin)
+          </h2>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+            Căn lề chuẩn mực, nút bấm đạt chuẩn vùng chạm 44px trên điện thoại.
+          </p>
+        </div>
+
+        <div id="cards-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 stack-on-mobile">
+
+          <!-- Card 1: Khóa học còn chỗ -->
+          <div class="border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 sm:p-5 bg-white dark:bg-zinc-900 shadow-sm hover:border-zinc-900 dark:hover:border-zinc-400 transition-all flex flex-col justify-between space-y-4">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-medium px-2.5 py-0.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 truncate">
+                  Fullstack React & Node
+                </span>
+                <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full border border-emerald-700/50 dark:border-emerald-500/40 text-[#065F46] dark:text-[#34D399] bg-[#ECFDF5] dark:bg-[#064E3B33] flex items-center gap-1.5 flex-shrink-0">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#047857] dark:bg-[#34D399]"></span> Còn chỗ
+                </span>
+              </div>
+
+              <div>
+                <h3 class="text-base sm:text-lg font-bold text-zinc-900 dark:text-zinc-100 line-clamp-2">
+                  Lập Trình Web Fullstack Chuyên Nghiệp (Node.js & React)
+                </h3>
+                <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+                  Giảng viên: <span class="font-medium text-zinc-700 dark:text-zinc-300">ThS. Hoàng Phúc (PKS)</span>
+                </p>
+              </div>
+
+              <p class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 line-clamp-3 leading-relaxed">
+                Đào tạo thực chiến Co-op, làm chủ RESTful API, PostgreSQL, React Vite và tối ưu tải lớn.
+              </p>
+            </div>
+
+            <div class="space-y-3 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
+              <div>
+                <div class="flex justify-between text-xs text-zinc-600 dark:text-zinc-400 mb-1">
+                  <span>Sĩ số lớp</span>
+                  <span class="font-mono font-medium text-zinc-900 dark:text-zinc-100">14 / 20 học viên</span>
+                </div>
+                <div class="w-full h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-zinc-900 dark:bg-zinc-100 rounded-full" style="width: 70%"></div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between gap-2 pt-1">
+                <div class="shrink-0">
+                  <span class="text-[10px] text-zinc-400 block uppercase font-medium">Học phí</span>
+                  <span class="text-base sm:text-lg font-bold text-zinc-900 dark:text-zinc-100 whitespace-nowrap">1.850.000&nbsp;₫</span>
+                </div>
+                <!-- Nút bấm chiều cao 44px chuẩn Mobile -->
+                <button class="h-11 sm:h-9 px-3.5 sm:px-4 bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-zinc-200 text-white dark:text-zinc-900 text-xs sm:text-sm font-semibold rounded-lg transition-colors shadow-sm flex items-center justify-center shrink-0">
+                  Ghi danh ngay
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Khóa học đã hết chỗ -->
+          <div class="border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 sm:p-5 bg-white dark:bg-zinc-900 shadow-sm flex flex-col justify-between space-y-4 opacity-80">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="text-xs font-medium px-2.5 py-0.5 rounded-full border border-zinc-200 dark:border-zinc-800 bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 truncate">
+                  Tin Học Quốc Tế
+                </span>
+                <span class="text-xs font-medium px-2.5 py-0.5 rounded-full border border-red-700/40 dark:border-red-500/30 text-[#991B1B] dark:text-[#F87171] bg-[#FEF2F2] dark:bg-[#7F1D1D33] flex-shrink-0">
+                  Đã hết chỗ
+                </span>
+              </div>
+
+              <div>
+                <h3 class="text-base sm:text-lg font-bold text-zinc-900 dark:text-zinc-100 line-clamp-2">
+                  Luyện Thi Chứng Chỉ Quốc Tế MOS Excel Expert
+                </h3>
+                <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-1">
+                  Giảng viên: <span class="font-medium text-zinc-700 dark:text-zinc-300">PKS Master Trainer</span>
+                </p>
+              </div>
+
+              <p class="text-xs sm:text-sm text-zinc-500 dark:text-zinc-400 line-clamp-3 leading-relaxed">
+                Trang bị kỹ năng xử lý dữ liệu nâng cao, trực quan hóa biểu đồ và tối ưu bảng tính doanh nghiệp.
+              </p>
+            </div>
+
+            <div class="space-y-3 pt-3 border-t border-zinc-100 dark:border-zinc-800/80">
+              <div>
+                <div class="flex justify-between text-xs text-zinc-400 dark:text-zinc-500 mb-1">
+                  <span>Sĩ số lớp</span>
+                  <span class="font-mono text-zinc-400 dark:text-zinc-500">25 / 25 học viên</span>
+                </div>
+                <div class="w-full h-1.5 bg-zinc-100 dark:bg-zinc-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-zinc-400 dark:bg-zinc-600 rounded-full" style="width: 100%"></div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between gap-2 pt-1">
+                <div class="shrink-0">
+                  <span class="text-[10px] text-zinc-400 block uppercase font-medium">Học phí</span>
+                  <span class="text-base sm:text-lg font-bold text-zinc-400 dark:text-zinc-500 whitespace-nowrap">950.000&nbsp;₫</span>
+                </div>
+                <button disabled class="h-11 sm:h-9 px-3.5 sm:px-4 bg-zinc-100 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-600 text-xs sm:text-sm font-medium rounded-lg cursor-not-allowed border border-zinc-200 dark:border-zinc-700 flex items-center justify-center shrink-0">
+                  Hết suất
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 3. Form Inputs & Filters (Fix placeholder cắt chữ: Xếp chồng dọc 100% trên Mobile) -->
+      <section class="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
+        <div>
+          <h2 class="text-sm font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100">
+            3. Bộ Lọc & Ô Nhập Liệu (Form Inputs & Filters)
+          </h2>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+            Trên mobile xếp chồng 100% chiều ngang, placeholder hiển thị trọn vẹn, không bị cắt chữ.
+          </p>
+        </div>
+
+        <!-- Form controls: 1 cột trên mobile, 2 cột trên md (desktop) -->
+        <div id="forms-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 stack-on-mobile">
+          <div class="w-full">
+            <label class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
+              Tìm kiếm khóa học
+            </label>
+            <div class="relative">
+              <input type="text" placeholder="Tìm theo tên khóa học..." class="w-full h-11 px-3.5 bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-300 dark:border-zinc-700 rounded-lg text-base sm:text-sm text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 transition-all">
+            </div>
+            <span class="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 block">
+              Font size 16px (chống auto-zoom iOS Safari), vùng chạm 44px.
+            </span>
+          </div>
+
+          <div class="w-full">
+            <label class="block text-xs font-semibold text-zinc-700 dark:text-zinc-300 mb-1.5">
+              Danh mục đào tạo
+            </label>
+            <select class="w-full h-11 px-3.5 bg-zinc-50 dark:bg-zinc-800/60 border border-zinc-300 dark:border-zinc-700 rounded-lg text-base sm:text-sm text-zinc-900 dark:text-zinc-100 focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:focus:ring-zinc-100 transition-all">
+              <option value="">Tất cả danh mục</option>
+              <option value="frontend">Lập trình Frontend</option>
+              <option value="backend">Lập trình Backend & Database</option>
+              <option value="fullstack">Lập trình Fullstack Web</option>
+              <option value="mos">Tin học văn phòng quốc tế MOS</option>
+            </select>
+            <span class="text-[11px] text-zinc-500 dark:text-zinc-400 mt-1 block">
+              Menu chọn chiều cao 44px thao tác mượt mà.
+            </span>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script>
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('dark');
+      document.getElementById('theme-icon').textContent = isDark ? '☀️' : '🌙';
+      document.getElementById('theme-text').textContent = isDark ? 'Chế độ Sáng' : 'Chế độ Tối';
+    }
+
+    function setViewport(mode) {
+      const container = document.getElementById('viewport-container');
+      const btnDesktop = document.getElementById('btn-desktop');
+      const btnMobile = document.getElementById('btn-mobile');
+
+      if (mode === 'mobile') {
+        container.classList.add('mobile-frame', 'is-mobile-view');
+        btnMobile.classList.add('bg-white', 'dark:bg-zinc-900', 'shadow-sm', 'text-zinc-900', 'dark:text-zinc-100');
+        btnMobile.classList.remove('text-zinc-500', 'dark:text-zinc-400');
+        btnDesktop.classList.remove('bg-white', 'dark:bg-zinc-900', 'shadow-sm', 'text-zinc-900', 'dark:text-zinc-100');
+        btnDesktop.classList.add('text-zinc-500', 'dark:text-zinc-400');
+      } else {
+        container.classList.remove('mobile-frame', 'is-mobile-view');
+        btnDesktop.classList.add('bg-white', 'dark:bg-zinc-900', 'shadow-sm', 'text-zinc-900', 'dark:text-zinc-100');
+        btnDesktop.classList.remove('text-zinc-500', 'dark:text-zinc-400');
+        btnMobile.classList.remove('bg-white', 'dark:bg-zinc-900', 'shadow-sm', 'text-zinc-900', 'dark:text-zinc-100');
+        btnMobile.classList.add('text-zinc-500', 'dark:text-zinc-400');
+      }
+    }
+  </script>
+</body>
+</html>
