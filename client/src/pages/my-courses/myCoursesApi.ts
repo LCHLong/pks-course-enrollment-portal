@@ -34,12 +34,11 @@ export async function fetchStudentEnrollments(): Promise<Enrollment[]> {
   return Array.isArray(rawList) ? rawList : [];
 }
 
-export async function cancelStudentEnrollment(enrollmentId: string): Promise<void> {
+export async function cancelEnrollment(enrollmentId: string): Promise<void> {
   const baseUrl = getBaseUrl();
-  const res = await fetch(`${baseUrl}/admin/enrollments/${enrollmentId}/status`, {
-    method: 'PATCH',
+  const res = await fetch(`${baseUrl}/student/enrollments/${enrollmentId}/cancel`, {
+    method: 'POST',
     headers: getHeaders(),
-    body: JSON.stringify({ status: 'cancelled' }),
   });
 
   if (!res.ok) {
@@ -47,3 +46,5 @@ export async function cancelStudentEnrollment(enrollmentId: string): Promise<voi
     throw new Error(errData?.error?.message || errData?.message || 'Không thể hủy ghi danh');
   }
 }
+
+export const cancelStudentEnrollment = cancelEnrollment;
