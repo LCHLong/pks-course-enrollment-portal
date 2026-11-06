@@ -70,6 +70,10 @@ prisma/migrations/dev.db
 # Specs in docs
 docs/specs/
 
+# Audit and review artifacts
+docs/review/
+
+
 # Test outputs
 test-results/
 

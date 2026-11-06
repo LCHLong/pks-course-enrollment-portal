@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { Sun, Moon, Menu, X, BookOpen, User as UserIcon, LogOut, ShieldAlert, GraduationCap } from 'lucide-react';
+import { Sun, Moon, Menu, X, BookOpen, User as UserIcon, LogOut, ShieldAlert, GraduationCap, Home } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '@/components/ui/AuthContext';
 
@@ -41,53 +41,62 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
-    isActive
-      ? 'text-zinc-900 dark:text-zinc-100 font-semibold border-b-2 border-zinc-900 dark:border-zinc-100 pb-0.5 transition-colors'
-      : 'text-zinc-600 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 transition-colors';
+    `px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+      isActive
+        ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-semibold'
+        : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800/50'
+    }`;
 
   const mobileNavLinkClass = ({ isActive }: { isActive: boolean }) =>
-    isActive
-      ? 'block h-11 flex items-center px-3 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-sm font-semibold text-zinc-900 dark:text-zinc-100'
-      : 'block h-11 flex items-center px-3 rounded-lg text-sm font-medium text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800/50';
+    `h-11 flex items-center px-3.5 rounded-xl text-sm font-medium transition-colors ${
+      isActive
+        ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-semibold'
+        : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800/50'
+    }`;
 
   return (
     <header className="sticky top-0 z-40 bg-white/95 dark:bg-zinc-900/95 backdrop-blur border-b border-zinc-200 dark:border-zinc-800 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2 group" aria-label="Trang chủ PKS Portal">
-          <div className="w-8 h-8 rounded-lg bg-zinc-900 dark:bg-zinc-100 flex items-center justify-center text-white dark:text-zinc-900 font-bold shadow-sm transition-transform group-hover:scale-105">
-            <BookOpen className="w-4 h-4" />
-          </div>
-          <span className="font-bold text-base sm:text-lg text-zinc-900 dark:text-zinc-100 tracking-tight">
-            PKS Portal
-          </span>
-        </Link>
+        {/* Left: Brand Logo & Navigation Clustered */}
+        <div className="flex items-center gap-8">
+          <Link to="/" className="flex items-center gap-2.5 group" aria-label="Trang chủ PKS Portal">
+            <div className="w-8 h-8 rounded-lg bg-zinc-900 dark:bg-zinc-100 flex items-center justify-center text-white dark:text-zinc-900 font-bold shadow-sm transition-transform group-hover:scale-105">
+              <BookOpen className="w-4 h-4" />
+            </div>
+            <span className="font-bold text-base sm:text-lg text-zinc-900 dark:text-zinc-100 tracking-tight">
+              PKS Portal
+            </span>
+          </Link>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium" aria-label="Điều hướng chính">
-          <NavLink to="/courses" className={navLinkClass}>
-            Khóa học
-          </NavLink>
-
-          {currentUser && (
-            <NavLink to="/my-courses" className={navLinkClass}>
-              Khóa học của tôi
+          {/* Desktop Navigation Links */}
+          <nav className="hidden md:flex items-center gap-1.5" aria-label="Điều hướng chính">
+            <NavLink to="/" end className={navLinkClass}>
+              Trang chủ
             </NavLink>
-          )}
+            <NavLink to="/courses" className={navLinkClass}>
+              Khóa học
+            </NavLink>
 
-          {currentUser?.role === 'admin' && (
-            <>
-              <NavLink to="/admin/courses" className={navLinkClass}>
-                Quản lý khóa học
+            {currentUser && (
+              <NavLink to="/my-courses" className={navLinkClass}>
+                Khóa học của tôi
               </NavLink>
-              <NavLink to="/admin/enrollments" className={navLinkClass}>
-                Quản lý ghi danh
-              </NavLink>
-            </>
-          )}
-        </nav>
+            )}
 
-        {/* Desktop Actions */}
+            {currentUser?.role === 'admin' && (
+              <>
+                <NavLink to="/admin/courses" className={navLinkClass}>
+                  Quản lý khóa học
+                </NavLink>
+                <NavLink to="/admin/enrollments" className={navLinkClass}>
+                  Quản lý ghi danh
+                </NavLink>
+              </>
+            )}
+          </nav>
+        </div>
+
+        {/* Right: Desktop Actions */}
         <div className="hidden md:flex items-center gap-3">
           {/* Theme Toggle Button */}
           {onToggleTheme && (
@@ -187,100 +196,150 @@ export const Header: React.FC<HeaderProps> = ({
           )}
           <button
             type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? 'Đóng menu điều hướng' : 'Mở menu điều hướng'}
+            onClick={() => setMobileMenuOpen(true)}
+            aria-label="Mở menu điều hướng"
             className="w-10 h-10 rounded-lg border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-700 dark:text-zinc-300"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            <Menu className="w-5 h-5" />
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer Navigation */}
+      {/* Mobile Sheet Drawer (Slides in from the right) */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-4 space-y-2 shadow-lg animate-in slide-in-from-top-2 duration-150">
-          <NavLink
-            to="/courses"
+        <div className="fixed inset-0 z-50 md:hidden">
+          {/* Backdrop overlay */}
+          <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity animate-in fade-in duration-200"
             onClick={() => setMobileMenuOpen(false)}
-            className={mobileNavLinkClass}
-          >
-            <BookOpen className="w-4 h-4 mr-2" />
-            Danh sách khóa học
-          </NavLink>
+            aria-hidden="true"
+          />
 
-          {currentUser && (
-            <NavLink
-              to="/my-courses"
-              onClick={() => setMobileMenuOpen(false)}
-              className={mobileNavLinkClass}
-            >
-              <GraduationCap className="w-4 h-4 mr-2" />
-              Khóa học của tôi
-            </NavLink>
-          )}
-
-          {currentUser?.role === 'admin' && (
-            <>
-              <NavLink
-                to="/admin/courses"
-                onClick={() => setMobileMenuOpen(false)}
-                className={mobileNavLinkClass}
-              >
-                <ShieldAlert className="w-4 h-4 mr-2" />
-                Quản lý khóa học (Admin)
-              </NavLink>
-              <NavLink
-                to="/admin/enrollments"
-                onClick={() => setMobileMenuOpen(false)}
-                className={mobileNavLinkClass}
-              >
-                <ShieldAlert className="w-4 h-4 mr-2" />
-                Quản lý ghi danh (Admin)
-              </NavLink>
-            </>
-          )}
-
-          {currentUser && (
-            <NavLink
-              to="/profile"
-              onClick={() => setMobileMenuOpen(false)}
-              className={mobileNavLinkClass}
-            >
-              <UserIcon className="w-4 h-4 mr-2" />
-              Hồ sơ cá nhân ({currentUser.name})
-            </NavLink>
-          )}
-
-          <div className="pt-3 border-t border-zinc-200 dark:border-zinc-800">
-            {currentUser ? (
-              <button
-                type="button"
-                onClick={handleLogout}
-                data-testid="btn-mobile-logout"
-                aria-label="Đăng xuất khỏi tài khoản trên di động"
-                className="w-full h-11 rounded-lg bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-xs font-semibold text-zinc-800 dark:text-zinc-200 flex items-center justify-center gap-2 transition-colors"
-              >
-                <LogOut className="w-4 h-4" />
-                <span>Đăng xuất ({currentUser.name})</span>
-              </button>
-            ) : (
-              <div className="grid grid-cols-2 gap-2">
+          {/* Drawer panel */}
+          <div className="fixed top-0 right-0 h-full w-[280px] sm:w-[320px] bg-white dark:bg-zinc-900 border-l border-zinc-200 dark:border-zinc-800 shadow-2xl p-6 flex flex-col justify-between animate-in slide-in-from-right duration-200 z-50">
+            <div className="space-y-6">
+              {/* Drawer Header */}
+              <div className="flex items-center justify-between pb-4 border-b border-zinc-200 dark:border-zinc-800">
                 <Link
-                  to="/login"
+                  to="/"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="h-11 rounded-lg border border-zinc-200 dark:border-zinc-800 text-xs font-medium flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+                  className="flex items-center gap-2"
                 >
-                  Đăng nhập
+                  <div className="w-7 h-7 rounded-lg bg-zinc-900 dark:bg-zinc-100 flex items-center justify-center text-white dark:text-zinc-900 font-bold">
+                    <BookOpen className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="font-bold text-base text-zinc-900 dark:text-zinc-100">
+                    PKS Portal
+                  </span>
                 </Link>
-                <Link
-                  to="/register"
+                <button
+                  type="button"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="h-11 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 text-xs font-medium flex items-center justify-center hover:bg-zinc-800 dark:hover:bg-zinc-200 shadow-sm transition-colors"
+                  aria-label="Đóng menu điều hướng"
+                  className="w-9 h-9 rounded-lg border border-zinc-200 dark:border-zinc-800 flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100"
                 >
-                  Đăng ký
-                </Link>
+                  <X className="w-5 h-5" />
+                </button>
               </div>
-            )}
+
+              {/* Drawer Navigation Links */}
+              <nav className="space-y-1.5" aria-label="Điều hướng di động">
+                <NavLink
+                  to="/"
+                  end
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={mobileNavLinkClass}
+                >
+                  <Home className="w-4 h-4 mr-3 text-zinc-500" />
+                  Trang chủ
+                </NavLink>
+
+                <NavLink
+                  to="/courses"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={mobileNavLinkClass}
+                >
+                  <BookOpen className="w-4 h-4 mr-3 text-zinc-500" />
+                  Danh sách khóa học
+                </NavLink>
+
+                {currentUser && (
+                  <NavLink
+                    to="/my-courses"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={mobileNavLinkClass}
+                  >
+                    <GraduationCap className="w-4 h-4 mr-3 text-zinc-500" />
+                    Khóa học của tôi
+                  </NavLink>
+                )}
+
+                {currentUser?.role === 'admin' && (
+                  <>
+                    <NavLink
+                      to="/admin/courses"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={mobileNavLinkClass}
+                    >
+                      <ShieldAlert className="w-4 h-4 mr-3 text-zinc-500" />
+                      Quản lý khóa học (Admin)
+                    </NavLink>
+                    <NavLink
+                      to="/admin/enrollments"
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={mobileNavLinkClass}
+                    >
+                      <ShieldAlert className="w-4 h-4 mr-3 text-zinc-500" />
+                      Quản lý ghi danh (Admin)
+                    </NavLink>
+                  </>
+                )}
+
+                {currentUser && (
+                  <NavLink
+                    to="/profile"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={mobileNavLinkClass}
+                  >
+                    <UserIcon className="w-4 h-4 mr-3 text-zinc-500" />
+                    Hồ sơ cá nhân ({currentUser.name})
+                  </NavLink>
+                )}
+              </nav>
+            </div>
+
+            {/* Drawer Footer Actions */}
+            <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800 space-y-3">
+              {currentUser ? (
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  data-testid="btn-mobile-logout"
+                  aria-label="Đăng xuất khỏi tài khoản trên di động"
+                  className="w-full h-11 rounded-xl bg-zinc-100 hover:bg-zinc-200 dark:bg-zinc-800 dark:hover:bg-zinc-700 text-sm font-semibold text-zinc-800 dark:text-zinc-200 flex items-center justify-center gap-2 transition-colors"
+                >
+                  <LogOut className="w-4 h-4" />
+                  <span>Đăng xuất ({currentUser.name})</span>
+                </button>
+              ) : (
+                <div className="grid grid-cols-2 gap-2">
+                  <Link
+                    to="/login"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="h-11 rounded-xl border border-zinc-200 dark:border-zinc-800 text-sm font-medium flex items-center justify-center text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800 transition-colors"
+                  >
+                    Đăng nhập
+                  </Link>
+                  <Link
+                    to="/register"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="h-11 rounded-xl bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 text-sm font-medium flex items-center justify-center hover:bg-zinc-800 dark:hover:bg-zinc-200 shadow-sm transition-colors"
+                  >
+                    Đăng ký
+                  </Link>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       )}

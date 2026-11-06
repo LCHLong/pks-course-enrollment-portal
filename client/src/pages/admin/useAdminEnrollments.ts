@@ -52,10 +52,16 @@ export function useAdminEnrollments() {
     loadEnrollments();
   }, [loadEnrollments]);
 
-  const selectedCourse = useMemo(
-    () => courses.find((c) => c.id === selectedCourseId) || null,
-    [courses, selectedCourseId]
-  );
+  const selectedCourse = useMemo(() => {
+    const base = courses.find((c) => c.id === selectedCourseId) || null;
+    if (!base) return null;
+    // Đồng bộ số lượng đã ghi danh khớp chính xác với số lượng bản ghi thực tế tải về
+    if (!isLoading) {
+      const activeCount = enrollments.filter((e) => e.status !== 'cancelled').length;
+      return { ...base, enrolled_count: activeCount };
+    }
+    return base;
+  }, [courses, selectedCourseId, enrollments, isLoading]);
 
   const handleSelectCourse = (id: string) => {
     setSelectedCourseId(id);

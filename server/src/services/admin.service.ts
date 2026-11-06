@@ -151,6 +151,15 @@ export class AdminService {
       orderBy: { created_at: 'desc' },
     });
 
+    // Tự động đồng bộ enrolled_count của khóa học khớp chính xác với số lượng lượt ghi danh còn hiệu lực
+    const activeEnrollmentsCount = enrollments.filter((e) => e.status !== 'cancelled').length;
+    if (course.enrolled_count !== activeEnrollmentsCount) {
+      await prisma.course.update({
+        where: { id: courseId },
+        data: { enrolled_count: activeEnrollmentsCount },
+      });
+    }
+
     return enrollments.map((e) => ({
       ...e,
       registration_date: formatDateVN(e.created_at),
