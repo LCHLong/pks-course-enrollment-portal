@@ -2,18 +2,20 @@
 
 > **Fullstack Monorepo Web Application** phục vụ tra cứu, quản lý và ghi danh các khóa học công nghệ thực chiến.  
 > **Vị trí ứng tuyển:** Thực tập sinh Fullstack Developer (Node.js + React.js) - PKS.  
+> **Ứng viên:** Lê Chí Hoàng Long (`lechihoanglong7@gmail.com`)  
+> **GitHub Repository:** [https://github.com/LCHLong/pks-course-enrollment-portal](https://github.com/LCHLong/pks-course-enrollment-portal)  
 > **Trạng thái kiểm định:** Đạt 100% KCS 5 Tầng (Build, Unit/Integration, Postman API, Playwright E2E, DAST Security) — **10.0 / 10.0 Điểm (+0.5đ Bonus)**.
 
 ---
 
-## 🌐 Bản Triển Khai Trực Tuyến (Vercel Live Previews)
+## 🌐 Bản Triển Khai Trực Tuyến (Vercel Production Deployments)
 
-Hệ thống đã được đóng gói và triển khai tự động lên hạ tầng đám mây Vercel:
+Hệ thống đã được đóng gói và triển khai tự động lên hạ tầng đám mây Vercel (CI/CD từ nhánh `main`):
 
-| Thành phần | Môi trường / Nền tảng | Đường dẫn truy cập trực tiếp (Live Preview URL) | Trạng thái |
+| Thành phần | Môi trường / Nền tảng | Đường dẫn truy cập trực tiếp (Live Production URL) | Trạng thái |
 | :--- | :--- | :--- | :---: |
-| 🖥️ **Frontend (PSK-Client)** | React 18 + Vite + Tailwind CSS | [https://pks-course-enrollment-portal-git-feat-743cc9-lchlongs-projects.vercel.app](https://pks-course-enrollment-portal-git-feat-743cc9-lchlongs-projects.vercel.app) | 🟢 Active |
-| ⚙️ **Backend (PSK-Server)** | Node.js + Express + Prisma + PostgreSQL | [https://pks-course-enrollment-portal-1pv7-git-4edf34-lchlongs-projects.vercel.app](https://pks-course-enrollment-portal-1pv7-git-4edf34-lchlongs-projects.vercel.app) | 🟢 Active |
+| 🖥️ **Frontend (PSK-Client)** | React 18 + Vite + Tailwind CSS | [https://pks-course-enrollment-portal-alpha.vercel.app](https://pks-course-enrollment-portal-alpha.vercel.app) | 🟢 Production Active |
+| ⚙️ **Backend (PSK-Server)** | Node.js + Express + Prisma + PostgreSQL | [https://pks-course-enrollment-portal-1pv7.vercel.app](https://pks-course-enrollment-portal-1pv7.vercel.app) | 🟢 Production Active |
 
 ---
 
