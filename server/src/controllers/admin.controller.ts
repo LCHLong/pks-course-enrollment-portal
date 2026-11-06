@@ -1,8 +1,24 @@
 import { Request, Response, NextFunction } from 'express';
 import { AdminService } from '../services/admin.service.js';
+import { getAdminCourses } from '../services/course.service.js';
 import { sendSuccess } from '../utils/apiResponse.js';
 
+export async function getAdminCoursesController(req: Request, res: Response, next: NextFunction): Promise<void> {
+  try {
+    const result = await getAdminCourses({
+      ...req.query,
+      userId: req.user?.id,
+    });
+    sendSuccess(res, result, 'Lấy danh sách khóa học thành công', 200);
+  } catch (error) {
+    next(error);
+  }
+}
+
 export class AdminController {
+  static getAdminCourses = getAdminCoursesController;
+  static getAdminCoursesController = getAdminCoursesController;
+
   static async createCourse(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const course = await AdminService.createCourse(req.body);
