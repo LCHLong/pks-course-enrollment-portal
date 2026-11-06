@@ -1,6 +1,7 @@
-import express, { Application, Request, Response, NextFunction } from 'express';
+import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import { apiRouter } from './routes/index.js';
+import { errorHandler } from './middlewares/error.middleware.js';
 
 export const createApp = (): Application => {
   const app = express();
@@ -27,14 +28,7 @@ export const createApp = (): Application => {
   app.use('/api', apiRouter);
 
   // Global Error Handler
-  app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
-    console.error('Unhandled Error:', err);
-    res.status(500).json({
-      success: false,
-      message: 'Đã có lỗi xảy ra từ máy chủ nội bộ.',
-      error: process.env.NODE_ENV === 'development' ? err.message : undefined,
-    });
-  });
+  app.use(errorHandler);
 
   return app;
 };

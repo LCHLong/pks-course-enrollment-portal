@@ -10,7 +10,11 @@ async function main() {
   const adminPasswordHash = await bcrypt.hash('Admin@123456', 10);
   const admin = await prisma.user.upsert({
     where: { email: 'admin@pks.edu.vn' },
-    update: {},
+    update: {
+      name: 'PKS Quản Trị Viên',
+      password_hash: adminPasswordHash,
+      role: 'admin',
+    },
     create: {
       name: 'PKS Quản Trị Viên',
       email: 'admin@pks.edu.vn',
@@ -24,7 +28,11 @@ async function main() {
   const studentPasswordHash = await bcrypt.hash('Student@123456', 10);
   const student1 = await prisma.user.upsert({
     where: { email: 'student@pks.edu.vn' },
-    update: {},
+    update: {
+      name: 'Nguyễn Văn Học Viên',
+      password_hash: studentPasswordHash,
+      role: 'student',
+    },
     create: {
       name: 'Nguyễn Văn Học Viên',
       email: 'student@pks.edu.vn',
@@ -35,7 +43,11 @@ async function main() {
 
   const student2 = await prisma.user.upsert({
     where: { email: 'tran.thi.b@pks.edu.vn' },
-    update: {},
+    update: {
+      name: 'Trần Thị B',
+      password_hash: studentPasswordHash,
+      role: 'student',
+    },
     create: {
       name: 'Trần Thị B',
       email: 'tran.thi.b@pks.edu.vn',
@@ -43,9 +55,24 @@ async function main() {
       role: 'student',
     },
   });
-  console.log(`🎓 [Students created] ${student1.email}, ${student2.email} (Mật khẩu: Student@123456)`);
 
-  // 3. Khởi tạo danh sách các khóa học công nghệ thực chiến tại PKS
+  const student3 = await prisma.user.upsert({
+    where: { email: 'student1@example.com' },
+    update: {
+      name: 'Học Viên Mẫu 1',
+      password_hash: studentPasswordHash,
+      role: 'student',
+    },
+    create: {
+      name: 'Học Viên Mẫu 1',
+      email: 'student1@example.com',
+      password_hash: studentPasswordHash,
+      role: 'student',
+    },
+  });
+  console.log(`🎓 [Students created] ${student1.email}, ${student2.email}, ${student3.email} (Mật khẩu: Student@123456)`);
+
+  // 3. Khởi tạo danh sách các khóa học công nghệ thực chiến tại PKS (6 khóa học chuẩn)
   const coursesData = [
     {
       title: 'Lập Trình Web Fullstack Chuyên Nghiệp (Node.js & React)',
@@ -109,41 +136,96 @@ async function main() {
     },
   ];
 
+  // Dọn dẹp các khóa học tạm phát sinh ngoài 6 khóa học chuẩn (để database luôn sạch sẽ)
+  const canonicalTitles = coursesData.map((c) => c.title);
+  const testCourses = await prisma.course.findMany({
+    where: { title: { notIn: canonicalTitles } },
+    select: { id: true, title: true },
+  });
+
+  for (const tc of testCourses) {
+    await prisma.enrollment.deleteMany({ where: { course_id: tc.id } });
+    await prisma.course.delete({ where: { id: tc.id } });
+    console.log(`🧹 [Cleaned test course] ${tc.title}`);
+  }
+
   for (const courseItem of coursesData) {
     const existing = await prisma.course.findFirst({
       where: { title: courseItem.title },
     });
 
-    if (!existing) {
+    if (existing) {
+      await prisma.course.update({
+        where: { id: existing.id },
+        data: courseItem,
+      });
+    } else {
       await prisma.course.create({
         data: courseItem,
       });
     }
   }
 
-  console.log(`📚 [Courses seeded] Đã khởi tạo thành công ${coursesData.length} khóa học đa dạng trạng thái.`);
+  console.log(`📚 [Courses seeded] Đã khởi tạo thành công ${coursesData.length} khóa học chuẩn đa dạng trạng thái.`);
 
   // 4. Khởi tạo một số lượt ghi danh mẫu (Enrollments)
   const fullstackCourse = await prisma.course.findFirst({
-    where: { title: { contains: 'Fullstack' } },
+    where: { title: 'Lập Trình Web Fullstack Chuyên Nghiệp (Node.js & React)' },
   });
 
   if (fullstackCourse) {
+    // Dọn dẹp ghi danh của student1 vào fullstackCourse nếu có từ lần chạy test trước
+    // để kịch bản Postman test ghi danh lần đầu cho student1 luôn thành công (201 Created)
+    await prisma.enrollment.deleteMany({
+      where: {
+        user_id: student1.id,
+        course_id: fullstackCourse.id,
+      },
+    });
+
+    // Ghi danh student2 vào fullstackCourse để đảm bảo admin query danh sách ghi danh luôn có dữ liệu
     await prisma.enrollment.upsert({
       where: {
         user_id_course_id: {
-          user_id: student1.id,
+          user_id: student2.id,
           course_id: fullstackCourse.id,
         },
       },
-      update: {},
+      update: {
+        status: 'enrolled',
+      },
       create: {
-        user_id: student1.id,
+        user_id: student2.id,
         course_id: fullstackCourse.id,
         status: 'enrolled',
       },
     });
-    console.log(`📝 [Enrollment seeded] Đã ghi danh học viên ${student1.email} vào khóa học ${fullstackCourse.title}`);
+    console.log(`📝 [Enrollment seeded] Đã ghi danh học viên ${student2.email} vào khóa học ${fullstackCourse.title}`);
+  }
+
+  // Ghi danh student1 vào khóa học React để My Courses có dữ liệu ban đầu
+  const reactCourse = await prisma.course.findFirst({
+    where: { title: 'React.js & Tailwind CSS Hiện Đại từ Cơ Bản đến Nâng Cao' },
+  });
+
+  if (reactCourse) {
+    await prisma.enrollment.upsert({
+      where: {
+        user_id_course_id: {
+          user_id: student1.id,
+          course_id: reactCourse.id,
+        },
+      },
+      update: {
+        status: 'enrolled',
+      },
+      create: {
+        user_id: student1.id,
+        course_id: reactCourse.id,
+        status: 'enrolled',
+      },
+    });
+    console.log(`📝 [Enrollment seeded] Đã ghi danh học viên ${student1.email} vào khóa học ${reactCourse.title}`);
   }
 
   console.log('✅ [Seed completed] Khởi tạo dữ liệu mẫu thành công 100%!');

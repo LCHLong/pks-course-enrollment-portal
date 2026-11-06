@@ -69,3 +69,7 @@ prisma/migrations/dev.db
 
 # Specs in docs
 docs/specs/
+
+# Test outputs
+test-results/
+
