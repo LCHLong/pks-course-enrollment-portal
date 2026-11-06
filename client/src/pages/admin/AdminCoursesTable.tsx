@@ -29,8 +29,8 @@ export const AdminCoursesTable: React.FC<AdminCoursesTableProps> = ({
         >
           <thead>
             <tr className="border-b border-zinc-200 dark:border-zinc-800 bg-zinc-50/75 dark:bg-zinc-800/40 text-[11px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-              <th className="py-3.5 px-4">Tên khóa học & Giảng viên</th>
-              <th className="py-3.5 px-4">Danh mục</th>
+              <th className="py-3.5 px-4 whitespace-nowrap">Tên khóa học & Giảng viên</th>
+              <th className="py-3.5 px-4 whitespace-nowrap">Danh mục</th>
               <th className="py-3.5 px-4">Học phí</th>
               <th className="py-3.5 px-4 min-w-[160px]">Sĩ số & Tiến độ</th>
               <th className="py-3.5 px-4">Trạng thái</th>

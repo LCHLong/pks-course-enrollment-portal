@@ -20,8 +20,8 @@
     "test": "node --import tsx --test tests/*/*.test.ts",
     "test:e2e": "playwright test",
     "dast": "node scripts/dast_scanner.js",
-    "test:api": "newman run docs/postman_collection.json -e docs/postman_environment.json",
-    "test:postman": "newman run docs/postman_collection.json -e docs/postman_environment.json"
+    "test:api": "newman run docs/postman/postman_collection.json -e docs/postman/postman_environment.json",
+    "test:postman": "newman run docs/postman/postman_collection.json -e docs/postman/postman_environment.json"
   },
   "keywords": [
     "pks",

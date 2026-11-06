@@ -42,8 +42,8 @@ export const AdminCourseRow: React.FC<AdminCourseRowProps> = ({
         </div>
       </td>
 
-      <td className="py-4 px-4 text-xs">
-        <span className="px-2.5 py-0.5 rounded-full border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300">
+      <td className="py-4 px-4 text-xs whitespace-nowrap">
+        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 whitespace-nowrap shrink-0">
           {course.category}
         </span>
       </td>

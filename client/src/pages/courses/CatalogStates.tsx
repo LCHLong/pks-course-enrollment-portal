@@ -3,12 +3,11 @@ import { AlertTriangle, SearchX } from 'lucide-react';
 import { Skeleton } from '@/components/ui/Skeleton';
 
 export const DEFAULT_CATEGORIES = [
-  'Lập trình Web',
   'Fullstack Development',
-  'Backend Development',
   'Frontend Development',
+  'Backend Development',
+  'DevOps & Architecture',
   'Tin Học Văn Phòng',
-  'Cơ sở dữ liệu',
 ];
 
 export const CatalogLoadingState: React.FC = () => {

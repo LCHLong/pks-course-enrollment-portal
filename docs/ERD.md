@@ -24,58 +24,40 @@ Hệ thống bao gồm **3 Thực thể cốt lõi (Entities)**:
 
 ```mermaid
 erDiagram
-    %% ==========================================
-    %% ENUMS DEFINITION
-    %% ==========================================
-    ROLE {
-        student "Học viên mặc định"
-        admin "Quản trị viên hệ thống"
-    }
-
-    ENROLLMENT_STATUS {
-        enrolled "Đã ghi danh"
-        confirmed "Đã xác nhận"
-        cancelled "Đã hủy"
-        pending "Chờ duyệt"
-    }
-
-    %% ==========================================
-    %% ENTITIES DEFINITION
-    %% ==========================================
-    USERS ||--o{ ENROLLMENTS : "1 : N (onDelete: Restrict)"
-    COURSES ||--o{ ENROLLMENTS : "1 : N (onDelete: Restrict)"
+    USERS ||--o{ ENROLLMENTS : "places"
+    COURSES ||--o{ ENROLLMENTS : "receives"
 
     USERS {
         uuid id PK "Khóa chính UUID v4"
         string name "Họ và tên đầy đủ"
-        string email UK "Email định danh (Unique, B-Tree Index)"
-        string password_hash "Mật khẩu băm Bcrypt (salt >= 10)"
-        Role role "Vai trò phân quyền (student | admin)"
-        timestamptz created_at "Thời điểm tạo tài khoản (now())"
-        timestamptz updated_at "Thời điểm cập nhật gần nhất"
+        string email "Email duy nhất (Unique)"
+        string password_hash "Mật khẩu băm Bcrypt salt 10"
+        string role "Vai trò student hoặc admin"
+        timestamptz created_at "Thời điểm tạo tài khoản"
+        timestamptz updated_at "Thời điểm cập nhật"
     }
 
     COURSES {
         uuid id PK "Khóa chính UUID v4"
         string title "Tên khóa học công nghệ"
-        string category "Danh mục chuyên môn (B-Tree Index)"
+        string category "Danh mục chuyên môn"
         string instructor "Giảng viên phụ trách"
         string description "Mô tả chi tiết nội dung đào tạo"
-        integer price "Học phí (VND, >= 0)"
-        integer capacity "Sĩ số tối đa (> 0)"
-        integer enrolled_count "Số lượng đã ghi danh (default: 0)"
-        boolean is_active "Trạng thái ẩn/hiện (B-Tree Index)"
-        timestamptz created_at "Thời điểm tạo khóa học (now())"
-        timestamptz updated_at "Thời điểm cập nhật gần nhất"
+        integer price "Học phí VND không âm"
+        integer capacity "Sĩ số tối đa lớn hơn 0"
+        integer enrolled_count "Số lượng đã ghi danh"
+        boolean is_active "Trạng thái hiển thị"
+        timestamptz created_at "Thời điểm tạo khóa học"
+        timestamptz updated_at "Thời điểm cập nhật"
     }
 
     ENROLLMENTS {
         uuid id PK "Khóa chính UUID v4"
-        uuid user_id FK "Khóa ngoại tham chiếu users(id)"
-        uuid course_id FK "Khóa ngoại tham chiếu courses(id)"
-        EnrollmentStatus status "Trạng thái (enrolled|confirmed|cancelled|pending)"
-        timestamptz created_at "Thời điểm ghi danh (YYYY-MM-DD Asia/Ho_Chi_Minh)"
-        timestamptz updated_at "Thời điểm cập nhật trạng thái"
+        uuid user_id FK "Tham chiếu USERS id"
+        uuid course_id FK "Tham chiếu COURSES id"
+        string status "enrolled confirmed cancelled pending"
+        timestamptz created_at "Thời điểm ghi danh YYYY-MM-DD"
+        timestamptz updated_at "Thời điểm cập nhật"
     }
 ```
 

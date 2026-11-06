@@ -1,5 +1,6 @@
 import { prisma } from '../config/database.js';
 import { AppError } from '../utils/appError.js';
+import { removeVietnameseTones, matchesVietnamese } from '../utils/vietnamese.js';
 
 export interface CourseQueryParams {
   page?: number;
@@ -26,23 +27,50 @@ export class CourseService {
       };
     }
 
-    if (params.search && params.search.trim() !== '') {
-      where.OR = [
-        { title: { contains: params.search.trim(), mode: 'insensitive' } },
-        { description: { contains: params.search.trim(), mode: 'insensitive' } },
-        { instructor: { contains: params.search.trim(), mode: 'insensitive' } },
-      ];
-    }
+    const searchTerm = params.search ? params.search.trim() : '';
+    const cleanSearch = removeVietnameseTones(searchTerm);
+    const isGenericCourseQuery = ['khoa', 'khoa hoc', 'course', 'courses', 'tat ca', 'all'].includes(cleanSearch);
 
-    const [total, coursesList] = await Promise.all([
-      prisma.course.count({ where }),
-      prisma.course.findMany({
-        where,
-        skip,
-        take: limit,
+    let total: number;
+    let coursesList: any[];
+
+    if (searchTerm && !isGenericCourseQuery) {
+      // Fetch all candidate active courses under current category filter to perform accent-insensitive search
+      const baseWhere: any = { is_active: true };
+      if (params.category && params.category.trim() !== '') {
+        baseWhere.category = {
+          equals: params.category.trim(),
+          mode: 'insensitive',
+        };
+      }
+
+      const candidateCourses = await prisma.course.findMany({
+        where: baseWhere,
         orderBy: { created_at: 'desc' },
-      }),
-    ]);
+      });
+
+      const matched = candidateCourses.filter((course) => {
+        return (
+          matchesVietnamese(course.title, searchTerm) ||
+          matchesVietnamese(course.description, searchTerm) ||
+          matchesVietnamese(course.instructor, searchTerm) ||
+          matchesVietnamese(course.category, searchTerm)
+        );
+      });
+
+      total = matched.length;
+      coursesList = matched.slice(skip, skip + limit);
+    } else {
+      [total, coursesList] = await Promise.all([
+        prisma.course.count({ where }),
+        prisma.course.findMany({
+          where,
+          skip,
+          take: limit,
+          orderBy: { created_at: 'desc' },
+        }),
+      ]);
+    }
 
     let userEnrolledCourseIds = new Set<string>();
     if (params.userId) {
@@ -100,6 +128,15 @@ export class CourseService {
       is_enrolled,
       status_label: course.enrolled_count >= course.capacity ? 'Hết chỗ' : 'Còn chỗ',
     };
+  }
+
+  static async getCategories(): Promise<string[]> {
+    const courses = await prisma.course.findMany({
+      where: { is_active: true },
+      select: { category: true },
+      distinct: ['category'],
+    });
+    return courses.map((c) => c.category).filter(Boolean);
   }
 
   static async getAdminCourses(params: CourseQueryParams = {}) {

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { Sun, Moon, X, BookOpen, User as UserIcon, LogOut, ShieldAlert, GraduationCap, Home } from 'lucide-react';
 
 export interface MobileNavSheetProps {
@@ -27,6 +27,10 @@ export const MobileNavSheet: React.FC<MobileNavSheetProps> = ({
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isOpen, onClose]);
+
+  const location = useLocation();
+  const isHomeActive = location.pathname === '/';
+  const isCoursesActive = location.pathname.startsWith('/courses');
 
   if (!isOpen) return null;
 
@@ -64,12 +68,31 @@ export const MobileNavSheet: React.FC<MobileNavSheetProps> = ({
           </div>
 
           <nav className="space-y-1.5" aria-label="Điều hướng di động">
-            <NavLink to="/" end onClick={onClose} className={navClass}>
+            <Link
+              to="/"
+              onClick={onClose}
+              data-testid="mobile-link-home"
+              className={`h-11 min-h-[44px] flex items-center px-3.5 rounded-xl text-sm font-medium transition-colors ${
+                isHomeActive
+                  ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-semibold'
+                  : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800/50'
+              }`}
+            >
               <Home className="w-4 h-4 mr-3 text-zinc-500" /> Trang chủ
-            </NavLink>
-            <NavLink to="/courses" onClick={onClose} className={navClass}>
-              <BookOpen className="w-4 h-4 mr-3 text-zinc-500" /> Danh sách khóa học
-            </NavLink>
+            </Link>
+
+            <Link
+              to="/courses"
+              onClick={onClose}
+              data-testid="mobile-link-courses"
+              className={`h-11 min-h-[44px] flex items-center px-3.5 rounded-xl text-sm font-medium transition-colors ${
+                isCoursesActive
+                  ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-semibold'
+                  : 'text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-800/50'
+              }`}
+            >
+              <BookOpen className="w-4 h-4 mr-3 text-zinc-500" /> Danh mục khóa học
+            </Link>
             {currentUser && (
               <NavLink to="/my-courses" onClick={onClose} className={navClass}>
                 <GraduationCap className="w-4 h-4 mr-3 text-zinc-500" /> Khóa học của tôi

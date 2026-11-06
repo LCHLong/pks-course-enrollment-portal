@@ -48,6 +48,7 @@ out/
 *.env
 ACCOUNTS.md
 accounts.md
+.agents/teamwork/
 
 # IDE / Editor
 .idea/

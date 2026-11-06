@@ -5,11 +5,26 @@ import { sendSuccess } from '../utils/apiResponse.js';
 export class CourseController {
   static async list(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
+      // Set Edge caching headers for unauthenticated public requests to drastically reduce latency on Vercel
+      if (!req.user) {
+        res.setHeader('Cache-Control', 'public, max-age=30, s-maxage=60, stale-while-revalidate=120');
+      }
+
       const result = await CourseService.listCourses({
         ...req.query,
         userId: req.user?.id,
       });
       sendSuccess(res, result, 'Lấy danh sách khóa học thành công', 200);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async getCategories(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      res.setHeader('Cache-Control', 'public, max-age=300, s-maxage=600, stale-while-revalidate=1800');
+      const categories = await CourseService.getCategories();
+      sendSuccess(res, { categories }, 'Lấy danh mục khóa học thành công', 200);
     } catch (error) {
       next(error);
     }

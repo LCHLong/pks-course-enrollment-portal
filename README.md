@@ -181,9 +181,11 @@ pks-course-enrollment-portal/
 ├── docs/                           # Thư mục hồ sơ nộp bài thi chính thức
 │   ├── REQUIREMENTS.md             # Đề bài & Tiêu chuẩn chấm điểm tuyển dụng (ND_PV_FULLSTACK.pdf)
 │   ├── ERD.md                      # Sơ đồ CSDL Mermaid, ràng buộc Restrict & Từ điển dữ liệu (GAP-06)
-│   ├── postman_collection.json     # Suite 27 API tests đầy đủ 7 status codes (Postman v2.1.0)
-│   ├── postman_environment.json    # Biến môi trường Postman (baseUrl, token, studentToken, adminToken)
-│   ├── test-postman-runner.js      # Script kiểm thử collection nội bộ
+│   ├── postman/                    # Thư mục Postman Collection & Runner
+│   │   ├── postman_collection.json # Suite 27 API tests đầy đủ 7 status codes (Postman v2.1.0)
+│   │   ├── postman_environment.json# Biến môi trường Postman (baseUrl, token, studentToken, adminToken)
+│   │   ├── test-postman-runner.js  # Script kiểm thử collection nội bộ
+│   │   └── README.md               # Hướng dẫn import và chạy tự động với Newman CLI
 │   ├── screenshots/                # Thư mục 7 ảnh chụp bằng chứng kiểm thử Newman (GAP-07)
 │   │   ├── 01-auth-register-login.png
 │   │   ├── 02-course-catalog-search-filter.png

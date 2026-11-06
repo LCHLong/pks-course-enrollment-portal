@@ -8,5 +8,6 @@ import { queryCourseSchema } from '../validations/course.validation.js';
 export const courseRouter = Router();
 
 courseRouter.get('/', optionalAuthenticateJWT, validateQuery(queryCourseSchema), CourseController.list);
+courseRouter.get('/categories', CourseController.getCategories);
 courseRouter.get('/:id', optionalAuthenticateJWT, CourseController.getById);
 courseRouter.post('/:id/enroll', authenticateJWT, EnrollmentController.enroll);

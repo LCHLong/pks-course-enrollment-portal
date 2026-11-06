@@ -1,115 +1,65 @@
-# Project: PKS Course & Enrollment Portal Specification Suite
+# Project: PKS Course & Enrollment Portal Enhancements
 
 ## Architecture
-- **Target Project**: `/Users/macbookpro/Documents/Work/Prepare/PKS/pks-course-enrollment-portal`
-- **Specification Standard**: Spec Kit Standard (`ba-spec`, `speckit-specify`, `speckit-plan`, `speckit-tasks`)
-- **Specification Output Location**: `pks-course-enrollment-portal/specs/<feature-name>/`
-- **Document Structure per Feature**:
-  1. `spec.md` (Business requirements, user stories, acceptance criteria, UI contract, edge cases)
-  2. `plan.md` (Technical plan, architecture, REST API contracts, data models, error handling, invariants)
-  3. `tasks.md` (Actionable task breakdown by phase and user story with strict `- [ ] [TaskID] [P?] [Story?] ...` syntax)
-- **Technical Architecture Baseline**:
-  - Frontend: React 18, Vite, TypeScript, Tailwind CSS (Dual Theme: Zinc + Deep Muted Semantics), Radix UI, Sonner toast, Lucide icons.
-  - Backend: Node.js Express, TypeScript, Prisma ORM, Supabase PostgreSQL, bcryptjs (salt >= 10), jsonwebtoken (expiresIn), zod validation.
-  - Timezone: `Asia/Ho_Chi_Minh` (UTC+7), Date format: `YYYY-MM-DD`.
-  - Data Models: `User` (student, admin), `Course` (capacity, enrolled_count), `Enrollment` (enrolled, cancelled, pending with `UNIQUE(user_id, course_id)`).
+- **Frontend**: React 18, Vite, TypeScript, Tailwind CSS, Lucide icons, React Router DOM, next-themes.
+- **Backend**: Express, Node.js, TypeScript, Prisma ORM, PostgreSQL (Supabase).
+- **Infrastructure**: Vercel Serverless Functions (`sin1` Singapore), Vercel Static Hosting.
+- **Module Boundaries**:
+  - Navigation & Layout: `client/src/components/layout/`, `client/src/routes.tsx`, `client/src/pages/home/`
+  - Admin Course Management: `client/src/pages/admin/`, `client/src/components/ui/Badge.tsx`
+  - Course Search & Filter: `client/src/pages/courses/`, `server/src/services/course.service.ts`, `server/src/utils/vietnamese.ts`
+  - Performance & Caching: `server/src/controllers/`, `server/src/config/database.ts`, `server/vercel.json`, `client/src/components/ui/api.ts`
+  - Submission & Documentation: `SUBMISSION.md`, `docs/PERFORMANCE_ANALYSIS.md`
 
 ## Feature Inventory
 | # | Feature | Description | Milestone | Source |
 |---|---------|-------------|-----------|--------|
-| 1 | 001-auth-identity | User Registration, Login, Logout, /me, Bcrypt salt >= 10, JWT expiresIn, Role Assignment | M1 | REQUIREMENTS §3.1.A-B, PDF p.1 |
-| 2 | 002-course-catalog | Course Catalog Grid with 8 mandatory fields, Search by title, Category Filter, Pagination, Empty/Loading states | M2 | REQUIREMENTS §3.1.C, PDF p.1, UI_RULES |
-| 3 | 003-course-details | Course Details view, full description, capacity indicator, Auth redirect to /login with returnUrl | M3 | REQUIREMENTS §3.1.D, PDF p.2 |
-| 4 | 004-course-enrollment | Concurrency-safe enrollment engine, Race Condition protection on last seat, Unique enrollment check, Atomic Counter / Row Locking | M4 | REQUIREMENTS §3.1.E, PDF p.2 |
-| 5 | 005-my-courses | Student My Courses page, IDOR protection, Registration Date (YYYY-MM-DD), Enrollment Status | M5 | REQUIREMENTS §3.1.F, PDF p.2 |
-| 6 | 006-admin-course-crud | Admin Course Management: Add, Edit with `capacity >= enrolled_count` invariant, Safe Delete / Hide active course | M6 | REQUIREMENTS §3.2.B, PDF p.2 |
-| 7 | 007-admin-enrollment-mgmt | Admin Enrollment Tracking per course, Status Approval/Cancellation, Atomic Counter synchronization | M7 | REQUIREMENTS §3.2.C, 4.3, PDF p.2-3 |
-| 8 | 008-user-profile | User Profile management: View info, Update Name, Change Password with old password validation | M8 | REQUIREMENTS §5 (API 3, 10), PDF p.1-3 |
+| 1 | Navigation Consolidation | Distinct Home (with Hero banner) vs Courses catalog, active link highlighting, fix TS6133 in MobileNavSheet | M1 | Survey Explorer 1 (R2) |
+| 2 | Category Badge Truncation Fix | Full text visibility for multi-word categories on all viewports, min-w-[860px] table, Design System Badge | M2 | Survey Explorer 2 (R3) |
+| 3 | Vietnamese Search & Accent Stripping | Support accented and unaccented Vietnamese search across title, description, instructor in backend & admin | M3 | Survey Explorer 3 (R4) |
+| 4 | Smooth Filter UX (Zero Skeleton Flash) | Split isInitialLoading vs isFetching, keep course grid mounted with subtle opacity, debounced search | M3 | Survey Explorer 3 (R4) |
+| 5 | Vercel Caching & Latency Optimization | Edge Cache-Control headers, serverless Prisma singleton, sin1 region pinning, client-side in-memory cache | M4 | Survey Explorer 3 (R5) |
+| 6 | Performance Analysis Report | Detailed root-cause analysis of Vercel latency and architectural mitigations | M4 | Survey Explorer 3 (R5) |
+| 7 | Submission Standardization | SUBMISSION.md with 4 mandatory fields (Repo, Demo, Video script, Tech summary & test accounts) | M5 | Survey Explorer 3 (R1) |
 
 ## Milestones
 | # | Name | Scope | Dependencies | Status |
 |---|------|-------|-------------|--------|
-| M1 | 001-auth-identity | `specs/001-auth-identity/` (spec.md, plan.md, tasks.md) | none | PLANNED |
-| M2 | 002-course-catalog | `specs/002-course-catalog/` (spec.md, plan.md, tasks.md) | M1 | PLANNED |
-| M3 | 003-course-details | `specs/003-course-details/` (spec.md, plan.md, tasks.md) | M1, M2 | PLANNED |
-| M4 | 004-course-enrollment | `specs/004-course-enrollment/` (spec.md, plan.md, tasks.md) | M1, M3 | PLANNED |
-| M5 | 005-my-courses | `specs/005-my-courses/` (spec.md, plan.md, tasks.md) | M1, M4 | PLANNED |
-| M6 | 006-admin-course-crud | `specs/006-admin-course-crud/` (spec.md, plan.md, tasks.md) | M1 | PLANNED |
-| M7 | 007-admin-enrollment-mgmt | `specs/007-admin-enrollment-mgmt/` (spec.md, plan.md, tasks.md) | M1, M4, M6 | PLANNED |
-| M8 | 008-user-profile | `specs/008-user-profile/` (spec.md, plan.md, tasks.md) | M1 | PLANNED |
-| M9 | spec-quality-audit | Forensic Audit & Independent Agent-as-Judge verification across all 8 feature specs | M1-M8 | PLANNED |
+| 1 | Navigation Clarity & Client Build Fix (R2) | Header, MobileNavSheet, HomePage, routes, Breadcrumb, Footer | none | PLANNED |
+| 2 | Admin Category Badge & Table Responsiveness (R3) | AdminCoursesTable, AdminCourseRow, Badge.tsx | none | PLANNED |
+| 3 | Vietnamese Search & Smooth Filter UX (R4) | CourseCatalogPage, course.service.ts, vietnamese.ts, useAdminCourses.ts | none | PLANNED |
+| 4 | Vercel Performance Optimization & Caching (R5) | course.controller.ts, database.ts, vercel.json, api.ts, docs/PERFORMANCE_ANALYSIS.md | none | PLANNED |
+| 5 | Submission Documentation & Full Verification (R1) | SUBMISSION.md, build & test verification across client & server | M1, M2, M3, M4 | PLANNED |
 
 ## Interface Contracts
-### UI Contract Standard
-- 100% interactive elements MUST specify:
-  - `Semantic Role`: button, link, heading, textbox, combobox, dialog, alert, status.
-  - `Accessibility Label`: `aria-label`, `<label htmlFor="...">`, `aria-describedby`.
-  - `data-testid`: Exact taxonomy (`btn-register-submit`, `input-login-email`, `course-card-<id>`, `badge-status-capacity`, etc.).
-- 4-State UI Coverage: Loading (Skeleton/Spinner), Empty State (friendly graphic + CTA), Error State (inline error + Sonner toast + retry button), Success State (Sonner toast, strictly NO alert()).
-- Mobile Touch Target: `>= 44px` (`h-11`). Input font size: `>= 16px` to prevent iOS Safari auto-zoom.
-- Currency Formatting: Non-breaking space `\u00A0₫` with `whitespace-nowrap shrink-0`. `price = 0` displays as "Miễn phí".
-- Dual Theme Semantics:
-  - Còn chỗ: Deep Emerald (`#065F46` light / `#34D399` dark)
-  - Hết chỗ: Deep Crimson (`#991B1B` light / `#F87171` dark)
-  - Chờ duyệt: Deep Amber (`#92400E` light / `#FBBF24` dark)
+### Client Navigation ↔ Routes
+- Route `/` renders `HomePage` with Hero section followed by course catalog.
+- Route `/courses` renders `CourseCatalogPage` in `CatalogWrapper`.
+- Active states: `isHomeActive = location.pathname === '/'`, `isCoursesActive = location.pathname.startsWith('/courses')`.
 
-### Backend Contract Standard
-- Uniform JSON Envelope:
-  - Success: `{ "success": true, "data": <T>, "message": "<string>" }`
-  - Error: `{ "success": false, "error": { "code": "<UPPERCASE_CODE>", "message": "<human_message>", "details": <any> } }`
-- HTTP Status Codes:
-  - 200 OK, 201 Created
-  - 400 Bad Request (Validation failure, `INVALID_CAPACITY`)
-  - 401 Unauthorized (Missing/expired token, `INVALID_CREDENTIALS`, `TOKEN_EXPIRED`)
-  - 403 Forbidden (Role mismatch, `FORBIDDEN`)
-  - 404 Not Found (`COURSE_NOT_FOUND`, `NOT_FOUND`)
-  - 409 Conflict (`EMAIL_ALREADY_EXISTS`, `ALREADY_ENROLLED`, `CAPACITY_FULL`)
-  - 500 Internal Server Error
-- Concurrency & Invariants:
-  - Last-seat race condition: Must use DB Transaction (`$transaction`) with Row Lock (`SELECT ... FOR UPDATE`) or Atomic Conditional Update (`UPDATE courses SET enrolled_count = enrolled_count + 1 WHERE id = :id AND enrolled_count < capacity`).
-  - Admin Capacity Invariant: `capacity >= enrolled_count` enforced on updates.
-  - Admin Course Deletion Invariant: Hard delete blocked if `enrolled_count > 0`. Must use soft-delete/hide (`is_active = false`).
+### Admin Table ↔ Badge Component
+- `<Badge variant="neutral">` guarantees `whitespace-nowrap shrink-0` across light and dark themes.
+- `<table>` enforces `min-w-[860px]` inside `overflow-x-auto`.
+
+### Client Catalog ↔ Backend Course API
+- Search parameter `search` passes string; backend unaccents and matches case-insensitively.
+- Response includes `Cache-Control: public, s-maxage=60, stale-while-revalidate=300`.
 
 ## Code Layout
-```
-pks-course-enrollment-portal/
-├── docs/
-│   ├── REQUIREMENTS.md
-│   ├── design-system/
-│   │   ├── UI_RULES.md
-│   │   ├── tokens.json
-│   │   └── tokens.css
-├── specs/
-│   ├── 001-auth-identity/
-│   │   ├── spec.md
-│   │   ├── plan.md
-│   │   └── tasks.md
-│   ├── 002-course-catalog/
-│   │   ├── spec.md
-│   │   ├── plan.md
-│   │   └── tasks.md
-│   ├── 003-course-details/
-│   │   ├── spec.md
-│   │   ├── plan.md
-│   │   └── tasks.md
-│   ├── 004-course-enrollment/
-│   │   ├── spec.md
-│   │   ├── plan.md
-│   │   └── tasks.md
-│   ├── 005-my-courses/
-│   │   ├── spec.md
-│   │   ├── plan.md
-│   │   └── tasks.md
-│   ├── 006-admin-course-crud/
-│   │   ├── spec.md
-│   │   ├── plan.md
-│   │   └── tasks.md
-│   ├── 007-admin-enrollment-mgmt/
-│   │   ├── spec.md
-│   │   ├── plan.md
-│   │   └── tasks.md
-│   └── 008-user-profile/
-│       ├── spec.md
-│       ├── plan.md
-│       └── tasks.md
-```
+- `client/src/components/layout/Header.tsx`
+- `client/src/components/layout/MobileNavSheet.tsx`
+- `client/src/components/layout/Footer.tsx`
+- `client/src/pages/home/HomePage.tsx`
+- `client/src/pages/courses/CourseCatalogPage.tsx`
+- `client/src/pages/courses/Breadcrumb.tsx`
+- `client/src/pages/admin/AdminCoursesTable.tsx`
+- `client/src/pages/admin/AdminCourseRow.tsx`
+- `client/src/components/ui/Badge.tsx`
+- `client/src/components/ui/api.ts`
+- `server/src/utils/vietnamese.ts`
+- `server/src/services/course.service.ts`
+- `server/src/controllers/course.controller.ts`
+- `server/src/config/database.ts`
+- `server/vercel.json`
+- `SUBMISSION.md`
+- `docs/PERFORMANCE_ANALYSIS.md`

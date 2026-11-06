@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { api } from '@/components/ui/api';
@@ -11,66 +11,132 @@ import { CatalogLoadingState, CatalogErrorState, CatalogEmptyState, DEFAULT_CATE
 export const CourseCatalogPage: React.FC = () => {
   const [courses, setCourses] = useState<CourseCardExtended[]>([]);
   const [totalPages, setTotalPages] = useState(1);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isInitialLoading, setIsInitialLoading] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [enrollingId, setEnrollingId] = useState<string | null>(null);
+  const [dynamicCategories, setDynamicCategories] = useState<string[]>([]);
 
   const { isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const search = searchParams.get('search') || '';
-  const category = searchParams.get('category') || '';
-  const page = parseInt(searchParams.get('page') || '1', 10);
-  const [debouncedSearch, setDebouncedSearch] = useState(search);
+  const searchParam = searchParams.get('search') || '';
+  const categoryParam = searchParams.get('category') || '';
+  const pageParam = parseInt(searchParams.get('page') || '1', 10);
 
+  // Local input state for 60fps typing without URL thrashing
+  const [searchInput, setSearchInput] = useState(searchParam);
+  const [debouncedSearch, setDebouncedSearch] = useState(searchParam);
+
+  // In-memory cache to make filter toggling and pagination instantaneous (0ms latency)
+  const cacheRef = useRef<Map<string, { courses: CourseCardExtended[]; totalPages: number }>>(new Map());
+
+  // Synchronize local input if URL changes externally
   useEffect(() => {
-    const handler = setTimeout(() => setDebouncedSearch(search), 300);
+    setSearchInput(searchParam);
+  }, [searchParam]);
+
+  // Debounce search input by 300ms
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(searchInput);
+      const next = new URLSearchParams(searchParams);
+      if (searchInput.trim()) {
+        next.set('search', searchInput.trim());
+      } else {
+        next.delete('search');
+      }
+      next.set('page', '1');
+      setSearchParams(next);
+    }, 300);
+
     return () => clearTimeout(handler);
-  }, [search]);
+  }, [searchInput]);
 
-  const fetchCourses = useCallback(async () => {
-    setIsLoading(true);
+  // Fetch dynamic categories from backend
+  useEffect(() => {
+    api.get<{ categories: string[] }>('/courses/categories')
+      .then((res) => {
+        if (res?.categories && Array.isArray(res.categories)) {
+          setDynamicCategories(res.categories);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const fetchCourses = useCallback(async (bypassCache = false) => {
+    setIsFetching(true);
     setError(null);
-    try {
-      const q = new URLSearchParams();
-      q.set('page', String(page));
-      q.set('limit', '9');
-      if (debouncedSearch.trim()) q.set('search', debouncedSearch.trim());
-      if (category.trim()) q.set('category', category.trim());
 
+    const q = new URLSearchParams();
+    q.set('page', String(pageParam));
+    q.set('limit', '9');
+    if (debouncedSearch.trim()) q.set('search', debouncedSearch.trim());
+    if (categoryParam.trim()) q.set('category', categoryParam.trim());
+
+    const cacheKey = q.toString();
+
+    // Check memory cache first for instant UI response
+    if (!bypassCache && cacheRef.current.has(cacheKey)) {
+      const cached = cacheRef.current.get(cacheKey)!;
+      setCourses(cached.courses);
+      setTotalPages(cached.totalPages);
+      setIsInitialLoading(false);
+      setIsFetching(false);
+      return;
+    }
+
+    try {
       const res = await api.get<{ courses: CourseCardExtended[]; pagination: { totalPages: number } }>(
-        `/courses?${q.toString()}`
+        `/courses?${cacheKey}`
       );
-      setCourses(res?.courses || []);
-      setTotalPages(res?.pagination?.totalPages || 1);
+      const newCourses = res?.courses || [];
+      const newTotalPages = res?.pagination?.totalPages || 1;
+
+      // Update memory cache
+      cacheRef.current.set(cacheKey, {
+        courses: newCourses,
+        totalPages: newTotalPages,
+      });
+
+      setCourses(newCourses);
+      setTotalPages(newTotalPages);
     } catch (err: any) {
       const msg = err?.message || 'Không thể tải danh sách khóa học';
       setError(msg);
       toast.error(msg);
     } finally {
-      setIsLoading(false);
+      setIsInitialLoading(false);
+      setIsFetching(false);
     }
-  }, [page, debouncedSearch, category]);
+  }, [pageParam, debouncedSearch, categoryParam]);
 
   useEffect(() => {
     fetchCourses();
   }, [fetchCourses]);
 
-  const updateFilters = (newSearch?: string, newCategory?: string, newPage?: number) => {
+  const handleCategoryChange = (newCategory: string) => {
     const next = new URLSearchParams(searchParams);
-    if (newSearch !== undefined) {
-      if (newSearch.trim()) next.set('search', newSearch);
-      else next.delete('search');
-      next.set('page', '1');
+    if (newCategory.trim()) {
+      next.set('category', newCategory.trim());
+    } else {
+      next.delete('category');
     }
-    if (newCategory !== undefined) {
-      if (newCategory.trim()) next.set('category', newCategory);
-      else next.delete('category');
-      next.set('page', '1');
-    }
-    if (newPage !== undefined) next.set('page', String(newPage));
+    next.set('page', '1');
     setSearchParams(next);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    const next = new URLSearchParams(searchParams);
+    next.set('page', String(newPage));
+    setSearchParams(next);
+  };
+
+  const handleResetFilters = () => {
+    setSearchInput('');
+    setDebouncedSearch('');
+    setSearchParams(new URLSearchParams());
   };
 
   const handleEnroll = async (course: CourseCardExtended) => {
@@ -82,7 +148,9 @@ export const CourseCatalogPage: React.FC = () => {
     try {
       await api.post(`/courses/${course.id}/enroll`);
       toast.success('Ghi danh khóa học thành công!');
-      fetchCourses();
+      // Invalidate cache and refetch
+      cacheRef.current.clear();
+      fetchCourses(true);
     } catch (err: any) {
       toast.error(err?.message || 'Không thể ghi danh khóa học');
     } finally {
@@ -92,8 +160,8 @@ export const CourseCatalogPage: React.FC = () => {
 
   const allCategories = useMemo(() => {
     const fromCourses = courses.map((c) => c.category).filter(Boolean);
-    return Array.from(new Set([...DEFAULT_CATEGORIES, ...fromCourses]));
-  }, [courses]);
+    return Array.from(new Set([...DEFAULT_CATEGORIES, ...dynamicCategories, ...fromCourses]));
+  }, [courses, dynamicCategories]);
 
   return (
     <section aria-label="Danh mục khóa học PKS" data-testid="catalog-container" className="space-y-6">
@@ -107,22 +175,28 @@ export const CourseCatalogPage: React.FC = () => {
       </div>
 
       <CourseFilters
-        search={search}
-        category={category}
+        search={searchInput}
+        category={categoryParam}
         categories={allCategories}
-        onSearchChange={(val) => updateFilters(val, undefined, 1)}
-        onCategoryChange={(val) => updateFilters(undefined, val, 1)}
-        onReset={() => setSearchParams(new URLSearchParams())}
+        isSearching={isFetching}
+        onSearchChange={(val) => setSearchInput(val)}
+        onCategoryChange={handleCategoryChange}
+        onReset={handleResetFilters}
       />
 
-      {isLoading ? (
+      {isInitialLoading && courses.length === 0 ? (
         <CatalogLoadingState />
       ) : error ? (
-        <CatalogErrorState error={error} onRetry={fetchCourses} />
+        <CatalogErrorState error={error} onRetry={() => fetchCourses(true)} />
       ) : courses.length === 0 ? (
-        <CatalogEmptyState onClearFilters={() => setSearchParams(new URLSearchParams())} />
+        <CatalogEmptyState onClearFilters={handleResetFilters} />
       ) : (
-        <div data-testid="course-catalog-grid" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div
+          data-testid="course-catalog-grid"
+          className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 transition-opacity duration-200 ${
+            isFetching ? 'opacity-60 pointer-events-none' : 'opacity-100'
+          }`}
+        >
           {courses.map((course) => (
             <CourseCard
               key={course.id}
@@ -135,12 +209,13 @@ export const CourseCatalogPage: React.FC = () => {
       )}
 
       <Pagination
-        currentPage={page}
+        currentPage={pageParam}
         totalPages={totalPages}
-        onPageChange={(p) => updateFilters(undefined, undefined, p)}
-        isLoading={isLoading}
+        onPageChange={handlePageChange}
+        isLoading={isFetching}
       />
     </section>
   );
 };
+
 export default CourseCatalogPage;

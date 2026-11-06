@@ -1,10 +1,11 @@
 import React from 'react';
-import { Search, X, RotateCcw } from 'lucide-react';
+import { Search, X, RotateCcw, Loader2 } from 'lucide-react';
 
 interface CourseFiltersProps {
   search: string;
   category: string;
   categories: string[];
+  isSearching?: boolean;
   onSearchChange: (value: string) => void;
   onCategoryChange: (value: string) => void;
   onReset: () => void;
@@ -14,6 +15,7 @@ export const CourseFilters: React.FC<CourseFiltersProps> = ({
   search,
   category,
   categories,
+  isSearching = false,
   onSearchChange,
   onCategoryChange,
   onReset,
@@ -24,7 +26,11 @@ export const CourseFilters: React.FC<CourseFiltersProps> = ({
     <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
       {/* Search Input */}
       <div className="relative flex-1">
-        <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+        {isSearching ? (
+          <Loader2 className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 animate-spin pointer-events-none" />
+        ) : (
+          <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 pointer-events-none" />
+        )}
         <input
           type="text"
           role="searchbox"

@@ -4,7 +4,8 @@ import { Layout } from '@/components/layout/Layout';
 import { ProtectedRoute } from '@/components/layout/ProtectedRoute';
 import { NotFoundPage } from '@/components/layout/NotFoundPage';
 
-// Subagent C pages
+// Landing and course pages
+import { HomePage } from '@/pages/home/HomePage';
 import { CourseCatalogPage, CourseDetailPage } from '@/pages/courses';
 import { LoginPage, RegisterPage } from '@/pages/auth';
 import { ProfilePage } from '@/pages/profile';
@@ -44,7 +45,7 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({ isDarkMode, onToggleTheme 
     <Routes>
       <Route path="/" element={<Layout isDarkMode={isDarkMode} onToggleTheme={onToggleTheme} />}>
         {/* Public Catalog & Details Routes */}
-        <Route index element={<CatalogWrapper />} />
+        <Route index element={<HomePage />} />
         <Route path="courses" element={<CatalogWrapper />} />
         <Route path="courses/:id" element={<DetailWrapper />} />
 

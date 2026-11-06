@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { Sun, Moon, Menu, BookOpen, User as UserIcon, LogOut } from 'lucide-react';
 import { toast } from 'sonner';
 import { useAuth } from '@/components/ui/AuthContext';
@@ -41,6 +41,10 @@ export const Header: React.FC<HeaderProps> = ({
     }
   };
 
+  const location = useLocation();
+  const isHomeActive = location.pathname === '/';
+  const isCoursesActive = location.pathname.startsWith('/courses');
+
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     `px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
       isActive
@@ -64,12 +68,29 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Desktop Navigation Links */}
           <nav className="hidden md:flex items-center gap-1.5" aria-label="Điều hướng chính">
-            <NavLink to="/" end className={navLinkClass}>
+            <Link
+              to="/"
+              data-testid="nav-link-home"
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                isHomeActive
+                  ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-semibold'
+                  : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800/50'
+              }`}
+            >
               Trang chủ
-            </NavLink>
-            <NavLink to="/courses" className={navLinkClass}>
+            </Link>
+
+            <Link
+              to="/courses"
+              data-testid="nav-link-courses"
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                isCoursesActive
+                  ? 'bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-semibold'
+                  : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-50 dark:text-zinc-400 dark:hover:text-zinc-100 dark:hover:bg-zinc-800/50'
+              }`}
+            >
               Khóa học
-            </NavLink>
+            </Link>
 
             {currentUser && (
               <NavLink to="/my-courses" className={navLinkClass}>
