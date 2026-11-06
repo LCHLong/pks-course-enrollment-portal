@@ -3,7 +3,18 @@
  * Automatically attaches JWT from localStorage and handles API envelope.
  */
 
-const API_BASE_URL = (import.meta as any).env?.VITE_API_BASE_URL || '';
+export const getApiBaseUrl = (): string => {
+  const raw = (import.meta as any).env?.VITE_API_BASE_URL || '';
+  if (!raw) return '/api';
+  const trimmed = raw.replace(/\/+$/, '');
+  return trimmed.endsWith('/api') ? trimmed : `${trimmed}/api`;
+};
+
+export const buildApiUrl = (endpoint: string): string => {
+  const base = getApiBaseUrl();
+  const cleanEndpoint = endpoint.replace(/^\/?(api\/)?/, '');
+  return `${base}/${cleanEndpoint}`;
+};
 
 export interface ApiResponse<T = any> {
   success: boolean;
@@ -54,8 +65,7 @@ export async function request<T = any>(
   endpoint: string,
   options: RequestInit = {}
 ): Promise<T> {
-  const normalizedPath = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
-  const url = `${API_BASE_URL}${normalizedPath.startsWith('/api') ? normalizedPath : `/api${normalizedPath}`}`;
+  const url = buildApiUrl(endpoint);
 
   const headers = new Headers(options.headers || {});
   if (!headers.has('Content-Type') && !(options.body instanceof FormData)) {
