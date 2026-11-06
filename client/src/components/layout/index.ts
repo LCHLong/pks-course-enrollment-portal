@@ -6,3 +6,5 @@ export type { LayoutProps } from './Layout';
 export { ProtectedRoute } from './ProtectedRoute';
 export type { ProtectedRouteProps } from './ProtectedRoute';
 export { NotFoundPage } from './NotFoundPage';
+export { MobileNavSheet } from './MobileNavSheet';
+export type { MobileNavSheetProps } from './MobileNavSheet';

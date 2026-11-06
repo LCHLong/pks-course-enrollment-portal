@@ -101,4 +101,57 @@ export class CourseService {
       status_label: course.enrolled_count >= course.capacity ? 'Hết chỗ' : 'Còn chỗ',
     };
   }
+
+  static async getAdminCourses(params: CourseQueryParams = {}) {
+    return getAdminCourses(params);
+  }
 }
+
+export async function getAdminCourses(params: CourseQueryParams = {}) {
+  const page = Number(params.page) || 1;
+  const limit = Number(params.limit) || 10;
+  const skip = (page - 1) * limit;
+
+  const where: any = {};
+
+  if (params.category && params.category.trim() !== '') {
+    where.category = {
+      equals: params.category.trim(),
+      mode: 'insensitive',
+    };
+  }
+
+  if (params.search && params.search.trim() !== '') {
+    where.OR = [
+      { title: { contains: params.search.trim(), mode: 'insensitive' } },
+      { description: { contains: params.search.trim(), mode: 'insensitive' } },
+      { instructor: { contains: params.search.trim(), mode: 'insensitive' } },
+    ];
+  }
+
+  const [total, coursesList] = await Promise.all([
+    prisma.course.count({ where }),
+    prisma.course.findMany({
+      where,
+      skip,
+      take: limit,
+      orderBy: { created_at: 'desc' },
+    }),
+  ]);
+
+  const courses = coursesList.map((course) => ({
+    ...course,
+    status_label: course.enrolled_count >= course.capacity ? 'Hết chỗ' : 'Còn chỗ',
+  }));
+
+  return {
+    courses,
+    pagination: {
+      page,
+      limit,
+      total,
+      totalPages: Math.ceil(total / limit) || 1,
+    },
+  };
+}
+

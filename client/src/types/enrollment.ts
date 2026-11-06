@@ -1,4 +1,4 @@
-export type EnrollmentStatus = 'enrolled' | 'cancelled' | 'pending';
+export type EnrollmentStatus = 'enrolled' | 'pending' | 'cancelled' | 'confirmed';
 
 export interface Enrollment {
   id: string;

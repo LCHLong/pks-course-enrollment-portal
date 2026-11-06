@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { AdminController } from '../controllers/admin.controller.js';
+import { AdminController, getAdminCoursesController } from '../controllers/admin.controller.js';
 import { CourseController } from '../controllers/course.controller.js';
 import { authenticateJWT } from '../middlewares/auth.middleware.js';
 import { requireRole } from '../middlewares/role.middleware.js';
@@ -13,7 +13,8 @@ export const adminRouter = Router();
 adminRouter.use(authenticateJWT, requireRole('admin'));
 
 // Quản lý khóa học (Course CRUD)
-adminRouter.get('/courses', validateQuery(queryCourseSchema), CourseController.list);
+adminRouter.get('/courses', authenticateJWT, requireRole('admin'), validateQuery(queryCourseSchema), getAdminCoursesController);
+
 adminRouter.get('/courses/:id', CourseController.getById);
 adminRouter.post('/courses', validateBody(createCourseSchema), AdminController.createCourse);
 adminRouter.put('/courses/:id', validateBody(updateCourseSchema), AdminController.updateCourse);

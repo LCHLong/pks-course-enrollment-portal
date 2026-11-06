@@ -142,4 +142,47 @@ export class EnrollmentService {
       registration_date: formatDateVN(enrollment.created_at),
     };
   }
+
+  static async cancelStudentEnrollment(enrollmentId: string, userId: string) {
+    return cancelStudentEnrollment(enrollmentId, userId);
+  }
 }
+
+export async function cancelStudentEnrollment(enrollmentId: string, userId: string) {
+  return await prisma.$transaction(async (tx) => {
+    const enrollment = await tx.enrollment.findUnique({
+      where: { id: enrollmentId },
+      include: { course: true },
+    });
+
+    if (!enrollment) {
+      throw new AppError('NOT_FOUND', 'Không tìm thấy thông tin ghi danh', 404);
+    }
+
+    if (enrollment.user_id !== userId) {
+      throw new AppError('FORBIDDEN', 'Bạn không có quyền hủy khóa học của học viên khác', 403);
+    }
+
+    if (enrollment.status === 'cancelled') {
+      throw new AppError('ALREADY_CANCELLED', 'Lượt ghi danh này đã được hủy trước đó', 400);
+    }
+
+    const updated = await tx.enrollment.update({
+      where: { id: enrollmentId },
+      data: { status: 'cancelled' },
+      include: { course: true },
+    });
+
+    await tx.$executeRaw`
+      UPDATE "courses"
+      SET "enrolled_count" = GREATEST("enrolled_count" - 1, 0)
+      WHERE "id" = ${enrollment.course_id}
+    `;
+
+    return {
+      ...updated,
+      registration_date: formatDateVN(updated.created_at),
+    };
+  });
+}
+
