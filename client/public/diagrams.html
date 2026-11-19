@@ -56,6 +56,18 @@
       font-size: 0.775rem;
       line-height: 1.5;
     }
+    /* Chặn triệt để mọi lỗi Mermaid xuất hiện ở cuối trang/body */
+    body > div[id^="dsvg-render-"],
+    body > .error-icon,
+    body > svg[id^="dsvg-render-"],
+    body > [id*="dsvg"] {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      height: 0 !important;
+      overflow: hidden !important;
+      pointer-events: none !important;
+    }
   </style>
 </head>
 <body class="bg-slate-50 dark:bg-zinc-950 text-slate-800 dark:text-zinc-100 font-sans antialiased min-h-screen transition-colors duration-200">
@@ -1206,8 +1218,8 @@ describe('Integration Tests: Domain Invariants &amp; Security Guards', () =&gt; 
         String instructor "Tên giảng viên"
         String description "Mô tả khóa học"
         Int price "Học phí (VND)"
-        Int capacity "Sĩ số tối đa (> 0)"
-        Int enrolled_count "Đã ghi danh (<= capacity)"
+        Int capacity "Sĩ số tối đa (lớn hơn 0)"
+        Int enrolled_count "Đã ghi danh (nhỏ hơn hoặc bằng capacity)"
         Boolean is_active "Mở ghi danh (Index)"
         DateTime created_at "Múi giờ Asia/Ho_Chi_Minh"
         DateTime updated_at "Thời gian cập nhật"
@@ -1252,7 +1264,7 @@ describe('Integration Tests: Domain Invariants &amp; Security Guards', () =&gt; 
 
     subgraph ADMIN_ZONE["Phân Hệ Quản Trị (Role: admin)"]
         ADM1["Thêm Khóa Học Mới"]
-        ADM2["Sửa Khóa Học (Bảo vệ capacity >= enrolled_count)"]
+        ADM2["Sửa Khóa Học (Bảo toàn capacity và enrolled_count)"]
         ADM3["Ẩn / Hiện / Xóa Khóa Học"]
         ADM4["Theo dõi Học viên theo từng Khóa"]
         ADM5["Cập nhật Trạng thái (confirmed/cancelled)"]
@@ -1304,7 +1316,7 @@ describe('Integration Tests: Domain Invariants &amp; Security Guards', () =&gt; 
     API->>Tx: Bắt đầu Transaction cho Học Viên B
 
     Note over Tx,PG: HỌC VIÊN A ĐẾN TRƯỚC VÀ CHIẾM ROW LOCK
-    Tx->>PG: UPDATE courses SET enrolled_count = enrolled_count + 1 WHERE id = 'C-01' AND enrolled_count < capacity
+    Tx->>PG: UPDATE courses SET count = count + 1 WHERE count nhỏ hơn capacity
     Note over PG: 19 nhỏ hơn 20: Hợp lệ! enrolled_count = 20. Rows affected = 1
     PG-->>Tx: Rows affected = 1 (Thành công)
     Tx->>PG: INSERT INTO enrollments (user_id_A, course_id, status='enrolled')
@@ -1312,14 +1324,14 @@ describe('Integration Tests: Domain Invariants &amp; Security Guards', () =&gt; 
     API-->>StudentA: HTTP 201 Created: "Ghi danh thành công!"
 
     Note over Tx,PG: HỌC VIÊN B ĐẾN SAU KHI LOCK GIẢI PHÓNG
-    Tx->>PG: UPDATE courses SET enrolled_count = enrolled_count + 1 WHERE id = 'C-01' AND enrolled_count < capacity
+    Tx->>PG: UPDATE courses SET count = count + 1 WHERE count nhỏ hơn capacity
     Note over PG: enrolled_count hiện tại là 20. Điều kiện 20 nhỏ hơn 20 là SAI! Rows affected = 0
     PG-->>Tx: Rows affected = 0
     Note over Tx: Phát hiện 0 dòng sửa: Kích hoạt ROLLBACK ngay lập tức!
     Tx-->>API: Throw AppError('COURSE_FULL', 400)
     API-->>StudentB: HTTP 400 Bad Request: "Khóa học đã đủ sĩ số tối đa."
 
-    Note over PG: Trạng thái cuối: enrolled_count = 20 <= capacity = 20. KHÔNG OVERBOOKING!`,
+    Note over PG: Trạng thái cuối: enrolled_count = 20 (bằng capacity). KHÔNG OVERBOOKING!`,
 
       'diagram-admin': `sequenceDiagram
     autonumber
@@ -1373,6 +1385,13 @@ describe('Integration Tests: Domain Invariants &amp; Security Guards', () =&gt; 
 
     let renderCounter = 0;
 
+    // Ghi đè hàm parseError của Mermaid để không bao giờ chèn div error-icon vào document.body
+    if (typeof mermaid !== 'undefined') {
+      mermaid.parseError = function(err, hash) {
+        console.warn('Đã xử lý an toàn lỗi Mermaid:', err);
+      };
+    }
+
     // Render 1 sơ đồ
     async function renderDiagram(containerId, isDark) {
       const container = document.getElementById(containerId);
@@ -1386,8 +1405,11 @@ describe('Integration Tests: Domain Invariants &amp; Security Guards', () =&gt; 
         const { svg } = await mermaid.render(uniqueId, code.trim());
         container.innerHTML = svg;
       } catch (err) {
-        console.error('Lỗi khi render sơ đồ ' + containerId + ':', err);
-        container.innerHTML = `<div class="p-4 text-xs text-red-500 bg-red-500/10 rounded-lg">Đang cập nhật hiển thị sơ đồ...</div>`;
+        console.warn('Lỗi khi render sơ đồ ' + containerId + ':', err);
+        container.innerHTML = `<div class="p-4 text-xs text-amber-500 bg-amber-500/10 rounded-lg">Đang cập nhật hiển thị sơ đồ...</div>`;
+      } finally {
+        // Luôn loại bỏ triệt để mọi phần tử lỗi do Mermaid chèn vào cuối body
+        document.querySelectorAll('body > div[id^="dsvg-render-"], body > div[id^="svg-render-"], body > .error-icon, body > svg[id^="dsvg-render-"], body > [id*="dsvg"]').forEach(el => el.remove());
       }
     }
 
@@ -1395,6 +1417,7 @@ describe('Integration Tests: Domain Invariants &amp; Security Guards', () =&gt; 
     async function configureAndRenderAll(isDark) {
       mermaid.initialize({
         startOnLoad: false,
+        suppressErrorRendering: true,
         theme: isDark ? 'dark' : 'default',
         themeVariables: isDark ? {
           darkMode: true,
@@ -1421,6 +1444,9 @@ describe('Integration Tests: Domain Invariants &amp; Security Guards', () =&gt; 
       for (const containerId of Object.keys(DIAGRAM_DEFINITIONS)) {
         await renderDiagram(containerId, isDark);
       }
+
+      // Quét dọn lần cuối sau khi render xong toàn bộ
+      document.querySelectorAll('body > div[id^="dsvg-render-"], body > div[id^="svg-render-"], body > .error-icon, body > svg[id^="dsvg-render-"], body > [id*="dsvg"]').forEach(el => el.remove());
     }
 
     // Chuyển Tab
