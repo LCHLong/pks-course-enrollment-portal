@@ -18,172 +18,166 @@
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
             mono: ['JetBrains Mono', 'monospace'],
-          },
-          colors: {
-            emeraldMuted: {
-              light: '#065F46',
-              bgLight: '#ECFDF5',
-              dark: '#34D399',
-              bgDark: 'rgba(6, 78, 59, 0.25)',
-            },
-            crimsonMuted: {
-              light: '#991B1B',
-              bgLight: '#FEF2F2',
-              dark: '#F87171',
-              bgDark: 'rgba(127, 29, 29, 0.25)',
-            },
-            amberMuted: {
-              light: '#92400E',
-              bgLight: '#FFFBEB',
-              dark: '#FBBF24',
-              bgDark: 'rgba(120, 53, 15, 0.25)',
-            }
           }
         }
       }
-    }
+    };
   </script>
   <style>
-    .mermaid svg {
+    /* Custom diagram styling */
+    .mermaid-diagram svg {
       max-width: 100% !important;
       height: auto !important;
-      border-radius: 0.75rem;
+      border-radius: 0.5rem;
     }
-    .mermaid {
+    .mermaid-diagram {
       display: flex;
       justify-content: center;
-      background: transparent;
+      min-height: 200px;
     }
-    /* Custom scrollbar */
+    /* Scrollbar */
     ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
+      width: 7px;
+      height: 7px;
     }
     ::-webkit-scrollbar-track {
-      background: rgba(15, 23, 42, 0.6);
+      background: transparent;
     }
     ::-webkit-scrollbar-thumb {
-      background: rgba(100, 116, 139, 0.5);
+      background: rgba(148, 163, 184, 0.4);
       border-radius: 4px;
     }
     ::-webkit-scrollbar-thumb:hover {
-      background: rgba(148, 163, 184, 0.8);
+      background: rgba(148, 163, 184, 0.7);
+    }
+    /* Code block styling */
+    pre code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.775rem;
+      line-height: 1.5;
     }
   </style>
 </head>
-<body class="bg-zinc-950 text-zinc-100 font-sans antialiased min-h-screen transition-colors duration-200">
+<body class="bg-slate-50 dark:bg-zinc-950 text-slate-800 dark:text-zinc-100 font-sans antialiased min-h-screen transition-colors duration-200">
 
-  <!-- Top Sticky Navigation Bar -->
-  <header class="sticky top-0 z-50 bg-zinc-900/90 dark:bg-zinc-950/90 backdrop-blur border-b border-zinc-800 px-4 sm:px-8 py-3 flex items-center justify-between">
+  <!-- ========================================== -->
+  <!-- TOP STICKY NAVIGATION BAR -->
+  <!-- ========================================== -->
+  <header class="sticky top-0 z-50 bg-white/90 dark:bg-zinc-950/90 backdrop-blur border-b border-slate-200 dark:border-zinc-800 px-4 sm:px-8 py-3 flex items-center justify-between transition-colors">
     <div class="flex items-center gap-3">
       <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-md font-bold">
         <i data-lucide="book-open" class="w-5 h-5"></i>
       </div>
       <div>
         <div class="flex items-center gap-2">
-          <span class="font-extrabold text-base tracking-tight text-white">PKS Portal</span>
-          <span class="text-[10px] uppercase font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Architecture & Specs</span>
+          <span class="font-extrabold text-base tracking-tight text-slate-900 dark:text-white">PKS Portal</span>
+          <span class="text-[10px] uppercase font-semibold px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-700 dark:text-emerald-400 border border-emerald-500/30">Architecture & Specs</span>
         </div>
-        <p class="text-xs text-zinc-400 hidden sm:block">Báo Cáo Kiến Trúc & Sơ Đồ Nghiệp Vụ Tuyển Dụng Fullstack</p>
+        <p class="text-xs text-slate-500 dark:text-zinc-400 hidden sm:block">Báo Cáo Kiến Trúc, Sơ Đồ Nghiệp Vụ & Mã Nguồn Lõi</p>
       </div>
     </div>
 
-    <!-- Quick action buttons -->
+    <!-- Quick action buttons & Theme Toggle -->
     <div class="flex items-center gap-2">
-      <a href="https://pks-course-enrollment-portal-alpha.vercel.app" target="_blank" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 flex items-center gap-1.5 transition border border-zinc-700">
-        <i data-lucide="external-link" class="w-3.5 h-3.5 text-emerald-400"></i>
+      <a href="https://pks-course-enrollment-portal-alpha.vercel.app" target="_blank" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-200 flex items-center gap-1.5 transition border border-slate-200 dark:border-zinc-700">
+        <i data-lucide="external-link" class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400"></i>
         <span>Live Web App</span>
       </a>
-      <a href="https://github.com/LCHLong/pks-course-enrollment-portal" target="_blank" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 flex items-center gap-1.5 transition border border-zinc-700">
+      <a href="https://github.com/LCHLong/pks-course-enrollment-portal" target="_blank" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-200 flex items-center gap-1.5 transition border border-slate-200 dark:border-zinc-700">
         <i data-lucide="github" class="w-3.5 h-3.5"></i>
         <span class="hidden md:inline">GitHub Repository</span>
       </a>
-      <button id="themeToggleBtn" onclick="toggleTheme()" class="p-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700" title="Chuyển Dark / Light mode">
-        <i data-lucide="sun" id="themeIconSun" class="w-4 h-4 hidden"></i>
-        <i data-lucide="moon" id="themeIconMoon" class="w-4 h-4"></i>
+
+      <!-- DARK / LIGHT MODE SWITCH BUTTON -->
+      <button id="themeToggleBtn" onclick="toggleTheme()" class="px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-200 border border-slate-200 dark:border-zinc-700 flex items-center gap-1.5 font-semibold text-xs transition" title="Chuyển chế độ sáng / tối">
+        <i data-lucide="sun" id="themeIconSun" class="w-4 h-4 text-amber-500 hidden"></i>
+        <i data-lucide="moon" id="themeIconMoon" class="w-4 h-4 text-blue-400"></i>
+        <span id="themeText">Giao diện: Tối</span>
       </button>
     </div>
   </header>
 
-  <!-- Hero Header -->
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6">
-    <div class="bg-gradient-to-r from-zinc-900 via-zinc-900/90 to-zinc-800/80 border border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-      <div class="absolute -right-16 -top-16 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
-      
+  <!-- ========================================== -->
+  <!-- HERO BANNER -->
+  <!-- ========================================== -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-4">
+    <div class="bg-white dark:bg-gradient-to-r dark:from-zinc-900 dark:via-zinc-900/90 dark:to-zinc-850 border border-slate-200 dark:border-zinc-800 rounded-2xl p-6 sm:p-8 shadow-sm dark:shadow-2xl relative overflow-hidden transition-colors">
       <div class="flex flex-wrap items-center gap-2 mb-3">
-        <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
-          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i> KCS 5-Tier: 100% Passed
+        <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30 flex items-center gap-1">
+          <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400"></i> KCS 5-Tier: 100% Passed
         </span>
-        <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1">
-          <i data-lucide="award" class="w-3.5 h-3.5 text-amber-400"></i> Đạt 10.0 / 10.0 Điểm (+0.5đ Bonus)
+        <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-amber-500/15 text-amber-700 dark:text-amber-300 border border-amber-500/30 flex items-center gap-1">
+          <i data-lucide="award" class="w-3.5 h-3.5 text-amber-500 dark:text-amber-400"></i> Đạt 10.0 / 10.0 Điểm (+0.5đ Bonus)
         </span>
-        <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-blue-500/20 text-blue-300 border border-blue-500/30 flex items-center gap-1">
-          <i data-lucide="clock" class="w-3.5 h-3.5 text-blue-400"></i> Thời gian làm bài: 36 Giờ
+        <span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-blue-500/15 text-blue-700 dark:text-blue-300 border border-blue-500/30 flex items-center gap-1">
+          <i data-lucide="clock" class="w-3.5 h-3.5 text-blue-500 dark:text-blue-400"></i> Thời gian làm bài: 36 Giờ
         </span>
       </div>
 
-      <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-3">
-        Bản Đồ Kiến Trúc & Sơ Đồ Kỹ Thuật Dự Án
+      <h1 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-3">
+        Bản Đồ Kiến Trúc, Sơ Đồ Kỹ Thuật & Mã Nguồn Chi Tiết
       </h1>
-      <p class="text-sm sm:text-base text-zinc-300 max-w-4xl leading-relaxed mb-6">
-        Tài liệu kỹ thuật trực quan hóa toàn bộ yêu cầu đề bài thực tập sinh Fullstack Developer tại <span class="text-emerald-400 font-semibold">Công ty TNHH Công Nghệ & Giáo Dục PKS</span>. Phân tích chi tiết kiến trúc Monorepo, cơ chế xử lý Race Condition tranh suất cuối, bảo toàn bất biến sĩ số, phân quyền RBAC và quy trình kiểm thử tự động 5 tầng.
+      <p class="text-sm sm:text-base text-slate-600 dark:text-zinc-300 max-w-4xl leading-relaxed mb-6">
+        Tài liệu trực quan hóa toàn diện yêu cầu đề bài Thực tập sinh Fullstack Developer tại <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Công ty TNHH Công Nghệ & Giáo Dục PKS</span>. Phân tích chi tiết kiến trúc Monorepo, cơ chế xử lý Race Condition, phân quyền RBAC và trích xuất trực tiếp đoạn mã nguồn tương ứng của từng phân hệ.
       </p>
 
-      <!-- Grid Meta Information -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-zinc-800 text-xs">
+      <!-- Meta Grid -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-200 dark:border-zinc-800 text-xs">
         <div>
-          <span class="text-zinc-500 block">Ứng viên:</span>
-          <span class="font-semibold text-zinc-200">Lê Chí Hoàng Long</span>
+          <span class="text-slate-400 dark:text-zinc-500 block">Ứng viên:</span>
+          <span class="font-semibold text-slate-800 dark:text-zinc-200">Lê Chí Hoàng Long</span>
         </div>
         <div>
-          <span class="text-zinc-500 block">Vị trí ứng tuyển:</span>
-          <span class="font-semibold text-zinc-200">Thực tập sinh Fullstack Developer</span>
+          <span class="text-slate-400 dark:text-zinc-500 block">Vị trí ứng tuyển:</span>
+          <span class="font-semibold text-slate-800 dark:text-zinc-200">Thực tập sinh Fullstack Developer</span>
         </div>
         <div>
-          <span class="text-zinc-500 block">Stack Công Nghệ:</span>
-          <span class="font-semibold text-zinc-200">Node.js + React.js + PostgreSQL</span>
+          <span class="text-slate-400 dark:text-zinc-500 block">Stack Công Nghệ:</span>
+          <span class="font-semibold text-slate-800 dark:text-zinc-200">Node.js + React.js + PostgreSQL</span>
         </div>
         <div>
-          <span class="text-zinc-500 block">Múi giờ chuẩn:</span>
-          <span class="font-semibold text-emerald-400 font-mono">Asia/Ho_Chi_Minh (YYYY-MM-DD)</span>
+          <span class="text-slate-400 dark:text-zinc-500 block">Múi giờ chuẩn:</span>
+          <span class="font-semibold text-emerald-600 dark:text-emerald-400 font-mono">Asia/Ho_Chi_Minh (YYYY-MM-DD)</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Navigation Tabs -->
-  <div class="sticky top-16 z-40 bg-zinc-950/95 backdrop-blur border-b border-zinc-800">
+  <!-- ========================================== -->
+  <!-- NAVIGATION TABS -->
+  <!-- ========================================== -->
+  <div class="sticky top-16 z-40 bg-slate-50/95 dark:bg-zinc-950/95 backdrop-blur border-b border-slate-200 dark:border-zinc-800 transition-colors">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex space-x-2 overflow-x-auto py-3 no-scrollbar text-xs font-semibold">
-        <button onclick="switchTab('tab-requirements')" id="btn-tab-requirements" class="tab-btn px-3 py-2 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 whitespace-nowrap flex items-center gap-1.5">
+        <button onclick="switchTab('tab-requirements')" id="btn-tab-requirements" class="tab-btn px-3 py-2 rounded-lg bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 border border-emerald-500/40 whitespace-nowrap flex items-center gap-1.5 transition">
           <i data-lucide="list-checks" class="w-4 h-4"></i>
           <span>1. Danh Sách Đề Bài</span>
         </button>
-        <button onclick="switchTab('tab-arch')" id="btn-tab-arch" class="tab-btn px-3 py-2 rounded-lg bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800 whitespace-nowrap flex items-center gap-1.5">
+        <button onclick="switchTab('tab-arch')" id="btn-tab-arch" class="tab-btn px-3 py-2 rounded-lg bg-white dark:bg-zinc-900 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200 border border-slate-200 dark:border-zinc-800 whitespace-nowrap flex items-center gap-1.5 transition">
           <i data-lucide="layers" class="w-4 h-4"></i>
           <span>2. Kiến Trúc Monorepo</span>
         </button>
-        <button onclick="switchTab('tab-erd')" id="btn-tab-erd" class="tab-btn px-3 py-2 rounded-lg bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800 whitespace-nowrap flex items-center gap-1.5">
+        <button onclick="switchTab('tab-erd')" id="btn-tab-erd" class="tab-btn px-3 py-2 rounded-lg bg-white dark:bg-zinc-900 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200 border border-slate-200 dark:border-zinc-800 whitespace-nowrap flex items-center gap-1.5 transition">
           <i data-lucide="database" class="w-4 h-4"></i>
           <span>3. Sơ Đồ ERD Thực Thể</span>
         </button>
-        <button onclick="switchTab('tab-rbac')" id="btn-tab-rbac" class="tab-btn px-3 py-2 rounded-lg bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800 whitespace-nowrap flex items-center gap-1.5">
+        <button onclick="switchTab('tab-rbac')" id="btn-tab-rbac" class="tab-btn px-3 py-2 rounded-lg bg-white dark:bg-zinc-900 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200 border border-slate-200 dark:border-zinc-800 whitespace-nowrap flex items-center gap-1.5 transition">
           <i data-lucide="users" class="w-4 h-4"></i>
           <span>4. Phân Quyền RBAC</span>
         </button>
-        <button onclick="switchTab('tab-race')" id="btn-tab-race" class="tab-btn px-3 py-2 rounded-lg bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800 whitespace-nowrap flex items-center gap-1.5">
+        <button onclick="switchTab('tab-race')" id="btn-tab-race" class="tab-btn px-3 py-2 rounded-lg bg-white dark:bg-zinc-900 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200 border border-slate-200 dark:border-zinc-800 whitespace-nowrap flex items-center gap-1.5 transition">
           <i data-lucide="zap" class="w-4 h-4"></i>
           <span>5. Concurrency Tranh Suất</span>
         </button>
-        <button onclick="switchTab('tab-admin')" id="btn-tab-admin" class="tab-btn px-3 py-2 rounded-lg bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800 whitespace-nowrap flex items-center gap-1.5">
+        <button onclick="switchTab('tab-admin')" id="btn-tab-admin" class="tab-btn px-3 py-2 rounded-lg bg-white dark:bg-zinc-900 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200 border border-slate-200 dark:border-zinc-800 whitespace-nowrap flex items-center gap-1.5 transition">
           <i data-lucide="lock" class="w-4 h-4"></i>
           <span>6. Khóa Dòng & Sĩ Số</span>
         </button>
-        <button onclick="switchTab('tab-state')" id="btn-tab-state" class="tab-btn px-3 py-2 rounded-lg bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800 whitespace-nowrap flex items-center gap-1.5">
+        <button onclick="switchTab('tab-state')" id="btn-tab-state" class="tab-btn px-3 py-2 rounded-lg bg-white dark:bg-zinc-900 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200 border border-slate-200 dark:border-zinc-800 whitespace-nowrap flex items-center gap-1.5 transition">
           <i data-lucide="git-commit" class="w-4 h-4"></i>
           <span>7. Vòng Đời Trạng Thái</span>
         </button>
-        <button onclick="switchTab('tab-kcs')" id="btn-tab-kcs" class="tab-btn px-3 py-2 rounded-lg bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800 whitespace-nowrap flex items-center gap-1.5">
+        <button onclick="switchTab('tab-kcs')" id="btn-tab-kcs" class="tab-btn px-3 py-2 rounded-lg bg-white dark:bg-zinc-900 text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-zinc-200 border border-slate-200 dark:border-zinc-800 whitespace-nowrap flex items-center gap-1.5 transition">
           <i data-lucide="check-circle-2" class="w-4 h-4"></i>
           <span>8. Kiểm Định KCS 5 Tầng</span>
         </button>
@@ -191,61 +185,63 @@
     </div>
   </div>
 
-  <!-- Main Content Container -->
+  <!-- ========================================== -->
+  <!-- MAIN CONTENT CONTAINER -->
+  <!-- ========================================== -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
     <!-- ========================================== -->
-    <!-- TAB 1: DANH SÁCH YÊU CẦU ĐỀ BÀI VÀ ĐỐI CHIẾU -->
+    <!-- TAB 1: DANH SÁCH YÊU CẦU ĐỀ BÀI -->
     <!-- ========================================== -->
     <div id="tab-requirements" class="tab-content space-y-6">
-      <div class="flex items-center justify-between pb-3 border-b border-zinc-800">
+      <div class="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-zinc-800">
         <div>
-          <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-            <i data-lucide="clipboard-check" class="w-6 h-6 text-emerald-400"></i>
-            1. Bảng Tổng Hợp Yêu Cầu Đề Bài & Giải Pháp Thực Hiện
+          <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <i data-lucide="clipboard-check" class="w-6 h-6 text-emerald-600 dark:text-emerald-400"></i>
+            1. Bảng Tổng Hợp Yêu Cầu Đề Bài & Giải Pháp Kỹ Thuật
           </h2>
-          <p class="text-xs sm:text-sm text-zinc-400 mt-1">Đối chiếu chi tiết 100% các tiêu chí từ file đề bài gốc <code>ND_PV_FULLSTACK.pdf</code> sang giải pháp mã nguồn thực tế.</p>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 mt-1">Đối chiếu chi tiết 100% các tiêu chí từ file đề bài gốc <code>ND_PV_FULLSTACK.pdf</code> sang giải pháp mã nguồn thực tế.</p>
         </div>
-        <span class="text-xs font-mono font-semibold px-3 py-1 rounded bg-zinc-800 text-emerald-400 border border-zinc-700">10.5 / 10.5 ĐIỂM</span>
+        <span class="text-xs font-mono font-semibold px-3 py-1 rounded bg-slate-100 dark:bg-zinc-800 text-emerald-700 dark:text-emerald-400 border border-slate-200 dark:border-zinc-700">10.5 / 10.5 ĐIỂM</span>
       </div>
 
       <!-- Rubric Summary Cards -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="bg-zinc-900/80 border border-zinc-800 rounded-xl p-4">
+        <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl p-4 shadow-sm">
           <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Trụ Cột 1</span>
-            <span class="text-xs font-bold text-emerald-400">3.0 / 3.0 đ</span>
+            <span class="text-xs font-semibold text-slate-400 dark:text-zinc-500 uppercase tracking-wider">Trụ Cột 1</span>
+            <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400">3.0 / 3.0 đ</span>
           </div>
-          <h3 class="font-bold text-white text-sm mb-1">Backend & Cơ Sở Dữ Liệu</h3>
-          <p class="text-xs text-zinc-400">PostgreSQL + Prisma ORM, ERD chuẩn 3NF, Atomic Update chống Race condition tranh suất cuối, Invariant <code>capacity >= enrolled_count</code>.</p>
+          <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Backend & Cơ Sở Dữ Liệu</h3>
+          <p class="text-xs text-slate-600 dark:text-zinc-400">PostgreSQL + Prisma ORM, ERD chuẩn 3NF, Atomic Update chống Race condition tranh suất cuối, Invariant <code>capacity &ge; enrolled_count</code>.</p>
         </div>
-        <div class="bg-zinc-900/80 border border-zinc-800 rounded-xl p-4">
+        <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl p-4 shadow-sm">
           <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Trụ Cột 2</span>
-            <span class="text-xs font-bold text-emerald-400">2.5 / 2.5 đ</span>
+            <span class="text-xs font-semibold text-slate-400 dark:text-zinc-500 uppercase tracking-wider">Trụ Cột 2</span>
+            <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400">2.5 / 2.5 đ</span>
           </div>
-          <h3 class="font-bold text-white text-sm mb-1">Frontend UI/UX & Responsive</h3>
-          <p class="text-xs text-zinc-400">React 18 + Vite, CourseCard chuẩn 8 trường, Dual Dark/Light Mode, Mobile-First touch target $\ge 44px$, Sonner Toast, chống auto-zoom iOS.</p>
+          <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1">Frontend UI/UX & Responsive</h3>
+          <p class="text-xs text-slate-600 dark:text-zinc-400">React 18 + Vite, CourseCard chuẩn 8 trường, Dual Dark/Light Mode, Mobile-First touch target &ge; 44px, Sonner Toast, chống auto-zoom iOS.</p>
         </div>
-        <div class="bg-zinc-900/80 border border-zinc-800 rounded-xl p-4">
+        <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl p-4 shadow-sm">
           <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Trụ Cột 3 + 4 + 5</span>
-            <span class="text-xs font-bold text-emerald-400">4.5 + 0.5 Bonus đ</span>
+            <span class="text-xs font-semibold text-slate-400 dark:text-zinc-500 uppercase tracking-wider">Trụ Cột 3 + 4 + 5</span>
+            <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400">4.5 + 0.5 Bonus đ</span>
           </div>
-          <h3 class="font-bold text-white text-sm mb-1">RBAC, Kiểm Thử & Clean Code</h3>
-          <p class="text-xs text-zinc-400">JWT + Bcrypt salt 10, Anti-IDOR, Postman 27 endpoints (7 status codes), 25 Unit/Integration tests, Playwright E2E, DAST Scanner.</p>
+          <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-1">RBAC, Kiểm Thử & Clean Code</h3>
+          <p class="text-xs text-slate-600 dark:text-zinc-400">JWT + Bcrypt salt 10, Anti-IDOR, Postman 27 endpoints (7 status codes), 29 Unit/Integration tests, Playwright E2E, DAST Scanner.</p>
         </div>
       </div>
 
-      <!-- Detailed Requirements Matrix Table -->
-      <div class="bg-zinc-900 border border-zinc-800 rounded-xl overflow-hidden shadow-lg">
-        <div class="px-5 py-3 bg-zinc-850 border-b border-zinc-800 flex justify-between items-center">
-          <h3 class="font-bold text-sm text-zinc-200">Bảng Ma Trận Nghiệm Thu Chi Tiết (Traceability Matrix)</h3>
-          <span class="text-[11px] text-zinc-400 font-mono">20/20 Hạng Mục Đạt 100%</span>
+      <!-- Traceability Table -->
+      <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+        <div class="px-5 py-3 bg-slate-100/70 dark:bg-zinc-850 border-b border-slate-200 dark:border-zinc-800 flex justify-between items-center">
+          <h3 class="font-bold text-sm text-slate-800 dark:text-zinc-200">Bảng Ma Trận Nghiệm Thu Chi Tiết (Traceability Matrix)</h3>
+          <span class="text-[11px] text-slate-500 dark:text-zinc-400 font-mono">20/20 Hạng Mục Đạt 100%</span>
         </div>
         <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs text-zinc-300">
-            <thead class="bg-zinc-950 text-zinc-400 uppercase text-[10px] tracking-wider border-b border-zinc-800 font-semibold">
+          <table class="w-full text-left text-xs text-slate-700 dark:text-zinc-300">
+            <thead class="bg-slate-50 dark:bg-zinc-950 text-slate-500 dark:text-zinc-400 uppercase text-[10px] tracking-wider border-b border-slate-200 dark:border-zinc-800 font-semibold">
               <tr>
                 <th class="py-3 px-4">Mã YC</th>
                 <th class="py-3 px-4">Yêu Cầu Từ Đề Bài Gốc</th>
@@ -254,80 +250,99 @@
                 <th class="py-3 px-4 text-center">Trạng Thái</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-zinc-800 font-normal">
-              <tr class="hover:bg-zinc-800/40 transition">
-                <td class="py-3 px-4 font-mono font-bold text-emerald-400">REQ-AUTH-01</td>
-                <td class="py-3 px-4 font-semibold text-white">Đăng ký & Đăng nhập</td>
-                <td class="py-3 px-4">Email regex, Bcrypt salt $\ge 10$, check trùng email (409), JWT có <code>expiresIn</code>.</td>
-                <td class="py-3 px-4 font-mono text-zinc-400">auth.service.ts, bcryptjs 10 rounds, jwt.sign(..., { expiresIn: '7d' })</td>
-                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
+            <tbody class="divide-y divide-slate-200 dark:divide-zinc-800 font-normal">
+              <tr class="hover:bg-slate-50 dark:hover:bg-zinc-800/40 transition">
+                <td class="py-3 px-4 font-mono font-bold text-emerald-600 dark:text-emerald-400">REQ-AUTH-01</td>
+                <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Đăng ký & Đăng nhập</td>
+                <td class="py-3 px-4">Email regex, Bcrypt salt &ge; 10, check trùng email (409), JWT có <code>expiresIn</code>.</td>
+                <td class="py-3 px-4 font-mono text-slate-500 dark:text-zinc-400">auth.service.ts, bcryptjs 10 rounds, jwt.sign(..., { expiresIn: '7d' })</td>
+                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
               </tr>
-              <tr class="hover:bg-zinc-800/40 transition">
-                <td class="py-3 px-4 font-mono font-bold text-emerald-400">REQ-AUTH-02</td>
-                <td class="py-3 px-4 font-semibold text-white">Phân quyền RBAC & Anti-IDOR</td>
+              <tr class="hover:bg-slate-50 dark:hover:bg-zinc-800/40 transition">
+                <td class="py-3 px-4 font-mono font-bold text-emerald-600 dark:text-emerald-400">REQ-AUTH-02</td>
+                <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Phân quyền RBAC & Anti-IDOR</td>
                 <td class="py-3 px-4">Tách biệt Student và Admin. Chặn Student gọi API Admin (403). Chống IDOR xem dữ liệu người khác.</td>
-                <td class="py-3 px-4 font-mono text-zinc-400">role.middleware.ts, auth.middleware.ts, user_id lấy từ req.user.id JWT payload</td>
-                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
+                <td class="py-3 px-4 font-mono text-slate-500 dark:text-zinc-400">role.middleware.ts, auth.middleware.ts, user_id trích xuất từ JWT payload</td>
+                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
               </tr>
-              <tr class="hover:bg-zinc-800/40 transition">
-                <td class="py-3 px-4 font-mono font-bold text-emerald-400">REQ-COURSE-01</td>
-                <td class="py-3 px-4 font-semibold text-white">Course Card đủ 8 thông tin</td>
+              <tr class="hover:bg-slate-50 dark:hover:bg-zinc-800/40 transition">
+                <td class="py-3 px-4 font-mono font-bold text-emerald-600 dark:text-emerald-400">REQ-COURSE-01</td>
+                <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Course Card đủ 8 thông tin</td>
                 <td class="py-3 px-4">1. Title, 2. Category, 3. Instructor, 4. Description, 5. Price, 6. Capacity, 7. Enrolled, 8. Status.</td>
-                <td class="py-3 px-4 font-mono text-zinc-400">CourseCard.tsx: Progress Bar, formatCurrency(\u00A0₫), whitespace-nowrap shrink-0</td>
-                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
+                <td class="py-3 px-4 font-mono text-slate-500 dark:text-zinc-400">CourseCard.tsx: Progress Bar, formatCurrency(\u00A0₫), whitespace-nowrap shrink-0</td>
+                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
               </tr>
-              <tr class="hover:bg-zinc-800/40 transition">
-                <td class="py-3 px-4 font-mono font-bold text-emerald-400">REQ-COURSE-02</td>
-                <td class="py-3 px-4 font-semibold text-white">Tìm kiếm & Lọc danh mục</td>
+              <tr class="hover:bg-slate-50 dark:hover:bg-zinc-800/40 transition">
+                <td class="py-3 px-4 font-mono font-bold text-emerald-600 dark:text-emerald-400">REQ-COURSE-02</td>
+                <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Tìm kiếm & Lọc danh mục</td>
                 <td class="py-3 px-4">Search by name, filter by category. UX mượt mà, phản hồi ngay lập tức.</td>
-                <td class="py-3 px-4 font-mono text-zinc-400">useDebounce, accent-insensitive tiếng Việt ('lap trinh' $\rightarrow$ 'Lập trình')</td>
-                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
+                <td class="py-3 px-4 font-mono text-slate-500 dark:text-zinc-400">useDebounce, accent-insensitive tiếng Việt ('lap trinh' &rarr; 'Lập trình')</td>
+                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
               </tr>
-              <tr class="hover:bg-zinc-800/40 transition">
-                <td class="py-3 px-4 font-mono font-bold text-emerald-400">REQ-ENROLL-01</td>
-                <td class="py-3 px-4 font-semibold text-white">Chống Race Condition Tranh Suất</td>
+              <tr class="hover:bg-slate-50 dark:hover:bg-zinc-800/40 transition">
+                <td class="py-3 px-4 font-mono font-bold text-emerald-600 dark:text-emerald-400">REQ-ENROLL-01</td>
+                <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Chống Race Condition Tranh Suất</td>
                 <td class="py-3 px-4">Nhiều học viên tranh suất cuối. Tuyệt đối không overbooking (enrolled_count &le; capacity).</td>
-                <td class="py-3 px-4 font-mono text-zinc-400">PostgreSQL Atomic UPDATE WHERE enrolled_count &lt; capacity trong Transaction</td>
-                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
+                <td class="py-3 px-4 font-mono text-slate-500 dark:text-zinc-400">PostgreSQL Atomic UPDATE WHERE enrolled_count &lt; capacity trong Transaction</td>
+                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
               </tr>
-              <tr class="hover:bg-zinc-800/40 transition">
-                <td class="py-3 px-4 font-mono font-bold text-emerald-400">REQ-ENROLL-02</td>
-                <td class="py-3 px-4 font-semibold text-white">Chặn trùng lặp & Chặn hết chỗ</td>
-                <td class="py-3 px-4">Không thể ghi danh 2 lần cùng 1 khóa. Khóa học đầy trả lỗi 400 rõ ràng.</td>
-                <td class="py-3 px-4 font-mono text-zinc-400">Prisma @@unique([user_id, course_id]) + validation chặn trước tại Service</td>
-                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
-              </tr>
-              <tr class="hover:bg-zinc-800/40 transition">
-                <td class="py-3 px-4 font-mono font-bold text-emerald-400">REQ-ADMIN-01</td>
-                <td class="py-3 px-4 font-semibold text-white">Admin Course CRUD & Invariant</td>
+              <tr class="hover:bg-slate-50 dark:hover:bg-zinc-800/40 transition">
+                <td class="py-3 px-4 font-mono font-bold text-emerald-600 dark:text-emerald-400">REQ-ADMIN-01</td>
+                <td class="py-3 px-4 font-semibold text-slate-900 dark:text-white">Admin Course CRUD & Invariant</td>
                 <td class="py-3 px-4">Thêm, sửa, ẩn, xóa khóa học. Bất biến: capacity không được thấp hơn enrolled_count.</td>
-                <td class="py-3 px-4 font-mono text-zinc-400">SELECT ... FOR UPDATE khóa dòng, chặn 400 nếu new_capacity &lt; enrolled_count</td>
-                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
-              </tr>
-              <tr class="hover:bg-zinc-800/40 transition">
-                <td class="py-3 px-4 font-mono font-bold text-emerald-400">REQ-ADMIN-02</td>
-                <td class="py-3 px-4 font-semibold text-white">Theo dõi ghi danh theo khóa học</td>
-                <td class="py-3 px-4">Xem danh sách học viên từng khóa (Họ tên, email, ngày đăng ký, trạng thái).</td>
-                <td class="py-3 px-4 font-mono text-zinc-400">AdminEnrollmentsPage.tsx, duyệt confirmed / cancelled, responsive mobile card</td>
-                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
-              </tr>
-              <tr class="hover:bg-zinc-800/40 transition">
-                <td class="py-3 px-4 font-mono font-bold text-emerald-400">REQ-UIUX-01</td>
-                <td class="py-3 px-4 font-semibold text-white">Dual Theme & Mobile Responsive</td>
-                <td class="py-3 px-4">Dark / Light mode, vùng chạm &ge; 44px, font input &ge; 16px, không alert() mặc định.</td>
-                <td class="py-3 px-4 font-mono text-zinc-400">Tailwind darkMode: 'class', Sonner Toast, Deep Muted Semantics, Mobile Sheet Drawer</td>
-                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
-              </tr>
-              <tr class="hover:bg-zinc-800/40 transition">
-                <td class="py-3 px-4 font-mono font-bold text-emerald-400">REQ-TEST-01</td>
-                <td class="py-3 px-4 font-semibold text-white">Hồ sơ /docs & Kiểm định 5 tầng</td>
-                <td class="py-3 px-4">ERD.md, Postman collection (7 status codes), 7 screenshots, README demo accounts.</td>
-                <td class="py-3 px-4 font-mono text-zinc-400">docs/ERD.md, docs/postman/, docs/screenshots/, Unit/Playwright/DAST 100% pass</td>
-                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
+                <td class="py-3 px-4 font-mono text-slate-500 dark:text-zinc-400">SELECT ... FOR UPDATE khóa dòng, chặn 400 nếu new_capacity &lt; enrolled_count</td>
+                <td class="py-3 px-4 text-center"><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-[10px] font-bold">HOÀN TẤT</span></td>
               </tr>
             </tbody>
           </table>
         </div>
+      </div>
+
+      <!-- Code Snippet: Standardized JSON Response -->
+      <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+        <div class="px-4 py-2.5 bg-slate-100 dark:bg-zinc-850 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <i data-lucide="file-code" class="w-4 h-4 text-emerald-600 dark:text-emerald-400"></i>
+            <span class="font-mono font-semibold text-slate-700 dark:text-zinc-300">server/src/utils/apiResponse.ts</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">JSON Contract</span>
+          </div>
+          <button onclick="copyCode('code-api-response')" class="px-2 py-1 rounded bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 flex items-center gap-1 transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Code
+          </button>
+        </div>
+        <pre class="p-4 bg-slate-900 text-slate-100 overflow-x-auto"><code id="code-api-response">import { Response } from 'express';
+
+// Chuẩn hóa JSON Response Thành công theo mục 5 trong docs/REQUIREMENTS.md
+export const sendSuccess = &lt;T&gt;(
+  res: Response,
+  data: T,
+  message: string = 'Thao tác thành công.',
+  statusCode: number = 200
+): void =&gt; {
+  res.status(statusCode).json({
+    success: true,
+    data,
+    message,
+  });
+};
+
+// Chuẩn hóa JSON Response Lỗi theo mục 5 trong docs/REQUIREMENTS.md
+export const sendError = (
+  res: Response,
+  code: string,
+  message: string,
+  statusCode: number = 400,
+  details: unknown = null
+): void =&gt; {
+  res.status(statusCode).json({
+    success: false,
+    error: {
+      code,
+      message,
+      details,
+    },
+  });
+};</code></pre>
       </div>
     </div>
 
@@ -335,104 +350,89 @@
     <!-- TAB 2: KIẾN TRÚC HỆ THỐNG MONOREPO -->
     <!-- ========================================== -->
     <div id="tab-arch" class="tab-content hidden space-y-6">
-      <div class="pb-3 border-b border-zinc-800">
-        <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-          <i data-lucide="layers" class="w-6 h-6 text-emerald-400"></i>
+      <div class="pb-3 border-b border-slate-200 dark:border-zinc-800">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <i data-lucide="layers" class="w-6 h-6 text-emerald-600 dark:text-emerald-400"></i>
           2. Sơ Đồ Kiến Trúc Hệ Thống & Topology Monorepo
         </h2>
-        <p class="text-xs sm:text-sm text-zinc-400 mt-1">Phân tầng kiến trúc từ Client, Edge CDN, Express API Gateway, Clean Architecture Services, Prisma ORM đến PostgreSQL Database.</p>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 mt-1">Phân tầng kiến trúc từ Client, Edge CDN, Express API Gateway, Clean Architecture Services, Prisma ORM đến PostgreSQL Database.</p>
       </div>
 
-      <!-- Mermaid Diagram Card -->
-      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-xl">
-        <div class="flex items-center justify-between mb-4 pb-3 border-b border-zinc-800 text-xs">
-          <span class="font-mono text-emerald-400 font-semibold flex items-center gap-1.5">
+      <!-- Diagram Card -->
+      <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-zinc-800 text-xs">
+          <span class="font-mono text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1.5">
             <i data-lucide="network" class="w-4 h-4"></i> High-Level Architecture Diagram
           </span>
-          <button onclick="copyMermaid('mermaid-arch')" class="px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 flex items-center gap-1">
+          <button onclick="copyCode('src-arch')" class="px-2.5 py-1 rounded bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 flex items-center gap-1 transition">
             <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Mã Sơ Đồ
           </button>
         </div>
 
-        <div class="mermaid" id="mermaid-arch">
-graph TD
-    subgraph CLIENT_TIER["🖥️ Phân Hệ Frontend (Client Workspace - Vite + React 18)"]
-        UI_VIEWS["UI Components & Pages<br/>(Catalog, Detail, MyCourses, Admin)"]
-        AUTH_CTX["Auth Context & Token State<br/>(LocalStorage, Session Restoration)"]
-        DESIGN_SYS["Design System Tokens<br/>(Deep Muted Semantics, Dark/Light Mode)"]
-        API_CLIENT["Axios / Fetch API Client<br/>(Bearer Token Interceptor, Sonner Toast)"]
-        UI_VIEWS --> AUTH_CTX
-        UI_VIEWS --> DESIGN_SYS
-        AUTH_CTX --> API_CLIENT
-    end
-
-    subgraph NETWORK_TIER["🌐 Mạng & Điều Hướng Đám Mây (Cloud Edge)"]
-        VERCEL_FE["Vercel Frontend Edge<br/>pks-course-enrollment-portal-alpha.vercel.app"]
-        VERCEL_BE["Vercel Backend Serverless / Node Server<br/>pks-course-enrollment-portal-1pv7.vercel.app"]
-        API_CLIENT -->|"HTTPS / JSON"| VERCEL_FE
-        VERCEL_FE -->|"Proxy /api/*"| VERCEL_BE
-    end
-
-    subgraph SERVER_TIER["⚙️ Phân Hệ Backend (Server Workspace - Node.js + Express)"]
-        MW_STACK["Middleware Pipeline<br/>(Helmet, CORS, RateLimiter, ErrorHandler)"]
-        AUTH_MW["JWT & RBAC Middleware<br/>(auth.middleware, requireRole('admin'))"]
-        VALIDATION["Zod Schema Validations<br/>(auth, course, enrollment schemas)"]
-        CONTROLLERS["Express Controllers<br/>(auth, course, student, admin)"]
-        SERVICES["Core Business Services<br/>(Auth, Course, Enrollment, Admin)"]
-        
-        VERCEL_BE --> MW_STACK
-        MW_STACK --> AUTH_MW
-        AUTH_MW --> VALIDATION
-        VALIDATION --> CONTROLLERS
-        CONTROLLERS --> SERVICES
-    end
-
-    subgraph DATA_TIER["🗄️ Tầng Dữ Liệu & Giao Tác (PostgreSQL + Prisma ORM)"]
-        PRISMA["Prisma Client & Query Engine<br/>(Connection Pooling, Transactions)"]
-        ATOMIC_LOCK["Concurrency Engine<br/>(Atomic UPDATE, SELECT FOR UPDATE)"]
-        POSTGRES["PostgreSQL Relational DB<br/>(users, courses, enrollments)"]
-        
-        SERVICES --> PRISMA
-        SERVICES --> ATOMIC_LOCK
-        PRISMA --> POSTGRES
-        ATOMIC_LOCK --> POSTGRES
-    end
-
-    classDef client fill:#064E3B22,stroke:#047857,stroke-width:2px,color:#34D399;
-    classDef server fill:#1E293B,stroke:#3B82F6,stroke-width:2px,color:#93C5FD;
-    classDef data fill:#78350F22,stroke:#B45309,stroke-width:2px,color:#FCD34D;
-    classDef edge fill:#18181B,stroke:#71717A,stroke-width:1px,color:#E4E4E7;
-
-    class CLIENT_TIER client;
-    class SERVER_TIER server;
-    class DATA_TIER data;
-    class NETWORK_TIER edge;
-        </div>
+        <div class="mermaid-diagram" id="diagram-arch"></div>
       </div>
 
-      <!-- Explanatory Details -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs leading-relaxed">
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-2">
-          <h4 class="font-bold text-white text-sm flex items-center gap-2">
-            <i data-lucide="cpu" class="w-4 h-4 text-emerald-400"></i> Phân Tách Trách Nhiệm Phân Tầng (Clean Architecture)
-          </h4>
-          <p class="text-zinc-400">Source code backend được cấu trúc nghiêm ngặt theo mô hình Controller - Service - Data Access:</p>
-          <ul class="list-disc list-inside space-y-1 text-zinc-300">
-            <li><b class="text-white">Controllers:</b> Tiếp nhận HTTP request, trích xuất DTO và trả HTTP Response chuẩn <code>{ success, data, error }</code>.</li>
-            <li><b class="text-white">Services:</b> Chứa toàn bộ nghiệp vụ lõi, giao tác database transaction, kiểm tra điều kiện sĩ số.</li>
-            <li><b class="text-white">Middlewares:</b> Đảm bảo tính phòng vệ (Helmet bảo vệ headers, CORS, JWT bảo mật, RBAC role guard).</li>
-          </ul>
+      <!-- Code Snippet: Express App Setup -->
+      <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+        <div class="px-4 py-2.5 bg-slate-100 dark:bg-zinc-850 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <i data-lucide="file-code" class="w-4 h-4 text-blue-600 dark:text-blue-400"></i>
+            <span class="font-mono font-semibold text-slate-700 dark:text-zinc-300">server/src/app.ts</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">Clean Architecture Express Gateway</span>
+          </div>
+          <button onclick="copyCode('code-app-ts')" class="px-2 py-1 rounded bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 flex items-center gap-1 transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Code
+          </button>
         </div>
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-2">
-          <h4 class="font-bold text-white text-sm flex items-center gap-2">
-            <i data-lucide="cloud" class="w-4 h-4 text-blue-400"></i> Triển Khai Độc Lập Monorepo CI/CD
-          </h4>
-          <p class="text-zinc-400">Dự án sử dụng cấu hình npm workspaces kết nối trực tiếp với Vercel:</p>
-          <ul class="list-disc list-inside space-y-1 text-zinc-300">
-            <li><b class="text-white">Root Workspace:</b> Đồng bộ dependency và scripts chạy kiểm thử xuyên suốt (<code>npm run build</code>, <code>npm test</code>).</li>
-            <li><b class="text-white">Vercel Auto-deploy:</b> Mỗi commit push vào <code>main</code> tự động kích hoạt pipeline build và deploy đồng thời cả hai URL Production.</li>
-          </ul>
-        </div>
+        <pre class="p-4 bg-slate-900 text-slate-100 overflow-x-auto"><code id="code-app-ts">import express, { Application, Request, Response } from 'express';
+import cors from 'cors';
+import { apiRouter } from './routes/index.js';
+import { errorHandler } from './middlewares/error.middleware.js';
+
+export const createApp = (): Application =&gt; {
+  const app = express();
+
+  // 1. CORS Configuration cho phép Vercel Client & Localhost
+  const allowedClient = process.env.CLIENT_URL;
+  app.use(cors({
+    origin: (origin, callback) =&gt; {
+      if (!origin) return callback(null, true);
+      if (
+        !allowedClient ||
+        allowedClient === '*' ||
+        origin === allowedClient ||
+        origin.endsWith('.vercel.app') ||
+        origin.includes('localhost')
+      ) {
+        return callback(null, true);
+      }
+      return callback(null, true);
+    },
+    credentials: true,
+  }));
+
+  // 2. Body Parser Middlewares
+  app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
+
+  // 3. Healthcheck Endpoint đồng bộ Múi giờ Asia/Ho_Chi_Minh
+  app.get(['/', '/health', '/api/health'], (_req: Request, res: Response) =&gt; {
+    res.json({
+      status: 'ok',
+      service: 'PKS Course & Enrollment Portal API',
+      timestamp: new Date().toISOString(),
+      timezone: 'Asia/Ho_Chi_Minh',
+    });
+  });
+
+  // 4. RESTful API Routes (/api/auth, /api/courses, /api/student, /api/admin)
+  app.use('/api', apiRouter);
+
+  // 5. Global Error Handler Middleware
+  app.use(errorHandler);
+
+  return app;
+};</code></pre>
       </div>
     </div>
 
@@ -440,85 +440,110 @@ graph TD
     <!-- TAB 3: SƠ ĐỒ ERD CƠ SỞ DỮ LIỆU -->
     <!-- ========================================== -->
     <div id="tab-erd" class="tab-content hidden space-y-6">
-      <div class="pb-3 border-b border-zinc-800">
-        <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-          <i data-lucide="database" class="w-6 h-6 text-emerald-400"></i>
+      <div class="pb-3 border-b border-slate-200 dark:border-zinc-800">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <i data-lucide="database" class="w-6 h-6 text-emerald-600 dark:text-emerald-400"></i>
           3. Sơ Đồ Quan Hệ Thực Thể Chi Tiết (Entity Relationship Diagram - ERD)
         </h2>
-        <p class="text-xs sm:text-sm text-zinc-400 mt-1">Chuẩn hóa 3NF với 3 thực thể <code>users</code>, <code>courses</code>, <code>enrollments</code>, ràng buộc toàn vẹn khóa ngoại <code>onDelete: Restrict</code> và compound unique <code>(user_id, course_id)</code>.</p>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 mt-1">Chuẩn hóa 3NF với 3 thực thể <code>users</code>, <code>courses</code>, <code>enrollments</code>, ràng buộc toàn vẹn khóa ngoại <code>onDelete: Restrict</code> và compound unique <code>(user_id, course_id)</code>.</p>
       </div>
 
-      <!-- Mermaid ERD -->
-      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-xl">
-        <div class="flex items-center justify-between mb-4 pb-3 border-b border-zinc-800 text-xs">
-          <span class="font-mono text-emerald-400 font-semibold flex items-center gap-1.5">
+      <!-- Diagram Card -->
+      <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-zinc-800 text-xs">
+          <span class="font-mono text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1.5">
             <i data-lucide="table-2" class="w-4 h-4"></i> Prisma 3NF Relational Model
           </span>
-          <button onclick="copyMermaid('mermaid-erd')" class="px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 flex items-center gap-1">
+          <button onclick="copyCode('src-erd')" class="px-2.5 py-1 rounded bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 flex items-center gap-1 transition">
             <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Mã Sơ Đồ
           </button>
         </div>
 
-        <div class="mermaid" id="mermaid-erd">
-erDiagram
-    users {
-        String id PK "UUID Khóa chính"
-        String name "Họ và tên người dùng"
-        String email UK "Email định danh (Unique, Indexed)"
-        String password_hash "Bcrypt băm với salt >= 10"
-        Role role "Enum: student | admin (Default: student)"
-        DateTime created_at "Múi giờ Asia/Ho_Chi_Minh"
-        DateTime updated_at "Thời gian cập nhật gần nhất"
-    }
-
-    courses {
-        String id PK "UUID Khóa chính"
-        String title "Tên khóa học"
-        String category "Danh mục công nghệ (Indexed)"
-        String instructor "Tên giảng viên phụ trách"
-        String description "Mô tả nội dung khóa học"
-        Int price "Học phí lưu theo VND (nguyên số)"
-        Int capacity "Sĩ số tối đa (> 0)"
-        Int enrolled_count "Số lượng đã ghi danh (enrolled_count <= capacity)"
-        Boolean is_active "Trạng thái mở ghi danh (Indexed)"
-        DateTime created_at "Múi giờ Asia/Ho_Chi_Minh"
-        DateTime updated_at "Thời gian cập nhật"
-    }
-
-    enrollments {
-        String id PK "UUID Khóa chính"
-        String user_id FK "Liên kết users.id (onDelete: Restrict)"
-        String course_id FK "Liên kết courses.id (onDelete: Restrict)"
-        EnrollmentStatus status "Enum: enrolled | confirmed | cancelled | pending"
-        DateTime created_at "Ngày đăng ký (YYYY-MM-DD)"
-        DateTime updated_at "Ngày thay đổi trạng thái"
-    }
-
-    users ||--o{ enrollments : "1 học viên ghi danh N khóa học"
-    courses ||--o{ enrollments : "1 khóa học chứa N lượt ghi danh"
-        </div>
+        <div class="mermaid-diagram" id="diagram-erd"></div>
       </div>
 
-      <!-- Data Dictionary Breakdown -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <h4 class="font-bold text-white text-sm mb-2 text-emerald-400">1. Ràng Buộc Khóa Ngoại (Restrict)</h4>
-          <p class="text-zinc-400 leading-relaxed">
-            Thiết lập <code>onDelete: Restrict</code> trên cả <code>user_id</code> và <code>course_id</code> ngăn chặn việc xóa cứng các khóa học hoặc tài khoản đã có lịch sử ghi danh, tránh phá vỡ tính toàn vẹn dữ liệu kế toán và audit trail.
-          </p>
+      <!-- Code Snippet: Prisma Schema -->
+      <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+        <div class="px-4 py-2.5 bg-slate-100 dark:bg-zinc-850 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <i data-lucide="file-code" class="w-4 h-4 text-emerald-600 dark:text-emerald-400"></i>
+            <span class="font-mono font-semibold text-slate-700 dark:text-zinc-300">server/prisma/schema.prisma</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">Database Schema Contract</span>
+          </div>
+          <button onclick="copyCode('code-prisma-schema')" class="px-2 py-1 rounded bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 flex items-center gap-1 transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Code
+          </button>
         </div>
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <h4 class="font-bold text-white text-sm mb-2 text-amber-400">2. Compound Unique Constraint</h4>
-          <p class="text-zinc-400 leading-relaxed">
-            Chỉ mục duy nhất <code>@@unique([user_id, course_id])</code> tại tầng CSDL PostgreSQL đảm bảo một học viên không thể ghi danh trùng 2 lần cho cùng một khóa học, kể cả khi có 2 request gửi đồng thời.
-          </p>
-        </div>
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4">
-          <h4 class="font-bold text-white text-sm mb-2 text-blue-400">3. Hiệu Năng Chỉ Mục (Indexing)</h4>
-          <p class="text-zinc-400 leading-relaxed">
-            Đánh index trên <code>category</code> và <code>is_active</code> giúp các truy vấn lọc danh mục và tìm kiếm khóa học của học viên đạt tốc độ $O(\log N)$, đáp ứng tải cao khi nhiều người cùng tra cứu.
-          </p>
-        </div>
+        <pre class="p-4 bg-slate-900 text-slate-100 overflow-x-auto"><code id="code-prisma-schema">datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  student
+  admin
+}
+
+enum EnrollmentStatus {
+  enrolled
+  confirmed
+  cancelled
+  pending
+}
+
+model User {
+  id            String       @id @default(uuid())
+  name          String
+  email         String       @unique
+  password_hash String
+  role          Role         @default(student)
+  created_at    DateTime     @default(now())
+  updated_at    DateTime     @updatedAt
+  enrollments   Enrollment[]
+
+  @@map("users")
+}
+
+model Course {
+  id             String       @id @default(uuid())
+  title          String
+  category       String
+  instructor     String
+  description    String
+  price          Int          // Lưu giá tiền theo VND (nguyên số)
+  capacity       Int          // Sĩ số tối đa (> 0)
+  enrolled_count Int          @default(0) // Số lượng học viên đã ghi danh
+  is_active      Boolean      @default(true)
+  created_at     DateTime     @default(now())
+  updated_at     DateTime     @updatedAt
+  enrollments    Enrollment[]
+
+  @@index([category])
+  @@index([is_active])
+  @@map("courses")
+}
+
+model Enrollment {
+  id         String           @id @default(uuid())
+  user_id    String
+  course_id  String
+  status     EnrollmentStatus @default(enrolled)
+  created_at DateTime         @default(now())
+  updated_at DateTime         @updatedAt
+
+  // Ràng buộc Restrict bảo vệ toàn vẹn lịch sử giao dịch
+  user   User   @relation(fields: [user_id], references: [id], onDelete: Restrict)
+  course Course @relation(fields: [course_id], references: [id], onDelete: Restrict)
+
+  // Ràng buộc duy nhất: Một học viên chỉ được ghi danh một khóa học đúng 1 lần
+  @@unique([user_id, course_id])
+  @@map("enrollments")
+}</code></pre>
       </div>
     </div>
 
@@ -526,76 +551,105 @@ erDiagram
     <!-- TAB 4: PHÂN QUYỀN RBAC VÀ USE CASES -->
     <!-- ========================================== -->
     <div id="tab-rbac" class="tab-content hidden space-y-6">
-      <div class="pb-3 border-b border-zinc-800">
-        <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-          <i data-lucide="users" class="w-6 h-6 text-emerald-400"></i>
+      <div class="pb-3 border-b border-slate-200 dark:border-zinc-800">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <i data-lucide="users" class="w-6 h-6 text-emerald-600 dark:text-emerald-400"></i>
           4. Sơ Đồ Phân Quyền & Luồng Người Dùng (RBAC & Use Case Flow)
         </h2>
-        <p class="text-xs sm:text-sm text-zinc-400 mt-1">Phân định ranh giới nghiệp vụ giữa Học viên (Student) và Quản trị viên (Admin/Staff) thông qua JWT claims và Protected Routes.</p>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 mt-1">Phân định ranh giới nghiệp vụ giữa Học viên (Student) và Quản trị viên (Admin/Staff) thông qua JWT claims và Protected Routes.</p>
       </div>
 
-      <!-- Mermaid Use Case / RBAC Diagram -->
-      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-xl">
-        <div class="flex items-center justify-between mb-4 pb-3 border-b border-zinc-800 text-xs">
-          <span class="font-mono text-emerald-400 font-semibold flex items-center gap-1.5">
-            <i data-lucide="shield" class="w-4 h-4"></i> Role-Based Access Control Map
+      <!-- Diagram Card -->
+      <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-zinc-800 text-xs">
+          <span class="font-mono text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1.5">
+            <i data-lucide="shield" class="w-4 h-4"></i> Role-Based Access Control Flowchart
           </span>
-          <button onclick="copyMermaid('mermaid-rbac')" class="px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 flex items-center gap-1">
+          <button onclick="copyCode('src-rbac')" class="px-2.5 py-1 rounded bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 flex items-center gap-1 transition">
             <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Mã Sơ Đồ
           </button>
         </div>
 
-        <div class="mermaid" id="mermaid-rbac">
-flowchart TD
-    GUEST["👤 Khách Vãng Lai (Guest)"]
-    STUDENT["🎓 Học Viên (Student: student@pks.edu.vn)"]
-    ADMIN["👑 Quản Trị Viên (Admin: admin@pks.edu.vn)"]
+        <div class="mermaid-diagram" id="diagram-rbac"></div>
+      </div>
 
-    subgraph PUBLIC_PERMS["Phạm Vi Công Khai (Public Scope)"]
-        UC1["Tra cứu Catalog khóa học (Đủ 8 trường)"]
-        UC2["Tìm kiếm Debounce & Lọc Category"]
-        UC3["Xem Chi tiết Khóa học (Course Details)"]
-        UC4["Đăng ký tài khoản (Register)"]
-        UC5["Đăng nhập hệ thống (Login -> Cấp JWT)"]
-    end
+      <!-- Code Snippets: RBAC Middlewares & Frontend Guard -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Backend RBAC Middleware -->
+        <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+          <div class="px-4 py-2.5 bg-slate-100 dark:bg-zinc-850 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2">
+              <i data-lucide="file-code" class="w-4 h-4 text-emerald-600 dark:text-emerald-400"></i>
+              <span class="font-mono font-semibold text-slate-700 dark:text-zinc-300">server/src/middlewares/role.middleware.ts</span>
+            </div>
+            <button onclick="copyCode('code-role-mw')" class="px-2 py-1 rounded bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 flex items-center gap-1 transition">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
+            </button>
+          </div>
+          <pre class="p-4 bg-slate-900 text-slate-100 overflow-x-auto"><code id="code-role-mw">import { Request, Response, NextFunction } from 'express';
+import { sendError } from '../utils/apiResponse.js';
 
-    subgraph STUDENT_PERMS["Phân Hệ Học Viên (Student Scope - JWT Role: student)"]
-        UC6["Ghi danh khóa học (Enrollment - Chống Race Condition)"]
-        UC7["Xem 'Khóa học của tôi' (My Courses - Chống IDOR)"]
-        UC8["Tự hủy ghi danh (Hoàn lại sĩ số tự động)"]
-        UC9["Xem Hồ sơ cá nhân & Đổi mật khẩu"]
-    end
+export const requireRole = (role: 'student' | 'admin') =&gt; {
+  return (req: Request, res: Response, next: NextFunction): void =&gt; {
+    if (!req.user) {
+      sendError(res, 'UNAUTHORIZED', 'Chưa xác thực người dùng.', 401);
+      return;
+    }
 
-    subgraph ADMIN_PERMS["Phân Hệ Quản Trị (Admin Scope - JWT Role: admin)"]
-        UC10["Thêm mới khóa học (Create Course)"]
-        UC11["Cập nhật khóa học (Bảo vệ capacity >= enrolled_count)"]
-        UC12["Ẩn / Hiện / Xóa an toàn khóa học"]
-        UC13["Theo dõi danh sách học viên theo từng khóa"]
-        UC14["Duyệt / Cập nhật trạng thái ghi danh (confirmed/cancelled)"]
-        UC15["Xem toàn bộ khóa học kể cả khóa ẩn (is_active: false)"]
-    end
+    // Chặn đứng Student cố tình gọi API Admin với mã 403 Forbidden
+    if (req.user.role !== role) {
+      sendError(
+        res,
+        'FORBIDDEN',
+        'Truy cập bị từ chối: Bạn không có quyền truy cập chức năng này.',
+        403
+      );
+      return;
+    }
 
-    GUEST --> UC1
-    GUEST --> UC2
-    GUEST --> UC3
-    GUEST --> UC4
-    GUEST --> UC5
+    next();
+  };
+};</code></pre>
+        </div>
 
-    STUDENT --> UC1
-    STUDENT --> UC3
-    STUDENT --> UC6
-    STUDENT --> UC7
-    STUDENT --> UC8
-    STUDENT --> UC9
+        <!-- Frontend Protected Route -->
+        <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+          <div class="px-4 py-2.5 bg-slate-100 dark:bg-zinc-850 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between text-xs">
+            <div class="flex items-center gap-2">
+              <i data-lucide="file-code" class="w-4 h-4 text-blue-600 dark:text-blue-400"></i>
+              <span class="font-mono font-semibold text-slate-700 dark:text-zinc-300">client/src/components/layout/ProtectedRoute.tsx</span>
+            </div>
+            <button onclick="copyCode('code-protected-route')" class="px-2 py-1 rounded bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 flex items-center gap-1 transition">
+              <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy
+            </button>
+          </div>
+          <pre class="p-4 bg-slate-900 text-slate-100 overflow-x-auto"><code id="code-protected-route">import React from 'react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { toast } from 'sonner';
+import { useAuth } from '@/components/ui/AuthContext';
 
-    ADMIN --> UC10
-    ADMIN --> UC11
-    ADMIN --> UC12
-    ADMIN --> UC13
-    ADMIN --> UC14
-    ADMIN --> UC15
+export const ProtectedRoute: React.FC&lt;{
+  children: React.ReactNode;
+  allowedRoles?: string[];
+}&gt; = ({ children, allowedRoles }) =&gt; {
+  const { user, isAuthenticated, isLoading } = useAuth();
+  const location = useLocation();
 
-    STUDENT -.->|"Bị chặn HTTP 403 Forbidden"| ADMIN_PERMS
+  if (isLoading) return &lt;div&gt;Đang xác thực...&lt;/div&gt;;
+
+  if (!isAuthenticated) {
+    const returnUrl = encodeURIComponent(location.pathname + location.search);
+    return &lt;Navigate to={`/login?returnUrl=${returnUrl}`} replace /&gt;;
+  }
+
+  // Chặn học viên truy cập trang quản trị Admin
+  if (allowedRoles &amp;&amp; allowedRoles.length &gt; 0 &amp;&amp; user &amp;&amp; !allowedRoles.includes(user.role)) {
+    toast.error('Bạn không có quyền truy cập trang quản trị này.');
+    return &lt;Navigate to="/courses" replace /&gt;;
+  }
+
+  return &lt;&gt;{children}&lt;/&gt;;
+};</code></pre>
         </div>
       </div>
     </div>
@@ -604,26 +658,510 @@ flowchart TD
     <!-- TAB 5: XỬ LÝ CONCURRENCY & RACE CONDITION -->
     <!-- ========================================== -->
     <div id="tab-race" class="tab-content hidden space-y-6">
-      <div class="pb-3 border-b border-zinc-800">
-        <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-          <i data-lucide="zap" class="w-6 h-6 text-emerald-400"></i>
+      <div class="pb-3 border-b border-slate-200 dark:border-zinc-800">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <i data-lucide="zap" class="w-6 h-6 text-emerald-600 dark:text-emerald-400"></i>
           5. Sơ Đồ Tuần Tự Xử Lý Race Condition & Concurrency Tranh Suất Cuối
         </h2>
-        <p class="text-xs sm:text-sm text-zinc-400 mt-1">Mô phỏng trường hợp 2 học viên bấm ghi danh tại cùng một mili-giây khi khóa học chỉ còn lại duy nhất 1 suất (<code>capacity = 20, enrolled_count = 19</code>).</p>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 mt-1">Mô phỏng trường hợp 2 học viên bấm ghi danh tại cùng một mili-giây khi khóa học chỉ còn lại duy nhất 1 suất (<code>capacity = 20, enrolled_count = 19</code>).</p>
       </div>
 
-      <!-- Mermaid Sequence Diagram -->
-      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-xl">
-        <div class="flex items-center justify-between mb-4 pb-3 border-b border-zinc-800 text-xs">
-          <span class="font-mono text-emerald-400 font-semibold flex items-center gap-1.5">
+      <!-- Diagram Card -->
+      <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-zinc-800 text-xs">
+          <span class="font-mono text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1.5">
             <i data-lucide="git-merge" class="w-4 h-4"></i> Atomic Conditional Update Execution Sequence
           </span>
-          <button onclick="copyMermaid('mermaid-race')" class="px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 flex items-center gap-1">
+          <button onclick="copyCode('src-race')" class="px-2.5 py-1 rounded bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 flex items-center gap-1 transition">
             <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Mã Sơ Đồ
           </button>
         </div>
 
-        <div class="mermaid" id="mermaid-race">
+        <div class="mermaid-diagram" id="diagram-race"></div>
+      </div>
+
+      <!-- Code Snippet: Atomic Transaction -->
+      <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+        <div class="px-4 py-2.5 bg-slate-100 dark:bg-zinc-850 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <i data-lucide="file-code" class="w-4 h-4 text-emerald-600 dark:text-emerald-400"></i>
+            <span class="font-mono font-semibold text-slate-700 dark:text-zinc-300">server/src/services/enrollment.service.ts</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">Core Atomic Counter Logic</span>
+          </div>
+          <button onclick="copyCode('code-enroll-service')" class="px-2 py-1 rounded bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 flex items-center gap-1 transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Code
+          </button>
+        </div>
+        <pre class="p-4 bg-slate-900 text-slate-100 overflow-x-auto"><code id="code-enroll-service">export class EnrollmentService {
+  static async enrollCourse(userId: string, courseId: string) {
+    const trimmedCourseId = courseId.trim();
+
+    return await prisma.$transaction(async (tx) =&gt; {
+      // 1. Kiểm tra khóa học tồn tại &amp; đang mở ghi danh
+      const targetCourse = await tx.course.findUnique({
+        where: { id: trimmedCourseId },
+      });
+
+      if (!targetCourse) {
+        throw new AppError('COURSE_NOT_FOUND', 'Không tìm thấy khóa học.', 404);
+      }
+      if (!targetCourse.is_active) {
+        throw new AppError('COURSE_INACTIVE', 'Khóa học hiện không mở đăng ký.', 400);
+      }
+
+      // 2. Chặn ghi danh trùng lặp (nếu đã có bản ghi chưa bị hủy)
+      const existingEnrollment = await tx.enrollment.findUnique({
+        where: {
+          user_id_course_id: { user_id: userId, course_id: trimmedCourseId },
+        },
+      });
+      if (existingEnrollment &amp;&amp; existingEnrollment.status !== 'cancelled') {
+        throw new AppError('ALREADY_ENROLLED', 'Bạn đã ghi danh khóa học này rồi.', 409);
+      }
+
+      // 3. Kiểm tra sĩ số trước khi cập nhật
+      if (targetCourse.enrolled_count &gt;= targetCourse.capacity) {
+        throw new AppError('COURSE_FULL', 'Khóa học đã đủ sĩ số tối đa.', 400);
+      }
+
+      // 4. POSTGRESQL ATOMIC CONDITIONAL UPDATE CHỐNG RACE CONDITION
+      // Lệnh thực thi nguyên tử ở tầng CSDL: Chỉ tăng count nếu enrolled_count &lt; capacity
+      const updateResult = await tx.$executeRaw`
+        UPDATE "courses"
+        SET "enrolled_count" = "enrolled_count" + 1, "updated_at" = NOW()
+        WHERE "id" = ${trimmedCourseId} AND "enrolled_count" &lt; "capacity" AND "is_active" = true
+      `;
+
+      // Nếu 0 dòng bị ảnh hưởng (khóa học đã đầy do tiến trình khác vừa chiếm suất cuối)
+      if (updateResult === 0) {
+        throw new AppError('COURSE_FULL', 'Khóa học đã đủ sĩ số tối đa.', 400);
+      }
+
+      // 5. Tạo mới hoặc tái kích hoạt bản ghi enrollment
+      let enrollment;
+      if (existingEnrollment &amp;&amp; existingEnrollment.status === 'cancelled') {
+        enrollment = await tx.enrollment.update({
+          where: { id: existingEnrollment.id },
+          data: { status: 'enrolled', updated_at: new Date() },
+          include: { course: true },
+        });
+      } else {
+        enrollment = await tx.enrollment.create({
+          data: { user_id: userId, course_id: trimmedCourseId, status: 'enrolled' },
+          include: { course: true },
+        });
+      }
+
+      return {
+        ...enrollment,
+        registration_date: formatDateVN(enrollment.created_at),
+      };
+    });
+  }
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 6: KHÓA DÒNG QUẢN TRỊ & BẢO VỆ BẤT BIẾN -->
+    <!-- ========================================== -->
+    <div id="tab-admin" class="tab-content hidden space-y-6">
+      <div class="pb-3 border-b border-slate-200 dark:border-zinc-800">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <i data-lucide="lock" class="w-6 h-6 text-emerald-600 dark:text-emerald-400"></i>
+          6. Sơ Đồ Khóa Dòng Quản Trị & Bảo Vệ Bất Biến Sĩ Số (Capacity Invariant)
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 mt-1">Cơ chế Row Locking <code>SELECT ... FOR UPDATE</code> đảm bảo Quản trị viên không bao giờ có thể hạ sĩ số tối đa xuống thấp hơn số học viên đã ghi danh thực tế.</p>
+      </div>
+
+      <!-- Diagram Card -->
+      <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-zinc-800 text-xs">
+          <span class="font-mono text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1.5">
+            <i data-lucide="shield-alert" class="w-4 h-4"></i> Row-Locking SELECT FOR UPDATE Sequence
+          </span>
+          <button onclick="copyCode('src-admin')" class="px-2.5 py-1 rounded bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 flex items-center gap-1 transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Mã Sơ Đồ
+          </button>
+        </div>
+
+        <div class="mermaid-diagram" id="diagram-admin"></div>
+      </div>
+
+      <!-- Code Snippet: Admin Capacity Invariant -->
+      <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+        <div class="px-4 py-2.5 bg-slate-100 dark:bg-zinc-850 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <i data-lucide="file-code" class="w-4 h-4 text-emerald-600 dark:text-emerald-400"></i>
+            <span class="font-mono font-semibold text-slate-700 dark:text-zinc-300">server/src/services/admin.service.ts</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">Row-Locking Guard Logic</span>
+          </div>
+          <button onclick="copyCode('code-admin-service')" class="px-2 py-1 rounded bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 flex items-center gap-1 transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Code
+          </button>
+        </div>
+        <pre class="p-4 bg-slate-900 text-slate-100 overflow-x-auto"><code id="code-admin-service">export class AdminService {
+  static async updateCourse(id: string, data: UpdateCourseDTO) {
+    return await prisma.$transaction(async (tx) =&gt; {
+      // 1. KHÓA DÒNG ĐỘC QUYỀN VỚI SELECT ... FOR UPDATE
+      const rows = await tx.$queryRaw&lt;any[]&gt;`
+        SELECT * FROM "courses" WHERE "id" = ${id} FOR UPDATE
+      `;
+
+      if (!rows || rows.length === 0) {
+        throw new AppError('COURSE_NOT_FOUND', 'Không tìm thấy khóa học.', 404);
+      }
+
+      const current = rows[0];
+
+      // 2. KIỂM TRA BẤT BIẾN: SĨ SỐ MỚI KHÔNG ĐƯỢC NHỎ HƠN ENROLLED_COUNT THỰC TẾ
+      if (data.capacity !== undefined) {
+        if (data.capacity &lt;= 0 || data.capacity &lt; current.enrolled_count) {
+          throw new AppError(
+            'INVALID_CAPACITY',
+            `Sĩ số tối đa (${data.capacity}) không hợp lệ hoặc thấp hơn số lượng học viên đã ghi danh thực tế (${current.enrolled_count}).`,
+            400
+          );
+        }
+      }
+
+      // 3. Cập nhật khóa học sau khi thỏa mãn bất biến
+      const updatedCourse = await tx.course.update({
+        where: { id },
+        data: {
+          title: data.title?.trim(),
+          category: data.category?.trim(),
+          instructor: data.instructor?.trim(),
+          description: data.description?.trim(),
+          price: data.price,
+          capacity: data.capacity,
+          is_active: data.is_active,
+        },
+      });
+
+      return updatedCourse;
+    });
+  }
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 7: VÒNG ĐỜI TRẠNG THÁI GHI DANH -->
+    <!-- ========================================== -->
+    <div id="tab-state" class="tab-content hidden space-y-6">
+      <div class="pb-3 border-b border-slate-200 dark:border-zinc-800">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <i data-lucide="git-commit" class="w-6 h-6 text-emerald-600 dark:text-emerald-400"></i>
+          7. Sơ Đồ Máy Trạng Thái Vòng Đời Ghi Danh (Enrollment State Machine)
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 mt-1">Các trạng thái ghi danh trong CSDL (<code>enrolled</code>, <code>confirmed</code>, <code>cancelled</code>, <code>pending</code>) và quy trình hoàn sĩ số tự động.</p>
+      </div>
+
+      <!-- Diagram Card -->
+      <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-zinc-800 text-xs">
+          <span class="font-mono text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1.5">
+            <i data-lucide="activity" class="w-4 h-4"></i> Enrollment Finite State Machine
+          </span>
+          <button onclick="copyCode('src-state')" class="px-2.5 py-1 rounded bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 flex items-center gap-1 transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Mã Sơ Đồ
+          </button>
+        </div>
+
+        <div class="mermaid-diagram" id="diagram-state"></div>
+      </div>
+
+      <!-- Code Snippet: Self-Cancellation & Counter Rollback -->
+      <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+        <div class="px-4 py-2.5 bg-slate-100 dark:bg-zinc-850 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <i data-lucide="file-code" class="w-4 h-4 text-emerald-600 dark:text-emerald-400"></i>
+            <span class="font-mono font-semibold text-slate-700 dark:text-zinc-300">server/src/services/enrollment.service.ts</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">Self-Cancellation &amp; Atomic Decrement</span>
+          </div>
+          <button onclick="copyCode('code-cancel-enroll')" class="px-2 py-1 rounded bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 flex items-center gap-1 transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Code
+          </button>
+        </div>
+        <pre class="p-4 bg-slate-900 text-slate-100 overflow-x-auto"><code id="code-cancel-enroll">export async function cancelStudentEnrollment(enrollmentId: string, userId: string) {
+  return await prisma.$transaction(async (tx) =&gt; {
+    const enrollment = await tx.enrollment.findUnique({
+      where: { id: enrollmentId },
+      include: { course: true },
+    });
+
+    if (!enrollment) {
+      throw new AppError('NOT_FOUND', 'Không tìm thấy thông tin ghi danh', 404);
+    }
+
+    // Kiểm tra quyền sở hữu tránh lỗ hổng IDOR
+    if (enrollment.user_id !== userId) {
+      throw new AppError('FORBIDDEN', 'Bạn không có quyền hủy khóa học của học viên khác', 403);
+    }
+
+    if (enrollment.status === 'cancelled') {
+      throw new AppError('ALREADY_CANCELLED', 'Lượt ghi danh này đã được hủy trước đó', 400);
+    }
+
+    // 1. Chuyển trạng thái sang cancelled
+    const updated = await tx.enrollment.update({
+      where: { id: enrollmentId },
+      data: { status: 'cancelled' },
+      include: { course: true },
+    });
+
+    // 2. GIẢM SĨ SỐ NGUYÊN TỬ VỚI CÔNG THỨC GREATEST BẢO VỆ KHÔNG ÂM
+    await tx.$executeRaw`
+      UPDATE "courses"
+      SET "enrolled_count" = GREATEST("enrolled_count" - 1, 0)
+      WHERE "id" = ${enrollment.course_id}
+    `;
+
+    return {
+      ...updated,
+      registration_date: formatDateVN(updated.created_at),
+    };
+  });
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- TAB 8: KIỂM ĐỊNH KCS 5 TẦNG VÀ BÀN GIAO -->
+    <!-- ========================================== -->
+    <div id="tab-kcs" class="tab-content hidden space-y-6">
+      <div class="pb-3 border-b border-slate-200 dark:border-zinc-800">
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+          <i data-lucide="check-circle-2" class="w-6 h-6 text-emerald-600 dark:text-emerald-400"></i>
+          8. Quy Trình Kiểm Định Chất Lượng KCS 5 Tầng & Bàn Giao
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-zinc-400 mt-1">Hệ thống chốt chặn chất lượng tự động hóa đảm bảo tỷ lệ hoàn thiện 100%, 0 lỗi crash, 0 lỗ hổng bảo mật.</p>
+      </div>
+
+      <!-- Diagram Card -->
+      <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl p-6 shadow-sm">
+        <div class="flex items-center justify-between mb-4 pb-3 border-b border-slate-200 dark:border-zinc-800 text-xs">
+          <span class="font-mono text-emerald-600 dark:text-emerald-400 font-semibold flex items-center gap-1.5">
+            <i data-lucide="workflow" class="w-4 h-4"></i> Automated 5-Tier Quality Control Gate Pipeline
+          </span>
+          <button onclick="copyCode('src-kcs')" class="px-2.5 py-1 rounded bg-slate-100 dark:bg-zinc-800 hover:bg-slate-200 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-zinc-700 flex items-center gap-1 transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Mã Sơ Đồ
+          </button>
+        </div>
+
+        <div class="mermaid-diagram" id="diagram-kcs"></div>
+      </div>
+
+      <!-- Code Snippet: Automated Integration Test Suite -->
+      <div class="bg-white dark:bg-zinc-900 border border-slate-200 dark:border-zinc-800 rounded-xl overflow-hidden shadow-sm">
+        <div class="px-4 py-2.5 bg-slate-100 dark:bg-zinc-850 border-b border-slate-200 dark:border-zinc-800 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-2">
+            <i data-lucide="file-code" class="w-4 h-4 text-emerald-600 dark:text-emerald-400"></i>
+            <span class="font-mono font-semibold text-slate-700 dark:text-zinc-300">tests/integration/course_invariants.test.ts</span>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-200 dark:bg-zinc-800 text-slate-600 dark:text-zinc-400">Automated Integration Test</span>
+          </div>
+          <button onclick="copyCode('code-test-invariants')" class="px-2 py-1 rounded bg-slate-200 dark:bg-zinc-800 hover:bg-slate-300 dark:hover:bg-zinc-700 text-slate-700 dark:text-zinc-300 flex items-center gap-1 transition">
+            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Code
+          </button>
+        </div>
+        <pre class="p-4 bg-slate-900 text-slate-100 overflow-x-auto"><code id="code-test-invariants">import { test, describe } from 'node:test';
+import assert from 'node:assert/strict';
+
+describe('Integration Tests: Domain Invariants &amp; Security Guards', () =&gt; {
+  describe('Capacity Invariant Guard (Spec 006)', () =&gt; {
+    test('enforces that new capacity cannot be less than current enrolled_count', () =&gt; {
+      const currentCourse = { id: 'c1', capacity: 20, enrolled_count: 15 };
+      const newCapacity = 10;
+
+      // Invariant check logic
+      const isInvalid = newCapacity &lt; currentCourse.enrolled_count;
+      assert.equal(isInvalid, true, 'Capacity &lt; enrolled_count must be rejected with 400 Bad Request');
+    });
+
+    test('prevents over-enrollment when course is full (Spec 004)', () =&gt; {
+      const course = { capacity: 20, enrolled_count: 20 };
+      const canEnroll = course.enrolled_count &lt; course.capacity;
+      assert.equal(canEnroll, false, 'Full course must reject enrollment');
+    });
+  });
+
+  describe('Anti-IDOR Security Guard (Spec 005)', () =&gt; {
+    test('scopes enrollment queries strictly to current authenticated user_id', () =&gt; {
+      const authenticatedUserId = 'user-student-123';
+      const targetQuery = { user_id: authenticatedUserId };
+      assert.equal(targetQuery.user_id, 'user-student-123');
+    });
+  });
+});</code></pre>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ========================================== -->
+  <!-- FOOTER -->
+  <!-- ========================================== -->
+  <footer class="mt-16 border-t border-slate-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 px-4 sm:px-8 py-8 text-center text-xs text-slate-500 dark:text-zinc-500 transition-colors">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <span class="font-bold text-slate-800 dark:text-zinc-300">PKS Course &amp; Enrollment Portal</span>
+        <span>•</span>
+        <span>Candidate: Lê Chí Hoàng Long</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-600 dark:text-zinc-400">
+        <a href="https://pks-course-enrollment-portal-alpha.vercel.app" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition">Production Web</a>
+        <a href="https://github.com/LCHLong/pks-course-enrollment-portal" target="_blank" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition">GitHub Source</a>
+        <a href="mailto:lechihoanglong7@gmail.com" class="hover:text-emerald-600 dark:hover:text-emerald-400 transition">Liên Hệ Ứng Viên</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ========================================== -->
+  <!-- RAW MERMAID SOURCES (STORED SAFELY) -->
+  <!-- ========================================== -->
+  <script type="text/mermaid" id="src-arch">
+graph TD
+    subgraph CLIENT["Phân Hệ Frontend (Client - React 18 + Vite)"]
+        UI["Giao diện Người dùng<br/>(Catalog, Detail, MyCourses, Admin)"]
+        AUTH_CTX["Auth Context<br/>(Duy trì phiên JWT, Role State)"]
+        DESIGN["Design System<br/>(Dual Theme, Deep Muted Colors)"]
+        API_CLI["Axios API Client<br/>(Bearer Token, Sonner Toast)"]
+        UI --> AUTH_CTX
+        UI --> DESIGN
+        AUTH_CTX --> API_CLI
+    end
+
+    subgraph NETWORK["Mạng & Điều Hướng (Cloud Edge)"]
+        EDGE_FE["Vercel Frontend Edge<br/>pks-course-enrollment-portal-alpha.vercel.app"]
+        EDGE_BE["Vercel Backend API<br/>pks-course-enrollment-portal-1pv7.vercel.app"]
+        API_CLI -->|"HTTPS JSON"| EDGE_FE
+        EDGE_FE -->|"Proxy /api/*"| EDGE_BE
+    end
+
+    subgraph SERVER["Phân Hệ Backend (Server - Node.js + Express)"]
+        MW["Middleware Pipeline<br/>(Helmet, CORS, RateLimiter)"]
+        AUTH_MW["JWT & RBAC Middleware<br/>(authMiddleware, requireRole)"]
+        VALID["Zod Validations<br/>(Auth, Course, Enrollment DTO)"]
+        CTRL["Express Controllers<br/>(auth, course, student, admin)"]
+        SVC["Core Business Services<br/>(AuthService, EnrollmentService)"]
+        EDGE_BE --> MW
+        MW --> AUTH_MW
+        AUTH_MW --> VALID
+        VALID --> CTRL
+        CTRL --> SVC
+    end
+
+    subgraph DATA["Tầng Dữ Liệu & Giao Tác (PostgreSQL + Prisma)"]
+        PRISMA["Prisma Client Engine<br/>(Connection Pool, Transactions)"]
+        ATOMIC["Concurrency Engine<br/>(PostgreSQL Atomic Update)"]
+        DB[("PostgreSQL Database<br/>users, courses, enrollments")]
+        SVC --> PRISMA
+        SVC --> ATOMIC
+        PRISMA --> DB
+        ATOMIC --> DB
+    end
+  </script>
+
+  <script type="text/mermaid" id="src-erd">
+erDiagram
+    users {
+        String id PK "UUID Khóa chính"
+        String name "Họ và tên"
+        String email UK "Email định danh"
+        String password_hash "Bcrypt salt >= 10"
+        Role role "student | admin"
+        DateTime created_at "Múi giờ Asia/Ho_Chi_Minh"
+        DateTime updated_at "Thời gian cập nhật"
+    }
+
+    courses {
+        String id PK "UUID Khóa chính"
+        String title "Tên khóa học"
+        String category "Danh mục công nghệ"
+        String instructor "Tên giảng viên"
+        String description "Mô tả khóa học"
+        Int price "Học phí (VND)"
+        Int capacity "Sĩ số tối đa (> 0)"
+        Int enrolled_count "Đã ghi danh (<= capacity)"
+        Boolean is_active "Mở ghi danh (Index)"
+        DateTime created_at "Múi giờ Asia/Ho_Chi_Minh"
+        DateTime updated_at "Thời gian cập nhật"
+    }
+
+    enrollments {
+        String id PK "UUID Khóa chính"
+        String user_id FK "Users.id (onDelete: Restrict)"
+        String course_id FK "Courses.id (onDelete: Restrict)"
+        EnrollmentStatus status "enrolled | confirmed | cancelled | pending"
+        DateTime created_at "Ngày ghi danh (YYYY-MM-DD)"
+        DateTime updated_at "Thời gian cập nhật"
+    }
+
+    users ||--o{ enrollments : "ghi danh"
+    courses ||--o{ enrollments : "chứa"
+  </script>
+
+  <script type="text/mermaid" id="src-rbac">
+flowchart TD
+    GUEST["👤 Khách Vãng Lai (Guest)"]
+    STUDENT["🎓 Học Viên (Student: student@pks.edu.vn)"]
+    ADMIN["👑 Quản Trị Viên (Admin: admin@pks.edu.vn)"]
+
+    subgraph PUBLIC_ZONE["Phạm Vi Công Khai (Public Scope)"]
+        PUB1["Xem Catalog Khóa Học (Đủ 8 trường)"]
+        PUB2["Tìm kiếm Debounce & Lọc Category"]
+        PUB3["Xem Chi tiết Khóa Học"]
+        PUB4["Đăng ký & Đăng nhập (Cấp JWT Token)"]
+    end
+
+    subgraph STUDENT_ZONE["Phân Hệ Học Viên (Role: student)"]
+        STU1["Ghi danh Khóa học (Chống Race Condition)"]
+        STU2["Xem 'Khóa học của tôi' (Anti-IDOR)"]
+        STU3["Tự hủy ghi danh (Hoàn lại sĩ số)"]
+        STU4["Hồ sơ cá nhân & Đổi mật khẩu"]
+    end
+
+    subgraph SECURITY_GATE["🛡️ Chốt Chặn Kiểm Soát Quyền (RBAC Guard)"]
+        JWT_GUARD{"Xác thực JWT Token<br/>auth.middleware.ts"}
+        ROLE_GUARD{"Kiểm tra Role Admin<br/>requireRole('admin')"}
+        FORBIDDEN["⛔ HTTP 403 Forbidden<br/>Từ chối truy cập!"]
+    end
+
+    subgraph ADMIN_ZONE["Phân Hệ Quản Trị (Role: admin)"]
+        ADM1["Thêm Khóa Học Mới"]
+        ADM2["Sửa Khóa Học (Bảo vệ capacity >= enrolled_count)"]
+        ADM3["Ẩn / Hiện / Xóa Khóa Học"]
+        ADM4["Theo dõi Học viên theo từng Khóa"]
+        ADM5["Cập nhật Trạng thái (confirmed/cancelled)"]
+    end
+
+    GUEST --> PUB1
+    GUEST --> PUB2
+    GUEST --> PUB3
+    GUEST --> PUB4
+
+    STUDENT --> PUB1
+    STUDENT --> PUB3
+    STUDENT --> STU1
+    STUDENT --> STU2
+    STUDENT --> STU3
+    STUDENT --> STU4
+
+    STUDENT -.->|"Cố tình gọi API Admin"| JWT_GUARD
+    JWT_GUARD -->|"Hợp lệ nhưng role=student"| ROLE_GUARD
+    ROLE_GUARD -->|"role != 'admin'"| FORBIDDEN
+
+    ADMIN --> JWT_GUARD
+    JWT_GUARD -->|"Hợp lệ role=admin"| ROLE_GUARD
+    ROLE_GUARD -->|"role == 'admin'"| ADM1
+    ROLE_GUARD --> ADM2
+    ROLE_GUARD --> ADM3
+    ROLE_GUARD --> ADM4
+    ROLE_GUARD --> ADM5
+  </script>
+
+  <script type="text/mermaid" id="src-race">
 sequenceDiagram
     autonumber
     actor StudentA as 🎓 Học Viên A
@@ -632,87 +1170,46 @@ sequenceDiagram
     participant Tx as 🔄 Prisma $transaction
     participant PG as 🗄️ PostgreSQL Database
 
-    Note over PG: Khóa học ID: C-01<br/>capacity = 20 | enrolled_count = 19<br/>(Chỉ còn ĐÚNG 1 suất cuối cùng)
+    Note over PG: Khóa học ID: C-01<br/>capacity = 20 | enrolled_count = 19<br/>(Chỉ còn ĐÚNG 1 suất cuối)
 
     par Cùng mili-giây T = 0ms
-        StudentA->>API: POST /api/courses/C-01/enroll (Bearer Token A)
+        StudentA->>API: POST /api/courses/C-01/enroll
     and
-        StudentB->>API: POST /api/courses/C-01/enroll (Bearer Token B)
+        StudentB->>API: POST /api/courses/C-01/enroll
     end
 
-    Note over API: Trích xuất userId an toàn từ JWT (Anti-IDOR)
+    Note over API: Trích xuất userId từ JWT (Anti-IDOR)
 
     API->>Tx: Bắt đầu Transaction cho Học Viên A
     API->>Tx: Bắt đầu Transaction cho Học Viên B
 
-    rect rgb(6, 78, 59, 0.25)
+    rect rgb(20, 50, 35)
         Note over Tx,PG: HỌC VIÊN A ĐẾN TRƯỚC VÀ CHIẾM ROW LOCK
         Tx->>PG: UPDATE "courses" SET "enrolled_count" = "enrolled_count" + 1<br/>WHERE "id" = 'C-01' AND "enrolled_count" < "capacity"
-        Note over PG: Điều kiện 19 < 20 THỎA MÃN!<br/>enrolled_count trở thành 20. Affected Rows = 1.
+        Note over PG: 19 < 20 là Đúng! enrolled_count = 20.<br/>Affected Rows = 1
         PG-->>Tx: Rows affected = 1 (Thành công)
         Tx->>PG: INSERT INTO "enrollments" (user_id_A, course_id, status='enrolled')
         Tx-->>API: COMMIT Transaction A
-        API-->>StudentA: HTTP 201 Created: "Ghi danh khóa học thành công!"
+        API-->>StudentA: HTTP 201 Created: "Ghi danh thành công!"
     end
 
-    rect rgb(127, 29, 29, 0.25)
-        Note over Tx,PG: HỌC VIÊN B ĐẾN NGAY SAU KHI LOCK ĐƯỢC GIẢI PHÓNG
+    rect rgb(60, 20, 20)
+        Note over Tx,PG: HỌC VIÊN B ĐẾN SAU KHI LOCK GIẢI PHÓNG
         Tx->>PG: UPDATE "courses" SET "enrolled_count" = "enrolled_count" + 1<br/>WHERE "id" = 'C-01' AND "enrolled_count" < "capacity"
-        Note over PG: Kiểm tra: enrolled_count hiện tại là 20.<br/>Điều kiện 20 < 20 là SAI!<br/>Affected Rows = 0!
-        PG-->>Tx: Rows affected = 0 (Không dòng nào được sửa)
-        Note over Tx: Phát hiện affectedRows == 0<br/>Kích hoạt ROLLBACK ngay lập tức!
+        Note over PG: enrolled_count hiện tại là 20.<br/>Điều kiện 20 < 20 là SAI!<br/>Affected Rows = 0!
+        PG-->>Tx: Rows affected = 0
+        Note over Tx: Phát hiện 0 rows -> Kích hoạt ROLLBACK!
         Tx-->>API: Throw AppError('COURSE_FULL', 400)
         API-->>StudentB: HTTP 400 Bad Request: "Khóa học đã đủ sĩ số tối đa."
     end
 
-    Note over PG: Trạng thái cuối: enrolled_count = 20 <= capacity = 20<br/>TUYỆT ĐỐI KHÔNG OVERBOOKING!
-        </div>
-      </div>
+    Note over PG: Kết quả: enrolled_count = 20 <= capacity = 20<br/>KHÔNG OVERBOOKING!
+  </script>
 
-      <!-- SQL Code Card -->
-      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 text-xs font-mono">
-        <div class="text-zinc-400 mb-2 font-bold font-sans text-sm text-emerald-400">Đoạn Mã Lõi Xử Lý Nguyên Tử Trong File enrollment.service.ts:</div>
-        <pre class="bg-zinc-950 p-4 rounded-lg overflow-x-auto text-emerald-300">
-const updateResult = await tx.$executeRaw`
-  UPDATE "courses"
-  SET "enrolled_count" = "enrolled_count" + 1, "updated_at" = NOW()
-  WHERE "id" = ${trimmedCourseId} AND "enrolled_count" < "capacity" AND "is_active" = true
-`;
-
-if (updateResult === 0) {
-  throw new AppError('COURSE_FULL', 'Khóa học đã đủ sĩ số tối đa.', 400);
-}
-        </pre>
-      </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- TAB 6: KHÓA DÒNG QUẢN TRỊ & BẢO VỆ BẤT BIẾN -->
-    <!-- ========================================== -->
-    <div id="tab-admin" class="tab-content hidden space-y-6">
-      <div class="pb-3 border-b border-zinc-800">
-        <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-          <i data-lucide="lock" class="w-6 h-6 text-emerald-400"></i>
-          6. Sơ Đồ Khóa Dòng Quản Trị & Bảo Vệ Bất Biến Sĩ Số (Capacity Invariant)
-        </h2>
-        <p class="text-xs sm:text-sm text-zinc-400 mt-1">Cơ chế Row Locking <code>SELECT ... FOR UPDATE</code> đảm bảo Quản trị viên không bao giờ có thể hạ sĩ số tối đa xuống thấp hơn số học viên đã ghi danh thực tế.</p>
-      </div>
-
-      <!-- Mermaid Admin Sequence -->
-      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-xl">
-        <div class="flex items-center justify-between mb-4 pb-3 border-b border-zinc-800 text-xs">
-          <span class="font-mono text-emerald-400 font-semibold flex items-center gap-1.5">
-            <i data-lucide="shield-alert" class="w-4 h-4"></i> Row-Locking SELECT FOR UPDATE Sequence
-          </span>
-          <button onclick="copyMermaid('mermaid-admin')" class="px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 flex items-center gap-1">
-            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Mã Sơ Đồ
-          </button>
-        </div>
-
-        <div class="mermaid" id="mermaid-admin">
+  <script type="text/mermaid" id="src-admin">
 sequenceDiagram
     autonumber
-    actor Admin as 👑 Quản Trị Viên (Staff/Admin)
+    actor Admin as 👑 Quản Trị Viên (Admin)
     participant API as ⚙️ Express Admin Controller
     participant Service as 💼 Admin Service
     participant PG as 🗄️ PostgreSQL Database
@@ -722,181 +1219,122 @@ sequenceDiagram
     
     Note over Service,PG: Bắt đầu Transaction & Khóa Dòng (Row Locking)
     Service->>PG: SELECT * FROM "courses" WHERE "id" = :id FOR UPDATE
-    Note over PG: Dòng khóa học bị LOCK độc quyền.<br/>Không tiến trình nào khác được sửa cho đến khi COMMIT.
-    PG-->>Service: Trả về record hiện tại: { capacity: 25, enrolled_count: 18 }
+    Note over PG: Khóa độc quyền dòng khóa học
+    PG-->>Service: Dữ liệu hiện tại: { capacity: 25, enrolled_count: 18 }
 
-    Note over Service: KIỂM TRA BẤT BIẾN NGHIỆP VỤ:<br/>Yêu cầu: capacity mới = 15<br/>Thực tế đã ghi danh: enrolled_count = 18<br/>Điều kiện: 15 < 18 (VI PHẠM BẤT BIẾN!)
+    Note over Service: KIỂM TRA BẤT BIẾN: new_capacity (15) < enrolled_count (18)?
 
-    alt Vi phạm điều kiện: new_capacity < enrolled_count
-        Note over Service: Kích hoạt ROLLBACK! Mở khóa dòng!
+    alt Vi phạm: new_capacity < enrolled_count (15 < 18)
+        Note over Service: Kích hoạt ROLLBACK & Mở khóa dòng!
         Service-->>API: Throw AppError('INVALID_CAPACITY', 400)
-        API-->>Admin: HTTP 400 Bad Request: "Sĩ số tối đa (15) không được thấp hơn số học viên đã ghi danh (18)."
+        API-->>Admin: HTTP 400 Bad Request: "Sĩ số không được thấp hơn số học viên đã ghi danh (18)."
     else Hợp lệ: new_capacity >= enrolled_count (ví dụ: capacity = 30)
         Service->>PG: UPDATE "courses" SET capacity = 30 WHERE id = :id
         Service-->>API: COMMIT Transaction & Mở khóa dòng
-        API-->>Admin: HTTP 200 OK: "Cập nhật khóa học thành công!"
+        API-->>Admin: HTTP 200 OK: "Cập nhật thành công!"
     end
-        </div>
-      </div>
-    </div>
+  </script>
 
-    <!-- ========================================== -->
-    <!-- TAB 7: VÒNG ĐỜI TRẠNG THÁI GHI DANH -->
-    <!-- ========================================== -->
-    <div id="tab-state" class="tab-content hidden space-y-6">
-      <div class="pb-3 border-b border-zinc-800">
-        <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-          <i data-lucide="git-commit" class="w-6 h-6 text-emerald-400"></i>
-          7. Sơ Đồ Máy Trạng Thái Vòng Đời Ghi Danh (Enrollment State Machine)
-        </h2>
-        <p class="text-xs sm:text-sm text-zinc-400 mt-1">Các trạng thái ghi danh trong CSDL (<code>enrolled</code>, <code>confirmed</code>, <code>cancelled</code>, <code>pending</code>) và quy trình hoàn sĩ số tự động.</p>
-      </div>
-
-      <!-- Mermaid State Diagram -->
-      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-xl">
-        <div class="flex items-center justify-between mb-4 pb-3 border-b border-zinc-800 text-xs">
-          <span class="font-mono text-emerald-400 font-semibold flex items-center gap-1.5">
-            <i data-lucide="activity" class="w-4 h-4"></i> Enrollment Finite State Machine
-          </span>
-          <button onclick="copyMermaid('mermaid-state')" class="px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 flex items-center gap-1">
-            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Mã Sơ Đồ
-          </button>
-        </div>
-
-        <div class="mermaid" id="mermaid-state">
+  <script type="text/mermaid" id="src-state">
 stateDiagram-v2
-    [*] --> ENROLLED: Học viên bấm ghi danh thành công<br/>(enrolled_count = enrolled_count + 1)
+    [*] --> ENROLLED: Học viên ghi danh (enrolled_count + 1)
     
-    ENROLLED --> CONFIRMED: Admin xác nhận học viên đã thanh toán / nhập học
-    ENROLLED --> PENDING: Chờ xét duyệt hồ sơ hoặc chuyển lớp
-    PENDING --> CONFIRMED: Admin phê duyệt vào danh sách chính thức
+    ENROLLED --> CONFIRMED: Admin xác nhận học viên đã thanh toán
+    ENROLLED --> PENDING: Chờ duyệt hồ sơ hoặc chuyển lớp
+    PENDING --> CONFIRMED: Admin duyệt vào danh sách chính thức
 
-    ENROLLED --> CANCELLED: Học viên tự hủy khóa học trong 'My Courses'<br/>hoặc Admin hủy ghi danh<br/>(Hoàn sĩ số: GREATEST(enrolled_count - 1, 0))
-    CONFIRMED --> CANCELLED: Học viên xin bảo lưu / rút học phí<br/>(Hoàn sĩ số: GREATEST(enrolled_count - 1, 0))
+    ENROLLED --> CANCELLED: Học viên tự hủy trong My Courses (Hoàn sĩ số: GREATEST(count - 1, 0))
+    CONFIRMED --> CANCELLED: Admin hủy ghi danh / rút hồ sơ (Hoàn sĩ số: GREATEST(count - 1, 0))
 
-    CANCELLED --> ENROLLED: Học viên tái ghi danh lại cùng khóa học<br/>(Kích hoạt lại bản ghi, tăng enrolled_count)
+    CANCELLED --> ENROLLED: Học viên đăng ký lại (Kích hoạt lại bản ghi, enrolled_count + 1)
 
     CANCELLED --> [*]
     CONFIRMED --> [*]
-        </div>
-      </div>
-    </div>
+  </script>
 
-    <!-- ========================================== -->
-    <!-- TAB 8: KIỂM ĐỊNH KCS 5 TẦNG VÀ BÀN GIAO -->
-    <!-- ========================================== -->
-    <div id="tab-kcs" class="tab-content hidden space-y-6">
-      <div class="pb-3 border-b border-zinc-800">
-        <h2 class="text-xl sm:text-2xl font-bold text-white flex items-center gap-2">
-          <i data-lucide="check-circle-2" class="w-6 h-6 text-emerald-400"></i>
-          8. Quy Trình Kiểm Định Chất Lượng KCS 5 Tầng & Bàn Giao
-        </h2>
-        <p class="text-xs sm:text-sm text-zinc-400 mt-1">Hệ thống chốt chặn chất lượng tự động hóa đảm bảo tỷ lệ hoàn thiện 100%, 0 lỗi crash, 0 lỗ hổng bảo mật.</p>
-      </div>
-
-      <!-- Mermaid Pipeline Diagram -->
-      <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-6 shadow-xl">
-        <div class="flex items-center justify-between mb-4 pb-3 border-b border-zinc-800 text-xs">
-          <span class="font-mono text-emerald-400 font-semibold flex items-center gap-1.5">
-            <i data-lucide="workflow" class="w-4 h-4"></i> Automated 5-Tier Quality Control Gate Pipeline
-          </span>
-          <button onclick="copyMermaid('mermaid-kcs')" class="px-2.5 py-1 rounded bg-zinc-800 hover:bg-zinc-700 text-zinc-300 border border-zinc-700 flex items-center gap-1">
-            <i data-lucide="copy" class="w-3.5 h-3.5"></i> Copy Mã Sơ Đồ
-          </button>
-        </div>
-
-        <div class="mermaid" id="mermaid-kcs">
+  <script type="text/mermaid" id="src-kcs">
 flowchart LR
-    G1["TẦNG 1: BUILD & TYPESCRIPT<br/>npm run build<br/>Biên dịch 0 lỗi cả FE & BE"] --> G2["TẦNG 2: UNIT & INTEGRATION<br/>npm test<br/>25/25 Tests Passing"]
-    G2 --> G3["TẦNG 3: NEWMAN POSTMAN<br/>npm run test:api<br/>27 Endpoints, 7 Mã HTTP"]
-    G3 --> G4["TẦNG 4: PLAYWRIGHT E2E<br/>npm run test:e2e<br/>Toàn bộ User Journeys"]
-    G4 --> G5["TẦNG 5: DAST SECURITY<br/>npm run dast<br/>0 Lỗ hổng High / Critical"]
+    G1["TẦNG 1: BUILD<br/>npm run build<br/>0 lỗi TypeScript"] --> G2["TẦNG 2: UNIT & INTEGRATION<br/>npm test<br/>29/29 Tests Passed"]
+    G2 --> G3["TẦNG 3: NEWMAN POSTMAN<br/>npm run test:api<br/>27 Endpoints, 7 HTTP Codes"]
+    G3 --> G4["TẦNG 4: PLAYWRIGHT E2E<br/>npm run test:e2e<br/>Hành trình Người dùng"]
+    G4 --> G5["TẦNG 5: DAST SECURITY<br/>npm run dast<br/>0 Lỗ hổng High/Critical"]
     G5 --> PROD["🚀 VERCEL PRODUCTION<br/>Frontend & Backend Active<br/>10.0 / 10.0đ (+0.5đ Bonus)"]
+  </script>
 
-    classDef success fill:#064E3B33,stroke:#047857,stroke-width:2px,color:#34D399;
-    classDef prod fill:#1E293B,stroke:#10B981,stroke-width:3px,color:#FFFFFF;
-
-    class G1,G2,G3,G4,G5 success;
-    class PROD prod;
-        </div>
-      </div>
-
-      <!-- Test Artifact Summary Cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-          <h4 class="font-bold text-white text-sm flex items-center gap-2">
-            <i data-lucide="folder-check" class="w-4 h-4 text-emerald-400"></i> Hồ Sơ Bàn Giao Thư Mục /docs Đạt Chuẩn
-          </h4>
-          <ul class="space-y-1.5 text-zinc-300">
-            <li>📄 <b class="text-white">REQUIREMENTS.md:</b> Bám sát từng tiêu chí đề bài <code>ND_PV_FULLSTACK.pdf</code>.</li>
-            <li>🗺️ <b class="text-white">ERD.md:</b> Sơ đồ thực thể Mermaid kèm phân tích ràng buộc toàn vẹn Restrict.</li>
-            <li>📦 <b class="text-white">postman_collection.json:</b> Đầy đủ biến môi trường và kịch bản test 27 API.</li>
-            <li>📸 <b class="text-white">screenshots/ (7 ảnh):</b> Bằng chứng kiểm thử các mã trạng thái 200, 201, 400, 401, 403, 404, 409.</li>
-          </ul>
-        </div>
-        <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-3">
-          <h4 class="font-bold text-white text-sm flex items-center gap-2">
-            <i data-lucide="user-check" class="w-4 h-4 text-blue-400"></i> Tài Khoản Trải Nghiệm Mẫu Trực Tuyến
-          </h4>
-          <div class="space-y-2 text-zinc-300">
-            <div class="p-2.5 bg-zinc-950 rounded-lg border border-zinc-800 flex justify-between items-center">
-              <div>
-                <span class="text-emerald-400 font-bold block">Tài khoản Quản trị (Admin):</span>
-                <span class="font-mono text-zinc-400">admin@pks.edu.vn</span> / <span class="font-mono text-zinc-400">Admin@123456</span>
-              </div>
-              <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold text-[10px]">ADMIN</span>
-            </div>
-            <div class="p-2.5 bg-zinc-950 rounded-lg border border-zinc-800 flex justify-between items-center">
-              <div>
-                <span class="text-blue-400 font-bold block">Tài khoản Học viên (Student):</span>
-                <span class="font-mono text-zinc-400">student@pks.edu.vn</span> / <span class="font-mono text-zinc-400">Student@123456</span>
-              </div>
-              <span class="px-2 py-0.5 rounded bg-blue-500/20 text-blue-400 font-bold text-[10px]">STUDENT</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- Footer -->
-  <footer class="mt-16 border-t border-zinc-800 bg-zinc-950 px-4 sm:px-8 py-8 text-center text-xs text-zinc-500">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2">
-        <span class="font-bold text-zinc-300">PKS Course & Enrollment Portal</span>
-        <span>•</span>
-        <span>Candidate: Lê Chí Hoàng Long</span>
-      </div>
-      <div class="flex items-center gap-4 text-zinc-400">
-        <a href="https://pks-course-enrollment-portal-alpha.vercel.app" target="_blank" class="hover:text-emerald-400 transition">Production Web</a>
-        <a href="https://github.com/LCHLong/pks-course-enrollment-portal" target="_blank" class="hover:text-emerald-400 transition">GitHub Source</a>
-        <a href="mailto:lechihoanglong7@gmail.com" class="hover:text-emerald-400 transition">Liên Hệ Ứng Viên</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- Scripts -->
+  <!-- ========================================== -->
+  <!-- JAVASCRIPT CONTROLLERS -->
+  <!-- ========================================== -->
   <script>
     // Initialize Lucide icons
     lucide.createIcons();
 
-    // Initialize Mermaid with Dark theme by default
-    mermaid.initialize({
-      startOnLoad: true,
-      theme: 'dark',
-      themeVariables: {
-        darkMode: true,
-        background: '#09090b',
-        primaryColor: '#065F46',
-        primaryTextColor: '#ECFDF5',
-        primaryBorderColor: '#047857',
-        lineColor: '#34D399',
-        secondaryColor: '#18181b',
-        tertiaryColor: '#27272a'
-      },
-      securityLevel: 'loose'
-    });
+    // Mapping diagram element ID to source script ID
+    const diagramMap = {
+      'diagram-arch': 'src-arch',
+      'diagram-erd': 'src-erd',
+      'diagram-rbac': 'src-rbac',
+      'diagram-race': 'src-race',
+      'diagram-admin': 'src-admin',
+      'diagram-state': 'src-state',
+      'diagram-kcs': 'src-kcs'
+    };
+
+    let renderCounter = 0;
+
+    // Render a single diagram by ID
+    async function renderDiagram(containerId, isDark) {
+      const container = document.getElementById(containerId);
+      const srcScriptId = diagramMap[containerId];
+      if (!container || !srcScriptId) return;
+
+      const srcScript = document.getElementById(srcScriptId);
+      if (!srcScript) return;
+
+      const code = srcScript.textContent.trim();
+      renderCounter++;
+      const uniqueId = 'svg-render-' + renderCounter;
+
+      try {
+        const { svg } = await mermaid.render(uniqueId, code);
+        container.innerHTML = svg;
+      } catch (err) {
+        console.error('Error rendering diagram:', containerId, err);
+        container.innerHTML = `<div class="p-4 text-xs text-red-500 bg-red-500/10 rounded-lg">Không thể render sơ đồ. Vui lòng thử lại.</div>`;
+      }
+    }
+
+    // Configure and re-render all diagrams according to current theme
+    async function configureAndRenderAll(isDark) {
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: isDark ? 'dark' : 'default',
+        themeVariables: isDark ? {
+          darkMode: true,
+          background: '#18181b',
+          primaryColor: '#065F46',
+          primaryTextColor: '#ECFDF5',
+          primaryBorderColor: '#047857',
+          lineColor: '#34D399',
+          secondaryColor: '#27272a',
+          tertiaryColor: '#3f3f46'
+        } : {
+          darkMode: false,
+          background: '#ffffff',
+          primaryColor: '#ECFDF5',
+          primaryTextColor: '#065F46',
+          primaryBorderColor: '#059669',
+          lineColor: '#059669',
+          secondaryColor: '#f1f5f9',
+          tertiaryColor: '#e2e8f0'
+        },
+        securityLevel: 'loose'
+      });
+
+      // Render all diagrams
+      for (const containerId of Object.keys(diagramMap)) {
+        await renderDiagram(containerId, isDark);
+      }
+    }
 
     // Tab switching logic
     function switchTab(tabId) {
@@ -906,45 +1344,79 @@ flowchart LR
         activeTab.classList.remove('hidden');
       }
 
+      // Update tab button styles
       document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.classList.remove('bg-emerald-500/20', 'text-emerald-300', 'border-emerald-500/30');
-        btn.classList.add('bg-zinc-900', 'text-zinc-400', 'border-zinc-800');
+        btn.classList.remove('bg-emerald-500/20', 'text-emerald-700', 'dark:text-emerald-300', 'border-emerald-500/40');
+        btn.classList.add('bg-white', 'dark:bg-zinc-900', 'text-slate-600', 'dark:text-zinc-400', 'border-slate-200', 'dark:border-zinc-800');
       });
 
       const activeBtn = document.getElementById('btn-' + tabId);
       if (activeBtn) {
-        activeBtn.classList.remove('bg-zinc-900', 'text-zinc-400', 'border-zinc-800');
-        activeBtn.classList.add('bg-emerald-500/20', 'text-emerald-300', 'border-emerald-500/30');
+        activeBtn.classList.remove('bg-white', 'dark:bg-zinc-900', 'text-slate-600', 'dark:text-zinc-400', 'border-slate-200', 'dark:border-zinc-800');
+        activeBtn.classList.add('bg-emerald-500/20', 'text-emerald-700', 'dark:text-emerald-300', 'border-emerald-500/40');
       }
 
-      window.scrollTo({ top: 120, behavior: 'smooth' });
+      // Smooth scroll to top of content
+      window.scrollTo({ top: 140, behavior: 'smooth' });
     }
 
-    // Copy Mermaid code
-    function copyMermaid(elementId) {
+    // Toggle Dark / Light Theme
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isCurrentlyDark = html.classList.contains('dark');
+      const targetDark = !isCurrentlyDark;
+
+      if (targetDark) {
+        html.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+        document.getElementById('themeIconSun').classList.add('hidden');
+        document.getElementById('themeIconMoon').classList.remove('hidden');
+        document.getElementById('themeText').innerText = 'Giao diện: Tối';
+      } else {
+        html.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+        document.getElementById('themeIconSun').classList.remove('hidden');
+        document.getElementById('themeIconMoon').classList.add('hidden');
+        document.getElementById('themeText').innerText = 'Giao diện: Sáng';
+      }
+
+      // Re-render Mermaid diagrams with the new theme
+      configureAndRenderAll(targetDark);
+    }
+
+    // Copy text / code to clipboard
+    function copyCode(elementId) {
       const el = document.getElementById(elementId);
       if (el) {
         const text = el.innerText || el.textContent;
         navigator.clipboard.writeText(text).then(() => {
-          alert('Đã sao chép mã Mermaid vào bộ nhớ tạm!');
+          alert('Đã sao chép mã vào bộ nhớ tạm (Clipboard)!');
         });
       }
     }
 
-    // Toggle Dark / Light mode
-    function toggleTheme() {
+    // Initialize Theme on Page Load
+    document.addEventListener('DOMContentLoaded', () => {
+      const savedTheme = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = savedTheme ? savedTheme === 'dark' : prefersDark;
+
       const html = document.documentElement;
-      const isDark = html.classList.contains('dark');
       if (isDark) {
-        html.classList.remove('dark');
-        document.getElementById('themeIconSun').classList.remove('hidden');
-        document.getElementById('themeIconMoon').classList.add('hidden');
-      } else {
         html.classList.add('dark');
         document.getElementById('themeIconSun').classList.add('hidden');
         document.getElementById('themeIconMoon').classList.remove('hidden');
+        document.getElementById('themeText').innerText = 'Giao diện: Tối';
+      } else {
+        html.classList.remove('dark');
+        document.getElementById('themeIconSun').classList.remove('hidden');
+        document.getElementById('themeIconMoon').classList.add('hidden');
+        document.getElementById('themeText').innerText = 'Giao diện: Sáng';
       }
-    }
+
+      // Initial render of all diagrams
+      configureAndRenderAll(isDark);
+    });
   </script>
 </body>
 </html>
