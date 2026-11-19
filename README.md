@@ -16,6 +16,7 @@ Hệ thống đã được đóng gói và triển khai tự động lên hạ t
 | :--- | :--- | :--- | :---: |
 | 🖥️ **Frontend (PSK-Client)** | React 18 + Vite + Tailwind CSS | [https://pks-course-enrollment-portal-alpha.vercel.app](https://pks-course-enrollment-portal-alpha.vercel.app) | 🟢 Production Active |
 | ⚙️ **Backend (PSK-Server)** | Node.js + Express + Prisma + PostgreSQL | [https://pks-course-enrollment-portal-1pv7.vercel.app](https://pks-course-enrollment-portal-1pv7.vercel.app) | 🟢 Production Active |
+| 📊 **Sơ Đồ Kiến Trúc & Báo Cáo Đề Bài** | Standalone HTML & Mermaid.js | [https://pks-course-enrollment-portal-alpha.vercel.app/diagrams.html](https://pks-course-enrollment-portal-alpha.vercel.app/diagrams.html) | 🟢 Production Active |
 
 ---
 

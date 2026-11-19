@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Sun, Moon, X, BookOpen, User as UserIcon, LogOut, ShieldAlert, GraduationCap, Home } from 'lucide-react';
+import { Sun, Moon, X, BookOpen, User as UserIcon, LogOut, ShieldAlert, GraduationCap, Home, Layers } from 'lucide-react';
 
 export interface MobileNavSheetProps {
   isOpen: boolean;
@@ -93,6 +93,10 @@ export const MobileNavSheet: React.FC<MobileNavSheetProps> = ({
             >
               <BookOpen className="w-4 h-4 mr-3 text-zinc-500" /> Danh mục khóa học
             </Link>
+
+            <NavLink to="/diagrams" onClick={onClose} className={navClass}>
+              <Layers className="w-4 h-4 mr-3 text-zinc-500" /> Sơ đồ & Báo cáo
+            </NavLink>
             {currentUser && (
               <NavLink to="/my-courses" onClick={onClose} className={navClass}>
                 <GraduationCap className="w-4 h-4 mr-3 text-zinc-500" /> Khóa học của tôi

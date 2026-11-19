@@ -92,6 +92,10 @@ export const Header: React.FC<HeaderProps> = ({
               Khóa học
             </Link>
 
+            <NavLink to="/diagrams" className={navLinkClass}>
+              Sơ đồ & Báo cáo
+            </NavLink>
+
             {currentUser && (
               <NavLink to="/my-courses" className={navLinkClass}>
                 Khóa học của tôi

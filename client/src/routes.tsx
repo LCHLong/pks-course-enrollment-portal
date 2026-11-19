@@ -9,6 +9,7 @@ import { HomePage } from '@/pages/home/HomePage';
 import { CourseCatalogPage, CourseDetailPage } from '@/pages/courses';
 import { LoginPage, RegisterPage } from '@/pages/auth';
 import { ProfilePage } from '@/pages/profile';
+import { DiagramsPage } from '@/pages/diagrams';
 
 // Subagent D pages
 import { MyCoursesPage } from '@/pages/my-courses';
@@ -48,6 +49,7 @@ export const AppRoutes: React.FC<AppRoutesProps> = ({ isDarkMode, onToggleTheme 
         <Route index element={<HomePage />} />
         <Route path="courses" element={<CatalogWrapper />} />
         <Route path="courses/:id" element={<DetailWrapper />} />
+        <Route path="diagrams" element={<DiagramsPage />} />
 
         {/* Auth Routes */}
         <Route path="login" element={<LoginPage />} />
